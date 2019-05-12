@@ -2,40 +2,46 @@ package users;
 
 import libraries.Access;
 
-import java.text.SimpleDateFormat;
-
 public class User {
-    private String name;        //имя
-    private String login;       //логин
+    private String firstName;        //имя
+    private String userName;       //логин
     private String password;    //пароль
-    private String surname;     //фамилия
-    private SimpleDateFormat dateOfBirth;   //дата рождения
+    private String lastName;     //фамилия
     private String group;       //группа
-    private int secretQuestion; //оридинальный номер секретного вопроса в файле
-    private String phoneNumber; //номер телефона
     private Access access;      //уровень доступа
+    private String gender;      //пол
+
 
     public User() { }
-    public User(String login, String password) {
-        this.login = login;
+
+    public User(String firstName, String userName, String password, String lastName, String group, String gender) {
+        this.firstName = firstName;
+        this.userName = userName;
         this.password = password;
+        this.lastName = lastName;
+        this.group = group;
+        this.gender = gender;
         this.access = Access.USER;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName(){
+        return firstName;
+    }
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getLastName(){
+        return lastName;
     }
-
-    public String getLogin() {
-        return login;
+    public void setLastName(String lastName){
+        this.lastName = lastName;
     }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public String getUserName(){
+        return userName;
+    }
+    public void setUserName(String userName){
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -46,22 +52,6 @@ public class User {
         this.password = password;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public SimpleDateFormat getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(SimpleDateFormat dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getGroup() {
         return group;
     }
@@ -70,27 +60,19 @@ public class User {
         this.group = group;
     }
 
-    public int getSecretQuestion() {
-        return secretQuestion;
-    }
-
-    public void setSecretQuestion(int secretQuestion) {
-        this.secretQuestion = secretQuestion;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
     public Access getAccess() {
         return access;
     }
 
     public void setAccess(Access access) {
         this.access = access;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

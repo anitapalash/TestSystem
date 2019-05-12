@@ -8,9 +8,9 @@ public class Main extends Application {
 //по идее здесь надо только создать форму, прикрепить к ней контроллер и запустить
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view/Entrance.fxml"));
-        primaryStage.setTitle("AnimeTrue");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        Parent root = FXMLLoader.load(getClass().getResource("view/LogIn.fxml"));
+        primaryStage.setTitle("AnimeTest");
+        primaryStage.setScene(new Scene(root, 700, 400));
         primaryStage.show();
     }
 
