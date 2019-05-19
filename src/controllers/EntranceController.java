@@ -17,6 +17,7 @@ import libraries.DataBaseHandler;
 import users.User;
 
 public class EntranceController {
+    protected static User user = new User();
 
     @FXML
     private ResourceBundle resources;
@@ -56,7 +57,6 @@ public class EntranceController {
 
     private void loginUser(String loginText, String loginPassword) {
         DataBaseHandler dbHandler = new DataBaseHandler();
-        User user = new User();
         user.setUserName(loginText);
         user.setPassword(loginPassword);
         ResultSet result = dbHandler.getUser(user);
@@ -71,7 +71,7 @@ public class EntranceController {
         if (counter >= 1) {
             //переход к личному кабинету и тестам
             //сделать в зависимости от режима доступа юзера(админ, аналитик или обычный юзер)
-            openNewScene("../view/cab.fxml");
+            openNewScene("../view/AdminView.fxml");
         } else {
             Shake userLoginAnim = new Shake(login_field);
             Shake userPassAnim = new Shake(password_field);

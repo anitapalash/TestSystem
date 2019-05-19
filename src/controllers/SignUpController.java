@@ -45,13 +45,9 @@ public class SignUpController {
 
     @FXML
     void initialize() {
-
         signUpButton.setOnAction(event -> {
             signUpNewUser();
-
-
         });
-
     }
 
     private void signUpNewUser() {
@@ -69,5 +65,4 @@ public class SignUpController {
         User user = new User(firstName, lastName, userName, password, gender, location );
         dbHandler.signUpUser(user);
     }
-
 }
