@@ -10,14 +10,26 @@ public class User {
     private String group;       //группа
     private Access access;      //уровень доступа
     private String gender;      //пол
+    private boolean passedGL;
+    private boolean passedOP;
+    private boolean passedDN;
+    private boolean passedN;
+    private boolean passedAT;
+    private boolean passedGen;
 
 
-    public User() { this.access = Access.USER; }
+
+    public User() { this.access = Access.USER;
+        passedAT = false; passedDN = false; passedGen = false;
+        passedGL = false; passedN = false; passedOP = false;
+    }
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.access = Access.USER;
+        passedAT = false; passedDN = false; passedGen = false;
+        passedGL = false; passedN = false; passedOP = false;
     }
 
     public User(String firstName, String userName, String password, String lastName, String group, String gender) {
@@ -28,6 +40,8 @@ public class User {
         this.group = group;
         this.gender = gender;
         this.access = Access.USER;
+        passedAT = false; passedDN = false; passedGen = false;
+        passedGL = false; passedN = false; passedOP = false;
     }
 
     public String getFirstName(){
@@ -77,6 +91,54 @@ public class User {
     }
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public boolean isPassedGL() {
+        return passedGL;
+    }
+
+    public void setPassedGL(boolean passedGL) {
+        this.passedGL = passedGL;
+    }
+
+    public boolean isPassedOP() {
+        return passedOP;
+    }
+
+    public void setPassedOP(boolean passedOP) {
+        this.passedOP = passedOP;
+    }
+
+    public boolean isPassedDN() {
+        return passedDN;
+    }
+
+    public void setPassedDN(boolean passedDN) {
+        this.passedDN = passedDN;
+    }
+
+    public boolean isPassedN() {
+        return passedN;
+    }
+
+    public void setPassedN(boolean passedN) {
+        this.passedN = passedN;
+    }
+
+    public boolean isPassedAT() {
+        return passedAT;
+    }
+
+    public void setPassedAT(boolean passedAT) {
+        this.passedAT = passedAT;
+    }
+
+    public boolean isPassedGen() {
+        return passedGen;
+    }
+
+    public void setPassedGen(boolean passedGen) {
+        this.passedGen = passedGen;
     }
 
     @Override

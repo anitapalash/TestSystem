@@ -68,7 +68,7 @@ public class EntranceController {
     private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
         //каким-то образом зафиксировать какой юзер залогинился
         User tempUser = Main.dbHandler.getUser(new User(loginText, loginPassword)); //взять из бд
-        if (!tempUser.getFirstName().equals(null)) {
+        if (tempUser.getUserName().equals(loginText)) {
             if (tempUser.getPassword().equals(loginPassword)) {
                 System.out.println("Log in successful");
                 Main.currentUser = new User(loginText, loginPassword);
@@ -79,12 +79,19 @@ public class EntranceController {
                 Main.currentUser.setGender(tempUser.getGender());
                 loadEnter();
             } else {
-                System.out.println("Wrong password or no such user in the database");
+                System.out.println("Wrong password");
                 Shake userLoginAnim = new Shake(login_field);
                 Shake userPassAnim = new Shake(password_field);
                 userLoginAnim.playAnim();
                 userPassAnim.playAnim();
             }
+        } else {
+            System.out.println("No such user in the database");
+            Shake userLoginAnim = new Shake(login_field);
+            Shake userPassAnim = new Shake(password_field);
+            userLoginAnim.playAnim();
+            userPassAnim.playAnim();
+
         }
     }
 

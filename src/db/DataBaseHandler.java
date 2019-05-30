@@ -3,6 +3,7 @@ package db;
 import libraries.Access;
 import libraries.Configs;
 import libraries.Const;
+import services.Main;
 import users.User;
 
 import java.io.BufferedReader;
@@ -64,14 +65,14 @@ public class DataBaseHandler extends Configs {
     public User getUser(User user) {// массив пользователей
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
-                + Const.USERS_USERNAME + " = \'" + user.getUserName() + "\' AND " + Const.USERS_PASSWORD + "= \'" + user.getPassword() + "\'";
+                + Const.USERS_USERNAME + " = \'" + user.getUserName() + "\'";
         User endUser = new User();
         try {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
             resSet = prSt.executeQuery();
             if (resSet.next()) {
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
-                endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
+                endUser.setPassword(user.getPassword());
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
                 endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS)));
@@ -94,7 +95,7 @@ public class DataBaseHandler extends Configs {
         try {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
             resSet = prSt.executeQuery();
-            if (resSet.next()) {
+            resSet.next();
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
                 endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
@@ -102,7 +103,7 @@ public class DataBaseHandler extends Configs {
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
-            } else return null;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -141,10 +142,10 @@ public class DataBaseHandler extends Configs {
         }
     }
 
-    private Long getNewId() {
+    public static Long getNewId() {
         try {
             String request = "SELECT COUNT(*) FROM " + Const.USER_TABLE + ";";
-            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            PreparedStatement preparedStatement = Main.dbHandler.dbConnection.prepareStatement(request);
             ResultSet res = preparedStatement.executeQuery();
             res.next();
             return Long.valueOf(res.getString(1));
