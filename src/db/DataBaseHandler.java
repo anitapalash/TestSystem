@@ -9,11 +9,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.*;
 
 public class DataBaseHandler extends Configs {
     Connection dbConnection;
-    Long index = Long.parseLong("1");
 
     public DataBaseHandler() {
         try {
@@ -41,7 +41,7 @@ public class DataBaseHandler extends Configs {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
                 Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ") " + "VALUES (" + (index++) + ", \'" + user.getFirstName() + "\', \'" +
+                Const.USERS_GENDER + ") " + "VALUES (" + getNewId() + ", \'" + user.getFirstName() + "\', \'" +
                 user.getLastName() + "\', \'" + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" +
                 user.getGroup() + "\', \'" + user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
 
@@ -111,8 +111,8 @@ public class DataBaseHandler extends Configs {
 
     private void runScript(Connection c) throws IOException, SQLException, ClassNotFoundException {
         try {
-            FileReader fr = new FileReader(new File("C:\\Users\\Анна\\IdeaProjects\\TestSystem\\src\\db\\data.sql"));
-            // be sure to not have line starting with "--" or "/*" or any other non aplhabetical character
+            FileReader fr = new FileReader(new File(Paths.get("").toAbsolutePath() + "\\src\\db\\data.sql"));
+            // be sure to not have line starting with "--" or "/*" or any other non alphabetical character
 
             String s = new String();
             StringBuffer sb = new StringBuffer();
@@ -139,5 +139,18 @@ public class DataBaseHandler extends Configs {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private Long getNewId() {
+        try {
+            String request = "SELECT COUNT(*) FROM " + Const.USER_TABLE + ";";
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            ResultSet res = preparedStatement.executeQuery();
+            res.next();
+            return Long.valueOf(res.getString(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
