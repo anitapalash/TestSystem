@@ -2,18 +2,16 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import libraries.DataBaseHandler;
+import libraries.Access;
+import services.StageLoader;
 import users.User;
 
 public class EntranceController {
@@ -38,61 +36,70 @@ public class EntranceController {
     private Button loginSignUpButton;
 
     @FXML
-    void initialize() {
-        authSignButton.setOnAction(event -> {
-            String loginText = login_field.getText().trim();
-            String loginPassword = password_field.getText().trim();
+    void logIn(ActionEvent event) {
+        String loginText = login_field.getText().trim();
+        String loginPassword = password_field.getText().trim();
 
-            if (!loginText.equals("") && !loginPassword.equals("")) {
-                loginUser(loginText, loginPassword);
-            } else {
-                System.out.println("Login and Password is Empty");
-            }
-        });
-        loginSignUpButton.setOnAction(event -> {
-            openNewScene("../view/signUp.fxml");
-        });
+        if (!loginText.equals("") && !loginPassword.equals("")) {
+            loginUser(loginText, loginPassword);
+        } else {
+            System.out.println("Login and Password is Empty");
+        }
+    }
 
+    @FXML
+    void signUp(ActionEvent event) {
+        try {
+            StageLoader.loadScene("signUp").showAndWait();
+        } catch (IOException e) {
+            System.out.println("Could not load signUp scene");
+        }
     }
 
     private void loginUser(String loginText, String loginPassword) {
-        DataBaseHandler dbHandler = new DataBaseHandler();
+        //каким-то образом зафиксировать какой юзер залогинился
         user.setUserName(loginText);
         user.setPassword(loginPassword);
-        ResultSet result = dbHandler.getUser(user);
-        int counter = 0;
-        try {
-            while (result.next()) {
-                counter++;
+
+        Long i = Long.parseLong("0");
+        while (true) {
+            User tempUser = null; //взять из бд
+            if (tempUser.getUserName().equals(user.getUserName())) {
+                if (tempUser.getPassword().equals(user.getPassword())) {
+                    System.out.println("Log in successful");
+                    loadEnter();
+                    break;
+                } else {
+                    System.out.println("Wrong password");
+                    Shake userLoginAnim = new Shake(login_field);
+                    Shake userPassAnim = new Shake(password_field);
+                    userLoginAnim.playAnim();
+                    userPassAnim.playAnim();
+                }
+            } else {
+                if (!tempUser.getUserName().equals(null))
+                    i++;
+                else {
+                    System.out.println("No such user in database");
+                    break;
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (counter >= 1) {
-            //переход к личному кабинету и тестам
-            //сделать в зависимости от режима доступа юзера(админ, аналитик или обычный юзер)
-            openNewScene("../view/AdminView.fxml");
-        } else {
-            Shake userLoginAnim = new Shake(login_field);
-            Shake userPassAnim = new Shake(password_field);
-            userLoginAnim.playAnim();
-            userPassAnim.playAnim();
         }
     }
 
-    public void openNewScene(String window) {
-        loginSignUpButton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(window));
+    private void loadEnter() {
         try {
-            loader.load();
+            Scene currentScene = authSignButton.getScene();
+            currentScene.getWindow().hide();
+            if (user.getAccess() == Access.ADMIN)
+                StageLoader.loadScene("AdminView");
+            else if (user.getAccess() == Access.ANALISER)
+                StageLoader.loadScene("AnaliserInterface");
+            else
+                StageLoader.loadScene("UserView");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Failed to load scene");
         }
-        Parent root = loader.getRoot();
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        stage.showAndWait();
     }
 }
 

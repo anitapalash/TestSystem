@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EntranceController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.koposovo.animeTest.controllers.EntranceController">
    <children>
       <AnchorPane layoutY="107.0" prefHeight="293.0" prefWidth="700.0" style="-fx-background-color: white;">
          <children>
@@ -27,7 +26,7 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Button fx:id="authSignButton" layoutX="276.0" layoutY="208.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="148.0" text="Войти" textFill="#e47575">
+            <Button fx:id="authSignButton" layoutX="276.0" layoutY="208.0" mnemonicParsing="false" onAction="#logIn" prefHeight="25.0" prefWidth="148.0" text="Войти" textFill="#e47575">
                <font>
                   <Font size="27.0" />
                </font>

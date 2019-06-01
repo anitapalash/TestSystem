@@ -1,10 +1,12 @@
-package libraries;
+package db;
 
+import libraries.Configs;
+import libraries.Const;
 import users.User;
 
 import java.sql.*;
 
-public class DataBaseHandler extends Configs{
+public class DataBaseHandler extends Configs {
     Connection dbConnection;
     public Connection getDbConnection()
             throws ClassNotFoundException, SQLException{

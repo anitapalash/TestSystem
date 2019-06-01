@@ -1,17 +1,12 @@
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.StageLoader;
 
 public class Main extends Application {
 //по идее здесь надо только создать форму, прикрепить к ней контроллер и запустить
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("view/LogIn.fxml"));
-        primaryStage.setTitle("AnimeTest");
-        primaryStage.setScene(new Scene(root, 700, 400));
-        primaryStage.show();
+        StageLoader.loadMain();
     }
 
     public static void main(String[] args) {

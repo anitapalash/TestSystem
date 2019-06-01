@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: gray;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.koposovo.animeTest.controllers.SignUpController">
     <children>
         <AnchorPane layoutY="107.0" prefHeight="293.0" prefWidth="700.0" style="-fx-background-color: white;">
             <children>
@@ -22,7 +22,7 @@
                         <Font size="13.0" />
                     </font>
                 </PasswordField>
-                <Button fx:id="signUpButton" layoutX="183.0" layoutY="222.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="334.0" text="Зарегистрироваться" textFill="#e47575">
+                <Button fx:id="signUpButton" layoutX="183.0" layoutY="222.0" mnemonicParsing="false" onAction="#signUpNewUser" prefHeight="57.0" prefWidth="334.0" text="Зарегистрироваться" textFill="#e47575">
                     <font>
                         <Font size="27.0" />
                     </font>
@@ -37,7 +37,7 @@
                   <Font size="13.0" />
                </font>
             </TextField>
-            <TextField fx:id="signUpCity" layoutX="189.0" layoutY="179.0" prefHeight="25.0" prefWidth="323.0" promptText="Город">
+            <TextField fx:id="group_field" layoutX="189.0" layoutY="179.0" prefHeight="25.0" prefWidth="323.0" promptText="Группа">
                <font>
                   <Font size="13.0" />
                </font>

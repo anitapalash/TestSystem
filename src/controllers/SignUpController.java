@@ -1,23 +1,15 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import libraries.DataBaseHandler;
 import users.User;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class SignUpController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField login_field;
@@ -35,7 +27,7 @@ public class SignUpController {
     private TextField signUpLastName;
 
     @FXML
-    private TextField signUpCity;
+    private TextField group_field;
 
     @FXML
     private CheckBox signUpCheckBoxMale;
@@ -44,25 +36,26 @@ public class SignUpController {
     private CheckBox signUpCheckBoxFemale;
 
     @FXML
-    void initialize() {
-        signUpButton.setOnAction(event -> {
-            signUpNewUser();
-        });
-    }
-
-    private void signUpNewUser() {
-        DataBaseHandler dbHandler = new DataBaseHandler();
+    void signUpNewUser(ActionEvent event) {
         String firstName= signUpName.getText();
         String lastName= signUpLastName.getText();
         String userName= login_field.getText();
         String password= password_field.getText();
-        String location= signUpCity.getText();
-        String gender= "";
+        String group= group_field.getText();
+        String gender;
         if(signUpCheckBoxMale.isSelected())
             gender="Мужской";
         else
             gender="Женский";
-        User user = new User(firstName, lastName, userName, password, gender, location );
-        dbHandler.signUpUser(user);
+
+        User user = new User(userName, password);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setGroup(group);
+        user.setGender(gender);
+
+        //сохранить в бд юзера
+        Scene scene = signUpButton.getScene();
+        scene.getWindow().hide();
     }
 }
