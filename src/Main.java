@@ -1,12 +1,14 @@
+import db.DataBaseHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import services.StageLoader;
 
+import java.sql.Connection;
+
 public class Main extends Application {
-//по идее здесь надо только создать форму, прикрепить к ней контроллер и запустить
     @Override
     public void start(Stage primaryStage) throws Exception{
-        StageLoader.loadMain();
+        StageLoader.loadMain().showAndWait();
     }
 
     public static void main(String[] args) {

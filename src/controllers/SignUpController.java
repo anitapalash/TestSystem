@@ -1,5 +1,6 @@
 package controllers;
 
+import db.DataBaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -55,6 +56,9 @@ public class SignUpController {
         user.setGender(gender);
 
         //сохранить в бд юзера
+        DataBaseHandler db = new DataBaseHandler();
+        db.signUpUser(user);
+
         Scene scene = signUpButton.getScene();
         scene.getWindow().hide();
     }

@@ -2,8 +2,11 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import db.DataBaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -41,7 +44,15 @@ public class EntranceController {
         String loginPassword = password_field.getText().trim();
 
         if (!loginText.equals("") && !loginPassword.equals("")) {
-            loginUser(loginText, loginPassword);
+            try {
+                loginUser(loginText, loginPassword);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Login and Password is Empty");
         }
@@ -56,14 +67,16 @@ public class EntranceController {
         }
     }
 
-    private void loginUser(String loginText, String loginPassword) {
+    private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
         //каким-то образом зафиксировать какой юзер залогинился
         user.setUserName(loginText);
         user.setPassword(loginPassword);
 
+        DataBaseHandler dbHandler = new DataBaseHandler();
+
         Long i = Long.parseLong("0");
         while (true) {
-            User tempUser = null; //взять из бд
+            User tempUser = dbHandler.getUserById(i); //взять из бд
             if (tempUser.getUserName().equals(user.getUserName())) {
                 if (tempUser.getPassword().equals(user.getPassword())) {
                     System.out.println("Log in successful");
