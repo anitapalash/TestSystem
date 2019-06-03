@@ -2,29 +2,24 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import db.DataBaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import libraries.Access;
+import services.Main;
 import services.StageLoader;
 import users.User;
 
 public class EntranceController {
-    protected static User user = new User();
-
     @FXML
     private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private TextField login_field;
@@ -36,7 +31,7 @@ public class EntranceController {
     private Button authSignButton;
 
     @FXML
-    private Button loginSignUpButton;
+    private Button signUpButton;
 
     @FXML
     void logIn(ActionEvent event) {
@@ -61,7 +56,10 @@ public class EntranceController {
     @FXML
     void signUp(ActionEvent event) {
         try {
-            StageLoader.loadScene("signUp").showAndWait();
+            Scene currentScene = authSignButton.getScene();
+            currentScene.getWindow().hide();
+            Stage stage = StageLoader.loadScene("signUp");
+            stage.showAndWait();
         } catch (IOException e) {
             System.out.println("Could not load signUp scene");
         }
@@ -69,33 +67,30 @@ public class EntranceController {
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
         //каким-то образом зафиксировать какой юзер залогинился
-        user.setUserName(loginText);
-        user.setPassword(loginPassword);
-
-        DataBaseHandler dbHandler = new DataBaseHandler();
-
         Long i = Long.parseLong("0");
-        while (true) {
-            User tempUser = dbHandler.getUserById(i); //взять из бд
-            if (tempUser.getUserName().equals(user.getUserName())) {
-                if (tempUser.getPassword().equals(user.getPassword())) {
-                    System.out.println("Log in successful");
-                    loadEnter();
-                    break;
-                } else {
-                    System.out.println("Wrong password");
-                    Shake userLoginAnim = new Shake(login_field);
-                    Shake userPassAnim = new Shake(password_field);
-                    userLoginAnim.playAnim();
-                    userPassAnim.playAnim();
-                }
+        User tempUser = Main.dbHandler.getUserById(i); //взять из бд
+        if (tempUser.getUserName().equals(loginText)) {
+            if (tempUser.getPassword().equals(loginPassword)) {
+                System.out.println("Log in successful");
+                Main.currentUser = new User(loginText, loginPassword);
+                Main.currentUser.setAccess(tempUser.getAccess());
+                Main.currentUser.setFirstName(tempUser.getFirstName());
+                Main.currentUser.setLastName(tempUser.getLastName());
+                Main.currentUser.setGroup(tempUser.getGroup());
+                Main.currentUser.setGender(tempUser.getGender());
+                loadEnter();
             } else {
-                if (!tempUser.getUserName().equals(null))
-                    i++;
-                else {
-                    System.out.println("No such user in database");
-                    break;
-                }
+                System.out.println("Wrong password");
+                Shake userLoginAnim = new Shake(login_field);
+                Shake userPassAnim = new Shake(password_field);
+                userLoginAnim.playAnim();
+                userPassAnim.playAnim();
+            }
+        } else {
+            if (!tempUser.getUserName().equals(null))
+                i++;
+            else {
+                System.out.println("No such user in database");
             }
         }
     }
@@ -104,14 +99,21 @@ public class EntranceController {
         try {
             Scene currentScene = authSignButton.getScene();
             currentScene.getWindow().hide();
-            if (user.getAccess() == Access.ADMIN)
-                StageLoader.loadScene("AdminView");
-            else if (user.getAccess() == Access.ANALISER)
-                StageLoader.loadScene("AnaliserInterface");
-            else
-                StageLoader.loadScene("UserView");
+            if (Main.currentUser.getAccess() == Access.ADMIN) {
+                Stage stage = StageLoader.loadScene("AdminView");
+                stage.showAndWait();
+            }
+            else if (Main.currentUser.getAccess() == Access.ANALISER) {
+                Stage stage = StageLoader.loadScene("AnaliserInterface");
+                stage.showAndWait();
+            }
+            else {
+                Stage stage = StageLoader.loadScene("UserView");
+                stage.showAndWait();
+            }
         } catch (IOException e) {
             System.out.println("Failed to load scene");
+            e.printStackTrace();
         }
     }
 }

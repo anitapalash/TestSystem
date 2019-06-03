@@ -2,23 +2,13 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
-import users.User;
+import javafx.scene.control.TextField;
 
-import java.awt.*;
+import static services.Main.currentUser;
 
 public class UserInterfaceController {
-    private static User currentUser;
-
-    public UserInterfaceController() {
-        //заполнение полей персональных данных данными текущего пользователя
-        userNameTextField.setText(currentUser.getUserName());
-        firstNameTextField.setText(currentUser.getFirstName());
-        surnameTextField.setText(currentUser.getLastName());
-        groupTextField.setText(currentUser.getGroup());
-        genderTextField.setText(currentUser.getGender());
-    }
-
     @FXML
     protected Tab personalInfo;
 
@@ -50,6 +40,15 @@ public class UserInterfaceController {
     protected TextField genderTextField;
 
     @FXML
+    public void initialize() {
+        userNameTextField.setText(currentUser.getUserName());
+        firstNameTextField.setText(currentUser.getFirstName());
+        surnameTextField.setText(currentUser.getLastName());
+        groupTextField.setText(currentUser.getGroup());
+        genderTextField.setText(currentUser.getGender());
+    }
+
+    @FXML
     void editUserInfo(ActionEvent event) {
 
     }
@@ -62,9 +61,5 @@ public class UserInterfaceController {
     @FXML
     void exit(ActionEvent event) {
 
-    }
-
-    public static void setCurrentUser(User user) {
-        currentUser = user;
     }
 }

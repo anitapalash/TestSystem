@@ -4,17 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
 
 public class AdminInterfaceController extends UserInterfaceController {
-    @FXML
-    private Tab manageUsersTab;
-
-    @FXML
-    private Tab editTestsTab;
-
-    @FXML
-    private TextField searchUserField;
 
     @FXML
     private TableColumn<?, ?> loginColumn;
@@ -29,7 +20,21 @@ public class AdminInterfaceController extends UserInterfaceController {
     private TableColumn<?, ?> accessColumn;
 
     @FXML
-    void searchUser(ActionEvent event) {
+    private Tab editTestsTab;
+
+    @FXML
+    void deleteUser(ActionEvent event) {
 
     }
+
+    @FXML
+    void editUserInfo(ActionEvent event) {
+
+    }
+
+    @FXML
+    void exit(ActionEvent event) {
+
+    }
+
 }

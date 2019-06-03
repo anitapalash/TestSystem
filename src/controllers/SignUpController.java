@@ -1,6 +1,5 @@
 package controllers;
 
-import db.DataBaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -8,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import services.Main;
 import users.User;
 
 public class SignUpController {
@@ -56,8 +56,7 @@ public class SignUpController {
         user.setGender(gender);
 
         //сохранить в бд юзера
-        DataBaseHandler db = new DataBaseHandler();
-        db.signUpUser(user);
+        Main.dbHandler.signUpUser(user);
 
         Scene scene = signUpButton.getScene();
         scene.getWindow().hide();

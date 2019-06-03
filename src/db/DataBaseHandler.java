@@ -132,8 +132,4 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
     }
-
-    public Connection getConnection() {
-        return dbConnection;
-    }
 }
