@@ -57,7 +57,7 @@ public class EntranceController {
     void signUp(ActionEvent event) {
         try {
             Scene currentScene = authSignButton.getScene();
-            currentScene.getWindow().hide();
+            //currentScene.getWindow().hide();
             Stage stage = StageLoader.loadScene("signUp");
             stage.showAndWait();
         } catch (IOException e) {
@@ -67,9 +67,8 @@ public class EntranceController {
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
         //каким-то образом зафиксировать какой юзер залогинился
-        Long i = Long.parseLong("0");
-        User tempUser = Main.dbHandler.getUserById(i); //взять из бд
-        if (tempUser.getUserName().equals(loginText)) {
+        User tempUser = Main.dbHandler.getUser(new User(loginText, loginPassword)); //взять из бд
+        if (!tempUser.getFirstName().equals(null)) {
             if (tempUser.getPassword().equals(loginPassword)) {
                 System.out.println("Log in successful");
                 Main.currentUser = new User(loginText, loginPassword);
@@ -80,17 +79,11 @@ public class EntranceController {
                 Main.currentUser.setGender(tempUser.getGender());
                 loadEnter();
             } else {
-                System.out.println("Wrong password");
+                System.out.println("Wrong password or no such user in the database");
                 Shake userLoginAnim = new Shake(login_field);
                 Shake userPassAnim = new Shake(password_field);
                 userLoginAnim.playAnim();
                 userPassAnim.playAnim();
-            }
-        } else {
-            if (!tempUser.getUserName().equals(null))
-                i++;
-            else {
-                System.out.println("No such user in database");
             }
         }
     }
@@ -117,4 +110,3 @@ public class EntranceController {
         }
     }
 }
-

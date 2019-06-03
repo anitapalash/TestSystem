@@ -13,6 +13,7 @@ import java.sql.*;
 
 public class DataBaseHandler extends Configs {
     Connection dbConnection;
+    Long index = Long.parseLong("1");
 
     public DataBaseHandler() {
         try {
@@ -36,12 +37,22 @@ public class DataBaseHandler extends Configs {
     }
 
     public void signUpUser(User user) {
-        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_FIRSTNAME + "," +
-                Const.USERS_LASTNAME + "," + Const.USERS_USERNAME + "," +
-                Const.USERS_PASSWORD + "," + Const.USERS_GROUP + "," + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ")" + "VALUES(" + ", " + user.getFirstName() + ", " + user.getLastName() + ", "
-                + user.getUserName() + ", " + user.getPassword() + ", " + user.getGroup() + ", " + user.getAccess().toString() + ", " +
-                user.getGender() + ")";
+
+        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
+                Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
+                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
+                Const.USERS_GENDER + ") " + "VALUES (" + (index++) + ", \'" + user.getFirstName() + "\', \'" +
+                user.getLastName() + "\', \'" + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" +
+                user.getGroup() + "\', \'" + user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
+
+        /*
+        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_FIRSTNAME + ", " +
+                Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
+                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
+                Const.USERS_GENDER + ") " + "VALUES (\'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'"
+                + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" +
+                user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
+        */
         try {
             dbConnection.createStatement().execute(insert);
             System.out.println("User inserted to db");
@@ -50,16 +61,13 @@ public class DataBaseHandler extends Configs {
         }
     }
 
-    public ResultSet getUser(User user) {// массив пользователей
+    public User getUser(User user) {// массив пользователей
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
-                + Const.USERS_USERNAME + " = " + user.getUserName() + " AND " + Const.USERS_PASSWORD + "=" + user.getPassword();
+                + Const.USERS_USERNAME + " = \'" + user.getUserName() + "\' AND " + Const.USERS_PASSWORD + "= \'" + user.getPassword() + "\'";
         User endUser = new User();
         try {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
-            /* prSt.setString(1, user.getUserName());
-            prSt.setString(2, user.getPassword());
-            */
             resSet = prSt.executeQuery();
             if (resSet.next()) {
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
@@ -74,7 +82,7 @@ public class DataBaseHandler extends Configs {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return resSet;
+        return endUser;
     }
 
     public User getUserById (Long id) {
