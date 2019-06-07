@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS users(
+CREATE TABLE IF NOT EXISTS usersA (
     id bigint PRIMARY KEY,
     userName VARCHAR(25),
     password VARCHAR(20),
@@ -8,10 +8,16 @@ CREATE TABLE IF NOT EXISTS users(
     lastName VARCHAR(25),
     groupName VARCHAR(10),
     access VARCHAR(7),
-    gender VARCHAR(7)
+    gender VARCHAR(7),
+    passedgl BOOL,
+    passedop BOOL,
+    passeddn BOOL,
+    passedat BOOL,
+    passedn BOOL,
+    passedgen BOOL
 );
 
-INSERT INTO users (id, userName, password, firstName, lastName, groupName, access, gender)
-VALUES (0, 'root', 'loveKopos', 'Koposovo', 'Dev', '17БИ1', 'ADMIN', 'Женский') on conflict (id) do nothing;
+INSERT INTO usersA (id, userName, password, firstName, lastName, groupName, access, gender, passedgl, passedOP, passedDN, passedAT, passedN, passedGen)
+VALUES (0, 'root', 'loveKopos', 'Koposovo', 'Dev', '17БИ1', 'ADMIN', 'Женский', false, false, false, false, false, false) on conflict (id) do nothing;
 
 COMMIT;

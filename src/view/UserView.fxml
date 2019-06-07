@@ -1,95 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserInterfaceController">
+
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserInterfaceController">
    <children>
-      <GridPane prefHeight="401.0" prefWidth="600.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="600.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.3333435058594" minWidth="0.0" prefWidth="0.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="397.0" minHeight="0.0" prefHeight="266.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab fx:id="personalInfo" text="Личный кабинет">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TabPane prefHeight="373.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-                                <tabs>
-                                  <Tab text="Персональные данные">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <Button fx:id="exitButton" layoutX="505.0" layoutY="279.0" mnemonicParsing="false" onAction="#exit" text="Выход" />
-                                                <TextField fx:id="surnameTextField" editable="false" layoutX="143.0" layoutY="66.0" />
-                                                <Text layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Фамилия" wrappingWidth="81.552734375">
-                                                   <font>
-                                                      <Font size="17.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="40.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя">
-                                                   <font>
-                                                      <Font size="17.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="39.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Логин">
-                                                   <font>
-                                                      <Font size="17.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="40.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Группа">
-                                                   <font>
-                                                      <Font size="17.0" />
-                                                   </font>
-                                                </Text>
-                                                <Text layoutX="41.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пол">
-                                                   <font>
-                                                      <Font size="17.0" />
-                                                   </font>
-                                                </Text>
-                                                <TextField fx:id="firstNameTextField" editable="false" layoutX="143.0" layoutY="94.0" />
-                                                <TextField fx:id="userNameTextField" editable="false" layoutX="143.0" layoutY="123.0" />
-                                                <TextField fx:id="groupTextField" editable="false" layoutX="143.0" layoutY="152.0" />
-                                                <TextField fx:id="genderTextField" editable="false" layoutX="143.0" layoutY="183.0" />
-                                                <Button fx:id="editInfoButton" layoutX="38.0" layoutY="279.0" mnemonicParsing="false" onAction="#editUserInfo" text="Редактировать" />
-                                                <Button fx:id="deleteProfileButton" layoutX="244.0" layoutY="279.0" mnemonicParsing="false" onAction="#deleteUser" text="Удалить профиль" />
-                                             </children>
-                                          </AnchorPane>
-                                    </content>
-                                  </Tab>
-                                  <Tab text="Результаты тестирований">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                                    </content>
-                                  </Tab>
-                                </tabs>
-                              </TabPane>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab fx:id="testTab" text="Тесты">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-         </children>
-      </GridPane>
+      <TabPane fx:id="tabPane" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab fx:id="personalInfo" text="Личный кабинет">
+            <content>
+                  <TabPane prefHeight="373.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Персональные данные">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="exitButton" layoutX="505.0" layoutY="279.0" mnemonicParsing="false" onAction="#exit" text="Выход" />
+                                    <TextField fx:id="surnameTextField" editable="false" layoutX="143.0" layoutY="66.0" />
+                                    <Text layoutX="40.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Фамилия" wrappingWidth="81.552734375">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="40.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Имя">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="39.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Логин">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="40.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Группа">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="41.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пол">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <TextField fx:id="firstNameTextField" editable="false" layoutX="143.0" layoutY="94.0" />
+                                    <TextField fx:id="userNameTextField" editable="false" layoutX="143.0" layoutY="123.0" />
+                                    <TextField fx:id="groupTextField" editable="false" layoutX="143.0" layoutY="152.0" />
+                                    <TextField fx:id="genderTextField" editable="false" layoutX="143.0" layoutY="183.0" />
+                                    <Button fx:id="editInfoButton" layoutX="38.0" layoutY="279.0" mnemonicParsing="false" onAction="#editUserInfo" text="Редактировать" />
+                                    <Button fx:id="deleteProfileButton" layoutX="244.0" layoutY="279.0" mnemonicParsing="false" onAction="#deleteUser" text="Удалить профиль" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Результаты тестирований">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+            </content>
+          </Tab>
+          <Tab fx:id="testTab" text="Тесты">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.16666666666666666" orientation="VERTICAL" prefHeight="368.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Text layoutX="14.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тесты">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <Accordion fx:id="GurenLaganTab" prefHeight="302.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <panes>
+                                        <TitledPane animated="false" text="Гуррен-Лаганн">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="GLTestButton" layoutX="494.0" layoutY="103.0" mnemonicParsing="false" onAction="#loadGLTest" prefHeight="34.0" prefWidth="72.0" text="Пройти">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по аниме &quot;Гуррен-Лаганн&quot;">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="failedGLLabel" fill="#f50505" layoutX="406.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="passedGLLabel" fill="#00ff09" layoutX="335.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </TitledPane>
+                                          <TitledPane animated="false" text="Ван Пис">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="OPTestButton" layoutX="488.0" layoutY="104.0" mnemonicParsing="false" onAction="#loadOPTest" prefHeight="28.0" prefWidth="72.0" text="Пройти">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по аниме &quot;Ван Пис&quot;">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="failedOPLabel" fill="#f50505" layoutX="406.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="passedOPLabel" fill="#00ff09" layoutX="335.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Тетрадь смерти">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="DNTestButton" layoutX="488.0" layoutY="102.0" mnemonicParsing="false" onAction="#loadDNTest" prefHeight="33.0" prefWidth="72.0" text="Пройти">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по аниме &quot;Тетрадь смерти&quot;">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="failedDNLabel" fill="#f50505" layoutX="406.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="passedDNLabel" fill="#00ff09" layoutX="335.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Атака Титанов">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="ATTestButton" layoutX="488.0" layoutY="102.0" mnemonicParsing="false" onAction="#loadATTest" prefHeight="35.0" prefWidth="72.0" text="Пройти">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по аниме &quot;Атака Титанов&quot;">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="failedATLabel" fill="#f50505" layoutX="406.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="passedATLabel" fill="#00ff09" layoutX="335.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Наруто">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="NTestButton" layoutX="488.0" layoutY="105.0" mnemonicParsing="false" onAction="#loadNTest" prefHeight="34.0" prefWidth="72.0" text="Пройти">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по аниме &quot;Наруто&quot;">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="failedNLabel" fill="#f50505" layoutX="406.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="passedNLabel" fill="#00ff09" layoutX="335.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Общий тест">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Button fx:id="GenTestButton" layoutX="502.0" layoutY="101.0" mnemonicParsing="false" onAction="#loadGenTest" text="Пройти">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по всем приведенным выше аниме">
+                                                         <font>
+                                                            <Font size="14.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="failedGenLabel" fill="#f50505" layoutX="406.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                      <Text fx:id="passedGenLabel" fill="#00ff09" layoutX="335.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                         <font>
+                                                            <Font size="13.0" />
+                                                         </font>
+                                                      </Text>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                      </panes>
+                                    </Accordion>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
 </AnchorPane>

@@ -79,12 +79,18 @@ public class EntranceController {
                 Main.currentUser.setGender(tempUser.getGender());
                 loadEnter();
             } else {
-                System.out.println("Wrong password or no such user in the database");
+                System.out.println("Wrong password");
                 Shake userLoginAnim = new Shake(login_field);
                 Shake userPassAnim = new Shake(password_field);
                 userLoginAnim.playAnim();
                 userPassAnim.playAnim();
             }
+        } else {
+            System.out.println("No such user in the database");
+            Shake userLoginAnim = new Shake(login_field);
+            Shake userPassAnim = new Shake(password_field);
+            userLoginAnim.playAnim();
+            userPassAnim.playAnim();
         }
     }
 

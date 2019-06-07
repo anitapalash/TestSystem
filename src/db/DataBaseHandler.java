@@ -41,18 +41,12 @@ public class DataBaseHandler extends Configs {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
                 Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ") " + "VALUES (" + (index++) + ", \'" + user.getFirstName() + "\', \'" +
-                user.getLastName() + "\', \'" + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" +
-                user.getGroup() + "\', \'" + user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
+                Const.USERS_GENDER + ", passedGL, passedOP, passedDN, passedAT, passedN, passedGen" + ") " + "VALUES ("
+                + (index++) + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" +
+                user.getUserName() + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" +
+                user.getAccess().toString() + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " +
+                false + ", " + false + ", " + false + ", " + false + ")";
 
-        /*
-        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_FIRSTNAME + ", " +
-                Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
-                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ") " + "VALUES (\'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'"
-                + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" +
-                user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
-        */
         try {
             dbConnection.createStatement().execute(insert);
             System.out.println("User inserted to db");
@@ -63,8 +57,8 @@ public class DataBaseHandler extends Configs {
 
     public User getUser(User user) {// массив пользователей
         ResultSet resSet = null;
-        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
-                + Const.USERS_USERNAME + " = \'" + user.getUserName() + "\' AND " + Const.USERS_PASSWORD + "= \'" + user.getPassword() + "\'";
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + Const.USERS_USERNAME + " = \'" +
+                user.getUserName() + "\'";
         User endUser = new User();
         try {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
@@ -74,9 +68,15 @@ public class DataBaseHandler extends Configs {
                 endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
                 endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
-                endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS)));
+                endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
+                endUser.setPassedGL(Boolean.valueOf(resSet.getString(8)));
+                endUser.setPassedOP(Boolean.valueOf(resSet.getString(9)));
+                endUser.setPassedDN(Boolean.valueOf(resSet.getString(10)));
+                endUser.setPassedAT(Boolean.valueOf(resSet.getString(11)));
+                endUser.setPassedN(Boolean.valueOf(resSet.getString(12)));
+                endUser.setPassedGen(Boolean.valueOf(resSet.getString(13)));
             } else
                 return null;
         } catch (SQLException e) {
