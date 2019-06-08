@@ -2,18 +2,17 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import static services.Main.currentUser;
 
 public class UserInterfaceController {
     @FXML
-    protected Tab personalInfo;
+    private TabPane tabPane = new TabPane();
 
     @FXML
-    protected Tab testTab;
+    protected Tab personalInfo;
 
     @FXML
     protected Button exitButton;
@@ -62,4 +61,102 @@ public class UserInterfaceController {
     void exit(ActionEvent event) {
 
     }
+
+    //часть для управления запуска тестами
+    @FXML
+    private Tab testTab;
+
+    @FXML
+    private Accordion GurenLaganTab;
+
+    @FXML
+    private Button GLTestButton;
+
+    @FXML
+    private Text failedGLLabel;
+
+    @FXML
+    private Text passedGLLabel;
+
+    @FXML
+    private Button OPTestButton;
+
+    @FXML
+    private Text failedOPLabel;
+
+    @FXML
+    private Text passedOPLabel;
+
+    @FXML
+    private Button DNTestButton;
+
+    @FXML
+    private Text failedDNLabel;
+
+    @FXML
+    private Text passedDNLabel;
+
+    @FXML
+    private Button ATTestButton;
+
+    @FXML
+    private Text failedATLabel;
+
+    @FXML
+    private Text passedATLabel;
+
+    @FXML
+    private Button NTestButton;
+
+    @FXML
+    private Text failedNLabel;
+
+    @FXML
+    private Text passedNLabel;
+
+    @FXML
+    private Button GenTestButton;
+
+    @FXML
+    private Text failedGenLabel;
+
+    @FXML
+    private Text passedGenLabel;
+
+    @FXML
+    void loadATTest(ActionEvent event) {
+        TestController ATTestController = new TestController("attackTitan.txt");
+
+
+    }
+
+    @FXML
+    void loadDNTest(ActionEvent event) {
+        TestController DNTestController = new TestController("deathNote.txt");
+    }
+
+    @FXML
+    void loadGLTest(ActionEvent event) {
+        TestController GLTestController = new TestController("gurrenLagann.txt");
+
+    }
+
+    @FXML
+    void loadGenTest(ActionEvent event) {
+        TestController GenTestController = new TestController("general.txt");
+
+    }
+
+    @FXML
+    void loadNTest(ActionEvent event) {
+        TestController NTestController = new TestController("naruto.txt");
+
+    }
+
+    @FXML
+    void loadOPTest(ActionEvent event) {
+        TestController OPTestController = new TestController("onePiece.txt");
+
+    }
+
 }
