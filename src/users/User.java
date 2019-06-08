@@ -1,8 +1,10 @@
 package users;
 
 import libraries.Access;
+import services.Main;
 
 public class User {
+    private Long id;
     private String firstName;        //имя
     private String userName;       //логин
     private String password;    //пароль
@@ -16,7 +18,6 @@ public class User {
     private boolean passedN;
     private boolean passedAT;
     private boolean passedGen;
-
 
 
     public User() { this.access = Access.USER;
@@ -44,11 +45,19 @@ public class User {
         passedGL = false; passedN = false; passedOP = false;
     }
 
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFirstName(){
         return firstName;
     }
     public void setFirstName(String firstName){
         this.firstName = firstName;
+        Main.dbHandler.updateUser(this);
     }
 
     public String getLastName(){
@@ -56,6 +65,7 @@ public class User {
     }
     public void setLastName(String lastName){
         this.lastName = lastName;
+        Main.dbHandler.updateUser(this);
     }
 
     public String getUserName(){
@@ -63,6 +73,7 @@ public class User {
     }
     public void setUserName(String userName){
         this.userName = userName;
+        Main.dbHandler.updateUser(this);
     }
 
     public String getPassword() {
@@ -70,6 +81,7 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+        Main.dbHandler.updateUser(this);
     }
 
     public String getGroup() {
@@ -77,6 +89,7 @@ public class User {
     }
     public void setGroup(String group) {
         this.group = group;
+        Main.dbHandler.updateUser(this);
     }
 
     public Access getAccess() {
@@ -84,6 +97,7 @@ public class User {
     }
     public void setAccess(Access access) {
         this.access = access;
+        Main.dbHandler.updateUser(this);
     }
 
     public String getGender() {
@@ -91,54 +105,55 @@ public class User {
     }
     public void setGender(String gender) {
         this.gender = gender;
+        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedGL() {
         return passedGL;
     }
-
     public void setPassedGL(boolean passedGL) {
         this.passedGL = passedGL;
+        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedOP() {
         return passedOP;
     }
-
     public void setPassedOP(boolean passedOP) {
         this.passedOP = passedOP;
+        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedDN() {
         return passedDN;
     }
-
     public void setPassedDN(boolean passedDN) {
         this.passedDN = passedDN;
+        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedN() {
         return passedN;
     }
-
     public void setPassedN(boolean passedN) {
         this.passedN = passedN;
+        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedAT() {
         return passedAT;
     }
-
     public void setPassedAT(boolean passedAT) {
         this.passedAT = passedAT;
+        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedGen() {
         return passedGen;
     }
-
     public void setPassedGen(boolean passedGen) {
         this.passedGen = passedGen;
+        Main.dbHandler.updateUser(this);
     }
 
     @Override

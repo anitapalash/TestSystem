@@ -38,24 +38,19 @@ public class DataBaseHandler extends Configs {
     }
 
     public void signUpUser(User user) {
-
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
                 Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ") " + "VALUES (" + getNewId() + ", \'" + user.getFirstName() + "\', \'" +
-                user.getLastName() + "\', \'" + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" +
-                user.getGroup() + "\', \'" + user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
+                Const.USERS_GENDER + ", passedgl, passedop, passeddn, passedat, passedn, passedgen) " + "VALUES ("
+                + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
+                + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
+                + "\', \'" + user.getGender() + "\', " + false + "\', " + false + "\', " + false + "\', " + false +
+                "\', " + false + "\', " + false + ")";
 
-        /*
-        String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_FIRSTNAME + ", " +
-                Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
-                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ") " + "VALUES (\'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'"
-                + user.getUserName() + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" +
-                user.getAccess().toString() + "\', \'" + user.getGender() + "\')";
-        */
         try {
+            user.setId(getNewId());
             dbConnection.createStatement().execute(insert);
+            dbConnection.commit();
             System.out.println("User inserted to db");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,6 +66,7 @@ public class DataBaseHandler extends Configs {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
             resSet = prSt.executeQuery();
             if (resSet.next()) {
+                endUser.setId(resSet.getLong("id"));
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
                 endUser.setPassword(user.getPassword());
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
@@ -78,6 +74,12 @@ public class DataBaseHandler extends Configs {
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS)));
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
+                endUser.setPassedGL(resSet.getBoolean("passedgl"));
+                endUser.setPassedOP(resSet.getBoolean("passedop"));
+                endUser.setPassedDN(resSet.getBoolean("passeddn"));
+                endUser.setPassedAT(resSet.getBoolean("passedat"));
+                endUser.setPassedN(resSet.getBoolean("passedn"));
+                endUser.setPassedGen(resSet.getBoolean("passedgen"));
             } else
                 return null;
         } catch (SQLException e) {
@@ -95,7 +97,8 @@ public class DataBaseHandler extends Configs {
         try {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
             resSet = prSt.executeQuery();
-            resSet.next();
+            if (resSet.next()) {
+                endUser.setId(resSet.getLong("id"));
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
                 endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
@@ -103,12 +106,19 @@ public class DataBaseHandler extends Configs {
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
-
+                endUser.setPassedGL(resSet.getBoolean("passedgl"));
+                endUser.setPassedOP(resSet.getBoolean("passedop"));
+                endUser.setPassedDN(resSet.getBoolean("passeddn"));
+                endUser.setPassedAT(resSet.getBoolean("passedat"));
+                endUser.setPassedN(resSet.getBoolean("passedn"));
+                endUser.setPassedGen(resSet.getBoolean("passedgen"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return endUser;
     }
+
 
     private void runScript(Connection c) throws IOException, SQLException, ClassNotFoundException {
         try {
@@ -153,5 +163,31 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void updateUser (User user) {
+        String request = "UPDATE users " +
+                Const.USERS_USERNAME + "=\'" + user.getUserName() + "\', " +
+                Const.USERS_PASSWORD + "=\'" + user.getPassword() + "\', " +
+                Const.USERS_FIRSTNAME + "=\'" + user.getFirstName() + "\', " +
+                Const.USERS_LASTNAME + "=\'" + user.getLastName() + "\', " +
+                Const.USERS_ACCESS + "=\'" + user.getAccess().toString() + "\', " +
+                Const.USERS_GENDER + "=\'" + user.getGender() + "\', " +
+                Const.USERS_GROUP + "=\'" + user.getGroup() + "\', " +
+                "passedgl=\'" + user.isPassedGL() + "\', " +
+                "passedop=\'" + user.isPassedOP() + "\', " +
+                "passeddn=\'" + user.isPassedDN() + "\', " +
+                "passedat=\'" + user.isPassedAT() + "\', " +
+                "passedn=\'" + user.isPassedN() + "\', " +
+                "passedgen=\'" + user.isPassedGen() + "\' " +
+                "WHERE id=" + user.getId() + ";";
+
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.executeQuery();
+            dbConnection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
