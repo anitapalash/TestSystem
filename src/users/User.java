@@ -11,13 +11,23 @@ public class User {
     private Access access;      //уровень доступа
     private String gender;      //пол
 
+    private boolean passedGL;
+    private boolean passedOP;
+    private boolean passedDN;
+    private boolean passedAT;
+    private boolean passedN;
+    private boolean passedGen;
 
-    public User() { this.access = Access.USER; }
+
+    public User() { this.access = Access.USER; passedAT = false; passedDN = false; passedGen = false;
+        passedOP = false; passedGL = false; passedN = false; }
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.access = Access.USER;
+        passedAT = false; passedDN = false; passedGen = false;
+        passedOP = false; passedGL = false; passedN = false;
     }
 
     public User(String firstName, String userName, String password, String lastName, String group, String gender) {
@@ -28,6 +38,8 @@ public class User {
         this.group = group;
         this.gender = gender;
         this.access = Access.USER;
+        passedAT = false; passedDN = false; passedGen = false;
+        passedOP = false; passedGL = false; passedN = false;
     }
 
     public String getFirstName(){
@@ -79,6 +91,48 @@ public class User {
         this.gender = gender;
     }
 
+    public boolean isPassedGL() {
+        return passedGL;
+    }
+    public void setPassedGL(boolean passedGL) {
+        this.passedGL = passedGL;
+    }
+
+    public boolean isPassedOP() {
+        return passedOP;
+    }
+    public void setPassedOP(boolean passedOP) {
+        this.passedOP = passedOP;
+    }
+
+    public boolean isPassedDN() {
+        return passedDN;
+    }
+    public void setPassedDN(boolean passedDN) {
+        this.passedDN = passedDN;
+    }
+
+    public boolean isPassedAT() {
+        return passedAT;
+    }
+    public void setPassedAT(boolean passedAT) {
+        this.passedAT = passedAT;
+    }
+
+    public boolean isPassedN() {
+        return passedN;
+    }
+    public void setPassedN(boolean passedN) {
+        this.passedN = passedN;
+    }
+
+    public boolean isPassedGen() {
+        return passedGen;
+    }
+    public void setPassedGen(boolean passedGen) {
+        this.passedGen = passedGen;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,9 +140,15 @@ public class User {
 
         User user = (User) o;
 
+        if (passedGL != user.passedGL) return false;
+        if (passedOP != user.passedOP) return false;
+        if (passedDN != user.passedDN) return false;
+        if (passedAT != user.passedAT) return false;
+        if (passedN != user.passedN) return false;
+        if (passedGen != user.passedGen) return false;
         if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (!userName.equals(user.userName)) return false;
-        if (!password.equals(user.password)) return false;
+        if (userName != null ? !userName.equals(user.userName) : user.userName != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (group != null ? !group.equals(user.group) : user.group != null) return false;
         if (access != user.access) return false;
@@ -98,12 +158,18 @@ public class User {
     @Override
     public int hashCode() {
         int result = firstName != null ? firstName.hashCode() : 0;
-        result = 31 * result + userName.hashCode();
-        result = 31 * result + password.hashCode();
+        result = 31 * result + (userName != null ? userName.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (group != null ? group.hashCode() : 0);
-        result = 31 * result + (access != null ? access.hashCode() : 0);
+        result = 31 * result + access.hashCode();
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
+        result = 31 * result + (passedGL ? 1 : 0);
+        result = 31 * result + (passedOP ? 1 : 0);
+        result = 31 * result + (passedDN ? 1 : 0);
+        result = 31 * result + (passedAT ? 1 : 0);
+        result = 31 * result + (passedN ? 1 : 0);
+        result = 31 * result + (passedGen ? 1 : 0);
         return result;
     }
 
@@ -111,11 +177,18 @@ public class User {
     public String toString() {
         return "User{" +
                 "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", group='" + group + '\'' +
                 ", access=" + access +
                 ", gender='" + gender + '\'' +
+                ", passedGL=" + passedGL +
+                ", passedOP=" + passedOP +
+                ", passedDN=" + passedDN +
+                ", passedAT=" + passedAT +
+                ", passedN=" + passedN +
+                ", passedGen=" + passedGen +
                 '}';
     }
 }
