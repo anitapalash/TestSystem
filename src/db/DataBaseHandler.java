@@ -44,13 +44,12 @@ public class DataBaseHandler extends Configs {
                 Const.USERS_GENDER + ", passedgl, passedop, passeddn, passedat, passedn, passedgen) " + "VALUES ("
                 + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
                 + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
-                + "\', \'" + user.getGender() + "\', " + false + "\', " + false + "\', " + false + "\', " + false +
-                "\', " + false + "\', " + false + ")";
+                + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
+                ", " + false + ", " + false + ")";
 
         try {
             user.setId(getNewId());
             dbConnection.createStatement().execute(insert);
-            dbConnection.commit();
             System.out.println("User inserted to db");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -166,7 +165,7 @@ public class DataBaseHandler extends Configs {
     }
 
     public void updateUser (User user) {
-        String request = "UPDATE users " +
+        String request = "UPDATE " + Const.USER_TABLE + " SET " +
                 Const.USERS_USERNAME + "=\'" + user.getUserName() + "\', " +
                 Const.USERS_PASSWORD + "=\'" + user.getPassword() + "\', " +
                 Const.USERS_FIRSTNAME + "=\'" + user.getFirstName() + "\', " +
@@ -183,9 +182,8 @@ public class DataBaseHandler extends Configs {
                 "WHERE id=" + user.getId() + ";";
 
         try {
-            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
-            preparedStatement.executeQuery();
-            dbConnection.commit();
+            dbConnection.createStatement().execute(request);
+            System.out.println("User was updated");
         } catch (SQLException e) {
             e.printStackTrace();
         }

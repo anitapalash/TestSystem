@@ -57,7 +57,6 @@ public class User {
     }
     public void setFirstName(String firstName){
         this.firstName = firstName;
-        Main.dbHandler.updateUser(this);
     }
 
     public String getLastName(){
@@ -65,7 +64,6 @@ public class User {
     }
     public void setLastName(String lastName){
         this.lastName = lastName;
-        Main.dbHandler.updateUser(this);
     }
 
     public String getUserName(){
@@ -73,7 +71,6 @@ public class User {
     }
     public void setUserName(String userName){
         this.userName = userName;
-        Main.dbHandler.updateUser(this);
     }
 
     public String getPassword() {
@@ -81,7 +78,6 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
-        Main.dbHandler.updateUser(this);
     }
 
     public String getGroup() {
@@ -89,7 +85,6 @@ public class User {
     }
     public void setGroup(String group) {
         this.group = group;
-        Main.dbHandler.updateUser(this);
     }
 
     public Access getAccess() {
@@ -97,7 +92,6 @@ public class User {
     }
     public void setAccess(Access access) {
         this.access = access;
-        Main.dbHandler.updateUser(this);
     }
 
     public String getGender() {
@@ -105,7 +99,6 @@ public class User {
     }
     public void setGender(String gender) {
         this.gender = gender;
-        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedGL() {
@@ -113,7 +106,6 @@ public class User {
     }
     public void setPassedGL(boolean passedGL) {
         this.passedGL = passedGL;
-        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedOP() {
@@ -121,7 +113,6 @@ public class User {
     }
     public void setPassedOP(boolean passedOP) {
         this.passedOP = passedOP;
-        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedDN() {
@@ -129,7 +120,6 @@ public class User {
     }
     public void setPassedDN(boolean passedDN) {
         this.passedDN = passedDN;
-        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedN() {
@@ -137,7 +127,6 @@ public class User {
     }
     public void setPassedN(boolean passedN) {
         this.passedN = passedN;
-        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedAT() {
@@ -145,7 +134,6 @@ public class User {
     }
     public void setPassedAT(boolean passedAT) {
         this.passedAT = passedAT;
-        Main.dbHandler.updateUser(this);
     }
 
     public boolean isPassedGen() {
@@ -153,7 +141,6 @@ public class User {
     }
     public void setPassedGen(boolean passedGen) {
         this.passedGen = passedGen;
-        Main.dbHandler.updateUser(this);
     }
 
     @Override
