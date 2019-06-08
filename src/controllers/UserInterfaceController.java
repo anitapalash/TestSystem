@@ -9,7 +9,7 @@ import static services.Main.currentUser;
 
 public class UserInterfaceController {
     @FXML
-    private TabPane tabPane;
+    private TabPane tabPane = new TabPane();
 
     @FXML
     protected Tab personalInfo;
