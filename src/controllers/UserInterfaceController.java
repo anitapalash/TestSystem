@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import services.Main;
 
-
 import static services.Main.currentUser;
 
 public class UserInterfaceController {

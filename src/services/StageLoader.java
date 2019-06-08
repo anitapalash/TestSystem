@@ -12,14 +12,13 @@ public class StageLoader {
     private static String staticTitle = "AnimeTest";
 
     private static final String FXML_DIR = "../view/";
-    private static final String MAIN_STAGE = "LogIn";
 
     public static Stage loadMain() throws IOException {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(StageLoader.class.getResource(FXML_DIR + MAIN_STAGE + ".fxml"));
+        loader.setLocation(StageLoader.class.getResource(FXML_DIR + "LogIn" + ".fxml"));
         loader.setClassLoader(StageLoader.class.getClassLoader());
-        Scene scene = new Scene(loader.load(StageLoader.class.getResourceAsStream(FXML_DIR + MAIN_STAGE + ".fxml")));
+        Scene scene = new Scene(loader.load(StageLoader.class.getResourceAsStream(FXML_DIR + "LogIn" + ".fxml")));
         stage.setScene(scene);
         stage.setTitle(staticTitle);
         return stage;
@@ -33,7 +32,6 @@ public class StageLoader {
         Scene scene = new Scene(loader.load(StageLoader.class.getResource(FXML_DIR + fxmlName + ".fxml")));
         stage.setScene(scene);
         stage.setOnHidden(event -> Platform.exit());
-        //stage.setOnHidden(event -> Platform.setImplicitExit(false));
         stage.setTitle(staticTitle);
         return stage;
     }
