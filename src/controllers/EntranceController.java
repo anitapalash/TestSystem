@@ -108,7 +108,7 @@ public class EntranceController {
                 stage.showAndWait();
             }
             else {
-                Stage stage = StageLoader.loadScene("UserView");
+                Stage stage = StageLoader.loadScene("UserViewA");
                 stage.showAndWait();
             }
         } catch (IOException e) {

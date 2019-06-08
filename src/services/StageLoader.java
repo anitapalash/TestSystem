@@ -30,7 +30,7 @@ public class StageLoader {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(StageLoader.class.getResource(FXML_DIR + fxmlName + ".fxml"));
         loader.setClassLoader(StageLoader.class.getClassLoader());
-        Scene scene = new Scene(loader.load(StageLoader.class.getResourceAsStream(FXML_DIR + fxmlName + ".fxml")));
+        Scene scene = new Scene(loader.load(StageLoader.class.getResource(FXML_DIR + fxmlName + ".fxml")));
         stage.setScene(scene);
         stage.setOnHidden(event -> Platform.exit());
         stage.setTitle(staticTitle);
