@@ -1,7 +1,6 @@
 package users;
 
 import libraries.Access;
-import services.Main;
 
 public class User {
     private Long id;
