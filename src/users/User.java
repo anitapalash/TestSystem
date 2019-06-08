@@ -3,6 +3,7 @@ package users;
 import libraries.Access;
 
 public class User {
+    private Long id;
     private String firstName;        //имя
     private String userName;       //логин
     private String password;    //пароль
@@ -40,6 +41,13 @@ public class User {
         this.access = Access.USER;
         passedAT = false; passedDN = false; passedGen = false;
         passedOP = false; passedGL = false; passedN = false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName(){
