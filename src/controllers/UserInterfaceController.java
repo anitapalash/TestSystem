@@ -100,10 +100,13 @@ public class UserInterfaceController {
     @FXML
     private Text passedGenLabel;
 
+    public UserInterfaceController() {
+        tabPane = new TabPane(personalInfoTab, testTab);
+    }
+
 
     @FXML
     public void initialize() {
-        tabPane = new TabPane(personalInfoTab, testTab);
         //testTab.onSelectionChangedProperty(event -> tabPane.getSelectionModel().selectNext());
         userNameTextField.setText(currentUser.getUserName());
         firstNameTextField.setText(currentUser.getFirstName());

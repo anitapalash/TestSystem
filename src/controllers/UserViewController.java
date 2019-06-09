@@ -4,11 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import services.Main;
+import services.StageLoader;
 
-public class AdminInterfaceController {
+import java.io.IOException;
 
+public class UserViewController {
     @FXML
-    private Tab personalInfo;
+    private Tab personalInfoTab;
 
     @FXML
     private Button exitButton;
@@ -94,23 +97,45 @@ public class AdminInterfaceController {
     @FXML
     private Text passedGenLabel;
 
-    @FXML
-    private Tab manageUsersTab;
+    public void initialize() {
+        userNameTextField.setText(Main.currentUser.getUserName());
+        firstNameTextField.setText(Main.currentUser.getFirstName());
+        surnameTextField.setText(Main.currentUser.getLastName());
+        groupTextField.setText(Main.currentUser.getGroup());
+        genderTextField.setText(Main.currentUser.getGender());
 
-    @FXML
-    private TableColumn<?, ?> loginColumn;
-
-    @FXML
-    private TableColumn<?, ?> firstNameColumn;
-
-    @FXML
-    private TableColumn<?, ?> surnameColumn;
-
-    @FXML
-    private TableColumn<?, ?> accessColumn;
-
-    @FXML
-    private Tab editTestsTab;
+        //заполнение тестового таба
+        if (Main.currentUser.isPassedGL()) {
+            passedGLLabel.setVisible(true);
+        } else {
+            failedGLLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedOP()) {
+            passedOPLabel.setVisible(true);
+        } else {
+            failedOPLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedDN()) {
+            passedDNLabel.setVisible(true);
+        } else {
+            failedDNLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedAT()) {
+            passedATLabel.setVisible(true);
+        } else {
+            failedATLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedN()) {
+            passedNLabel.setVisible(true);
+        } else {
+            failedNLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedGen()) {
+            passedGenLabel.setVisible(true);
+        } else {
+            failedGenLabel.setVisible(true);
+        }
+    }
 
     @FXML
     void deleteUser(ActionEvent event) {
@@ -123,8 +148,10 @@ public class AdminInterfaceController {
     }
 
     @FXML
-    void exit(ActionEvent event) {
-
+    void exit(ActionEvent event) throws IOException {
+        Main.currentUser = null;
+        exitButton.getScene().getWindow().hide();
+        StageLoader.loadMain();
     }
 
     @FXML
@@ -156,5 +183,4 @@ public class AdminInterfaceController {
     void loadOPTest(ActionEvent event) {
 
     }
-
 }
