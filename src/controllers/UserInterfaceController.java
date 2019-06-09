@@ -4,15 +4,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import services.Main;
+
 
 import static services.Main.currentUser;
 
 public class UserInterfaceController {
     @FXML
-    private TabPane tabPane = new TabPane();
+    private TabPane tabPane;
 
     @FXML
-    protected Tab personalInfo;
+    protected Tab personalInfoTab;
 
     @FXML
     protected Button exitButton;
@@ -39,35 +41,10 @@ public class UserInterfaceController {
     protected TextField genderTextField;
 
     @FXML
-    public void initialize() {
-        userNameTextField.setText(currentUser.getUserName());
-        firstNameTextField.setText(currentUser.getFirstName());
-        surnameTextField.setText(currentUser.getLastName());
-        groupTextField.setText(currentUser.getGroup());
-        genderTextField.setText(currentUser.getGender());
-    }
-
-    @FXML
-    void editUserInfo(ActionEvent event) {
-
-    }
-
-    @FXML
-    void deleteUser(ActionEvent event) {
-
-    }
-
-    @FXML
-    void exit(ActionEvent event) {
-
-    }
-
-    //часть для управления запуска тестами
-    @FXML
     private Tab testTab;
 
     @FXML
-    private Accordion GurenLaganTab;
+    private Accordion tests;
 
     @FXML
     private Button GLTestButton;
@@ -123,11 +100,86 @@ public class UserInterfaceController {
     @FXML
     private Text passedGenLabel;
 
+    public UserInterfaceController() {
+        tabPane = new TabPane(personalInfoTab, testTab);
+    }
+
+
+    @FXML
+    public void initialize() {
+        //testTab.onSelectionChangedProperty(event -> tabPane.getSelectionModel().selectNext());
+        userNameTextField.setText(currentUser.getUserName());
+        firstNameTextField.setText(currentUser.getFirstName());
+        surnameTextField.setText(currentUser.getLastName());
+        groupTextField.setText(currentUser.getGroup());
+        genderTextField.setText(currentUser.getGender());
+
+        //заполнение тестового таба
+        if (Main.currentUser.isPassedGL()) {
+            passedGLLabel.setVisible(true);
+        } else {
+            failedGLLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedOP()) {
+            passedOPLabel.setVisible(true);
+        } else {
+            failedOPLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedDN()) {
+            passedDNLabel.setVisible(true);
+        } else {
+            failedDNLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedAT()) {
+            passedATLabel.setVisible(true);
+        } else {
+            failedATLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedN()) {
+            passedNLabel.setVisible(true);
+        } else {
+            failedNLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedGen()) {
+            passedGenLabel.setVisible(true);
+        } else {
+            failedGenLabel.setVisible(true);
+        }
+    }
+/*
+    {
+        tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            System.out.println("Tab selected: " + newValue.getText());
+            // Content is already loaded. Update it if necessary.
+            Parent root = (Parent) newValue.getContent();
+            // Optionally get the controller from Map and manipulate the content
+            // via its controller.
+        });
+// By default, select 1st tab and load its content.
+        tabPane.getSelectionModel().selectFirst();
+
+    }
+*/
+    @FXML
+    void editUserInfo(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteUser(ActionEvent event) {
+
+    }
+
+    @FXML
+    void exit(ActionEvent event) {
+
+    }
+
+    //часть для управления запуска тестами
+
     @FXML
     void loadATTest(ActionEvent event) {
         TestController ATTestController = new TestController("attackTitan.txt");
-
-
     }
 
     @FXML
@@ -159,4 +211,15 @@ public class UserInterfaceController {
 
     }
 
+    @FXML
+    void selectPersonalTab(ActionEvent event) {
+        testTab.setDisable(true);
+        personalInfoTab.setDisable(false);
+    }
+
+    @FXML
+    void selectTestTab(ActionEvent event) {
+        personalInfoTab.setDisable(true);
+        testTab.setDisable(false);
+    }
 }

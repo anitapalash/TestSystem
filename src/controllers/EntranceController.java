@@ -5,11 +5,14 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import libraries.Access;
@@ -57,7 +60,6 @@ public class EntranceController {
     void signUp(ActionEvent event) {
         try {
             Scene currentScene = authSignButton.getScene();
-            //currentScene.getWindow().hide();
             Stage stage = StageLoader.loadScene("signUp");
             stage.showAndWait();
         } catch (IOException e) {
@@ -77,7 +79,8 @@ public class EntranceController {
                 Main.currentUser.setLastName(tempUser.getLastName());
                 Main.currentUser.setGroup(tempUser.getGroup());
                 Main.currentUser.setGender(tempUser.getGender());
-                loadEnter();
+                Scene currentScene = authSignButton.getScene();
+                currentScene.getWindow().hide();
             } else {
                 System.out.println("Wrong password");
                 Shake userLoginAnim = new Shake(login_field);
@@ -92,28 +95,6 @@ public class EntranceController {
             userLoginAnim.playAnim();
             userPassAnim.playAnim();
 
-        }
-    }
-
-    private void loadEnter() {
-        try {
-            Scene currentScene = authSignButton.getScene();
-            currentScene.getWindow().hide();
-            if (Main.currentUser.getAccess() == Access.ADMIN) {
-                Stage stage = StageLoader.loadScene("AdminView");
-                stage.showAndWait();
-            }
-            else if (Main.currentUser.getAccess() == Access.ANALISER) {
-                Stage stage = StageLoader.loadScene("AnaliserInterface");
-                stage.showAndWait();
-            }
-            else {
-                Stage stage = StageLoader.loadScene("UserView");
-                stage.showAndWait();
-            }
-        } catch (IOException e) {
-            System.out.println("Failed to load scene");
-            e.printStackTrace();
         }
     }
 }
