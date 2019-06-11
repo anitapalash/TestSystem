@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UserViewController">
   <tabs>
     <Tab fx:id="personalInfoTab" text="Личный кабинет">
          <content>
@@ -69,10 +69,10 @@
          </content>
     </Tab>
     <Tab fx:id="testTab" text="Тесты">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <SplitPane dividerPositions="0.14754098360655737" orientation="VERTICAL" prefHeight="368.0" prefWidth="600.0">
+                  <SplitPane dividerPositions="0.16666666666666666" orientation="VERTICAL" prefHeight="368.0" prefWidth="600.0">
                      <items>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
@@ -106,7 +106,7 @@
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="passedGLLabel" fill="#00ff09" layoutX="335.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                <Text fx:id="passedGLLabel" fill="#00ff09" layoutX="415.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -115,26 +115,26 @@
                                           </AnchorPane>
                                        </content>
                                     </TitledPane>
-                                    <TitledPane animated="false" text="Ван Пис">
+                                    <TitledPane animated="false" text="Гибли">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <Button fx:id="OPTestButton" layoutX="488.0" layoutY="104.0" mnemonicParsing="false" onAction="#loadOPTest" prefHeight="28.0" prefWidth="72.0" text="Пройти">
+                                                <Button fx:id="GBTestButton" layoutX="488.0" layoutY="104.0" mnemonicParsing="false" onAction="#loadGBTest" prefHeight="28.0" prefWidth="72.0" text="Пройти">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
                                                 </Button>
-                                                <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по аниме &quot;Ван Пис&quot;">
+                                                <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по творчеству анимационной студии &quot;Гибли&quot;">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="failedOPLabel" fill="#f50505" layoutX="406.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
+                                                <Text fx:id="failedGBLabel" fill="#f50505" layoutX="406.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Не пройден" visible="false" wrappingWidth="71.31591796875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="passedOPLabel" fill="#00ff09" layoutX="335.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                <Text fx:id="passedGBLabel" fill="#00ff09" layoutX="415.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -162,7 +162,7 @@
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="passedDNLabel" fill="#00ff09" layoutX="335.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                <Text fx:id="passedDNLabel" fill="#00ff09" layoutX="415.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -190,7 +190,7 @@
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="passedATLabel" fill="#00ff09" layoutX="335.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                <Text fx:id="passedATLabel" fill="#00ff09" layoutX="415.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -218,7 +218,7 @@
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="passedNLabel" fill="#00ff09" layoutX="335.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                <Text fx:id="passedNLabel" fill="#00ff09" layoutX="415.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -246,7 +246,7 @@
                                                       <Font size="13.0" />
                                                    </font>
                                                 </Text>
-                                                <Text fx:id="passedGenLabel" fill="#00ff09" layoutX="335.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
+                                                <Text fx:id="passedGenLabel" fill="#00ff09" layoutX="415.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Пройден" visible="false" wrappingWidth="53.49169921875">
                                                    <font>
                                                       <Font size="13.0" />
                                                    </font>
@@ -261,8 +261,9 @@
                         </AnchorPane>
                      </items>
                   </SplitPane>
-               </children></AnchorPane>
-      </content>
+               </children>
+            </AnchorPane>
+         </content>
     </Tab>
   </tabs>
 </TabPane>

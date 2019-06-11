@@ -41,7 +41,7 @@ public class DataBaseHandler extends Configs {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
                 Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ", passedgl, passedop, passeddn, passedat, passedn, passedgen) " + "VALUES ("
+                Const.USERS_GENDER + ", passedgl, passedgb, passeddn, passedat, passedn, passedgen) " + "VALUES ("
                 + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
                 + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
                 + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
@@ -74,7 +74,7 @@ public class DataBaseHandler extends Configs {
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
                 endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedGB(resSet.getBoolean("passedop"));
+                endUser.setPassedGB(resSet.getBoolean("passedgb"));
                 endUser.setPassedDN(resSet.getBoolean("passeddn"));
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
@@ -106,7 +106,7 @@ public class DataBaseHandler extends Configs {
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
                 endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedGB(resSet.getBoolean("passedop"));
+                endUser.setPassedGB(resSet.getBoolean("passedgb"));
                 endUser.setPassedDN(resSet.getBoolean("passeddn"));
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
@@ -174,7 +174,7 @@ public class DataBaseHandler extends Configs {
                 Const.USERS_GENDER + "=\'" + user.getGender() + "\', " +
                 Const.USERS_GROUP + "=\'" + user.getGroup() + "\', " +
                 "passedgl=\'" + user.isPassedGL() + "\', " +
-                "passedop=\'" + user.isPassedGB() + "\', " +
+                "passedgb=\'" + user.isPassedGB() + "\', " +
                 "passeddn=\'" + user.isPassedDN() + "\', " +
                 "passedat=\'" + user.isPassedAT() + "\', " +
                 "passedn=\'" + user.isPassedN() + "\', " +

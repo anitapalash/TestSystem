@@ -13,7 +13,7 @@ public class User {
     private String gender;      //пол
 
     private boolean passedGL;
-    private boolean passedOP;
+    private boolean passedGB;
     private boolean passedDN;
     private boolean passedAT;
     private boolean passedN;
@@ -21,14 +21,14 @@ public class User {
 
 
     public User() { this.access = Access.USER; passedAT = false; passedDN = false; passedGen = false;
-        passedOP = false; passedGL = false; passedN = false; }
+        passedGB = false; passedGL = false; passedN = false; }
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.access = Access.USER;
         passedAT = false; passedDN = false; passedGen = false;
-        passedOP = false; passedGL = false; passedN = false;
+        passedGB = false; passedGL = false; passedN = false;
     }
 
     public User(String firstName, String userName, String password, String lastName, String group, String gender) {
@@ -40,7 +40,7 @@ public class User {
         this.gender = gender;
         this.access = Access.USER;
         passedAT = false; passedDN = false; passedGen = false;
-        passedOP = false; passedGL = false; passedN = false;
+        passedGB = false; passedGL = false; passedN = false;
     }
 
     public Long getId() {
@@ -107,10 +107,10 @@ public class User {
     }
 
     public boolean isPassedGB() {
-        return passedOP;
+        return passedGB;
     }
     public void setPassedGB(boolean passedOP) {
-        this.passedOP = passedOP;
+        this.passedGB = passedOP;
     }
 
     public boolean isPassedDN() {
@@ -149,7 +149,7 @@ public class User {
         User user = (User) o;
 
         if (passedGL != user.passedGL) return false;
-        if (passedOP != user.passedOP) return false;
+        if (passedGB != user.passedGB) return false;
         if (passedDN != user.passedDN) return false;
         if (passedAT != user.passedAT) return false;
         if (passedN != user.passedN) return false;
@@ -173,7 +173,7 @@ public class User {
         result = 31 * result + access.hashCode();
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (passedGL ? 1 : 0);
-        result = 31 * result + (passedOP ? 1 : 0);
+        result = 31 * result + (passedGB ? 1 : 0);
         result = 31 * result + (passedDN ? 1 : 0);
         result = 31 * result + (passedAT ? 1 : 0);
         result = 31 * result + (passedN ? 1 : 0);
@@ -192,7 +192,7 @@ public class User {
                 ", access=" + access +
                 ", gender='" + gender + '\'' +
                 ", passedGL=" + passedGL +
-                ", passedOP=" + passedOP +
+                ", passedOP=" + passedGB +
                 ", passedDN=" + passedDN +
                 ", passedAT=" + passedAT +
                 ", passedN=" + passedN +
