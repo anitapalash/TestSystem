@@ -216,8 +216,8 @@ public class UserViewController {
 
     @FXML
     void loadGenTest(ActionEvent event) throws IOException {
-        TestController GenTestController = new TestController("general.txt");
-        Stage stage = StageLoader.loadTest("test", GenTestController);
+        GeneralTestController GenTestController = new GeneralTestController();
+        Stage stage = StageLoader.loadGenTest("generalTest", GenTestController);
         stage.showAndWait();
 
         if (Main.currentUser.isPassedGen()) {

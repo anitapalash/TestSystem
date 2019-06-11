@@ -181,8 +181,8 @@ public class AnaliserInterfaceController {
 
     @FXML
     void loadGenTest(ActionEvent event) throws IOException {
-        TestController GenTestController = new TestController("general.txt");
-        Stage stage = StageLoader.loadTest("test", GenTestController);
+        GeneralTestController GenTestController = new GeneralTestController();
+        Stage stage = StageLoader.loadGenTest("generalTest", GenTestController);
         stage.showAndWait();
 
         if (Main.currentUser.isPassedGen()) {
@@ -205,8 +205,8 @@ public class AnaliserInterfaceController {
 
     @FXML
     void loadGBTest(ActionEvent event) throws IOException {
-        TestController OPTestController = new TestController("gibli.txt");
-        Stage stage = StageLoader.loadTest("test", OPTestController);
+        TestController GBTestController = new TestController("gibli.txt");
+        Stage stage = StageLoader.loadTest("test", GBTestController);
         stage.showAndWait();
 
         if (Main.currentUser.isPassedGB()) {

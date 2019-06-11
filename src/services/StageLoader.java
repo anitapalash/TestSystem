@@ -1,5 +1,6 @@
 package services;
 
+import controllers.GeneralTestController;
 import controllers.TestController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +49,16 @@ public class StageLoader {
     }
 
     public static Stage loadTest(String fxmlName, TestController controller) throws IOException {
+        FXMLLoader loader = new FXMLLoader(StageLoader.class.getResource(FXML_DIR + fxmlName + ".fxml"));
+        loader.setController(controller);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(loader.load()));
+        stage.setOnHidden(event -> Platform.exit());
+        stage.setTitle(staticTitle);
+        return stage;
+    }
+
+    public static Stage loadGenTest(String fxmlName, GeneralTestController controller) throws IOException {
         FXMLLoader loader = new FXMLLoader(StageLoader.class.getResource(FXML_DIR + fxmlName + ".fxml"));
         loader.setController(controller);
         Stage stage = new Stage();

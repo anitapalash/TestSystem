@@ -120,7 +120,7 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <Button fx:id="GBTestButton" layoutX="488.0" layoutY="104.0" mnemonicParsing="false" onAction="#loadOPTest" prefHeight="28.0" prefWidth="72.0" text="Пройти">
+                                                <Button fx:id="GBTestButton" layoutX="488.0" layoutY="104.0" mnemonicParsing="false" onAction="#loadGBTest" prefHeight="28.0" prefWidth="72.0" text="Пройти">
                                                    <font>
                                                       <Font size="15.0" />
                                                    </font>
@@ -237,7 +237,7 @@
                                                       <Font size="15.0" />
                                                    </font>
                                                 </Button>
-                                                <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тест по всем приведенным выше аниме">
+                                                <Text layoutX="24.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Общий тест">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
