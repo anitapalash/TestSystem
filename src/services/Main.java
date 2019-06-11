@@ -11,6 +11,7 @@ import java.io.IOException;
 public class Main extends Application {
     public static DataBaseHandler dbHandler = new DataBaseHandler();
     public static User currentUser;
+    public static User selectedUser;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

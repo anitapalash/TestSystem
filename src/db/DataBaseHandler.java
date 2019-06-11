@@ -3,6 +3,7 @@ package db;
 import libraries.Access;
 import libraries.Configs;
 import libraries.Const;
+import libraries.Status;
 import services.Main;
 import users.User;
 
@@ -12,6 +13,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class DataBaseHandler extends Configs {
     Connection dbConnection;
@@ -40,12 +44,14 @@ public class DataBaseHandler extends Configs {
     public void signUpUser(User user) {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
-                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " +
-                Const.USERS_GENDER + ", passedgl, passedop, passeddn, passedat, passedn, passedgen) " + "VALUES ("
+                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " + Const.USERS_STATUS + ", "+
+                Const.USERS_GENDER + ", passedgl, passedgb, passeddn, passedat, passedn, passedgen) " + "VALUES ("
                 + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
                 + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
-                + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
+                + "\', \'"+ user.getStatus() + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
                 ", " + false + ", " + false + ")";
+
+
 
         try {
             user.setId(getNewId());
@@ -71,10 +77,11 @@ public class DataBaseHandler extends Configs {
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
                 endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS)));
+                endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS)));
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
                 endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedOP(resSet.getBoolean("passedop"));
+                endUser.setPassedGB(resSet.getBoolean("passedgb"));
                 endUser.setPassedDN(resSet.getBoolean("passeddn"));
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
@@ -85,6 +92,111 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
         return endUser;
+    }
+    public ArrayList<User> getUsersByRequest(String request) {
+        ArrayList<String> parameters = new ArrayList<String>();
+
+        parameters.add("userName");
+        parameters.add("firstName");
+        parameters.add("lastName");
+        parameters.add("groupName");
+        parameters.add("access");
+        parameters.add("status");
+        parameters.add("gender");
+        ArrayList<User> allUsers = new ArrayList<User>();
+        ResultSet resSet = null;
+        for (int i = 0; i < 7; i++) {
+
+
+
+
+                    String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + parameters.get(i) + " LIKE '" + request + "' ;";
+
+
+            if(request.matches("[-+]?\\d+"))
+            {
+               Long requestLong = Long.parseLong(request);
+                  allUsers.add(getUserById(requestLong));
+                  return allUsers;
+
+
+            }
+
+            try {
+                PreparedStatement prSt = dbConnection.prepareStatement(select);
+                resSet = prSt.executeQuery();
+
+                while (resSet != null && resSet.next()) {
+                    User endUser = new User();
+                    //  if (resSet.next()) {
+                    endUser.setId(resSet.getLong("id"));
+                    endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
+                    endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
+                    endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
+                    endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
+                    endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
+                    endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
+                    endUser.setGender(resSet.getString(Const.USERS_GENDER));
+                    endUser.setGroup(resSet.getString(Const.USERS_GROUP));
+                    endUser.setPassedGL(resSet.getBoolean("passedgl"));
+                    endUser.setPassedGB(resSet.getBoolean("passedgb"));
+                    endUser.setPassedDN(resSet.getBoolean("passeddn"));
+                    endUser.setPassedAT(resSet.getBoolean("passedat"));
+                    endUser.setPassedN(resSet.getBoolean("passedn"));
+                    endUser.setPassedGen(resSet.getBoolean("passedgen"));
+
+                    allUsers.add(endUser);
+
+
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return allUsers;
+    }
+
+    public ArrayList<User> getAllUsers() throws SQLException {
+        ResultSet resSet = null;
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + " access " + "!=" +" 'ADMIN' " + ";";
+        ArrayList<User> allUsers = new ArrayList<User>();
+
+        try {
+            PreparedStatement prSt = dbConnection.prepareStatement(select);
+            resSet = prSt.executeQuery();
+
+            while(resSet!= null && resSet.next())
+
+            {    User endUser = new User();
+                //  if (resSet.next()) {
+                endUser.setId(resSet.getLong("id"));
+                endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
+                endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
+                endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
+                endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
+                endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
+                endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
+                endUser.setGender(resSet.getString(Const.USERS_GENDER));
+                endUser.setGroup(resSet.getString(Const.USERS_GROUP));
+                endUser.setPassedGL(resSet.getBoolean("passedgl"));
+                endUser.setPassedGB(resSet.getBoolean("passedgb"));
+                endUser.setPassedDN(resSet.getBoolean("passeddn"));
+                endUser.setPassedAT(resSet.getBoolean("passedat"));
+                endUser.setPassedN(resSet.getBoolean("passedn"));
+                endUser.setPassedGen(resSet.getBoolean("passedgen"));
+
+                allUsers.add(endUser);
+
+
+        }}
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allUsers;
+
     }
 
     public User getUserById (Long id) {
@@ -103,10 +215,11 @@ public class DataBaseHandler extends Configs {
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
                 endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
+                endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
                 endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedOP(resSet.getBoolean("passedop"));
+                endUser.setPassedGB(resSet.getBoolean("passedgb"));
                 endUser.setPassedDN(resSet.getBoolean("passeddn"));
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
@@ -174,7 +287,7 @@ public class DataBaseHandler extends Configs {
                 Const.USERS_GENDER + "=\'" + user.getGender() + "\', " +
                 Const.USERS_GROUP + "=\'" + user.getGroup() + "\', " +
                 "passedgl=\'" + user.isPassedGL() + "\', " +
-                "passedop=\'" + user.isPassedOP() + "\', " +
+                "passedgb=\'" + user.isPassedGB() + "\', " +
                 "passeddn=\'" + user.isPassedDN() + "\', " +
                 "passedat=\'" + user.isPassedAT() + "\', " +
                 "passedn=\'" + user.isPassedN() + "\', " +
