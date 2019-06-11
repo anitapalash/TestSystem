@@ -106,10 +106,10 @@ public class User {
         this.passedGL = passedGL;
     }
 
-    public boolean isPassedOP() {
+    public boolean isPassedGB() {
         return passedOP;
     }
-    public void setPassedOP(boolean passedOP) {
+    public void setPassedGB(boolean passedOP) {
         this.passedOP = passedOP;
     }
 

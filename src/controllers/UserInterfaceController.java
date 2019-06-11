@@ -4,8 +4,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import services.Main;
+import services.StageLoader;
 
+import java.io.IOException;
 
 import static services.Main.currentUser;
 
@@ -120,7 +123,7 @@ public class UserInterfaceController {
         } else {
             failedGLLabel.setVisible(true);
         }
-        if (Main.currentUser.isPassedOP()) {
+        if (Main.currentUser.isPassedGB()) {
             passedOPLabel.setVisible(true);
         } else {
             failedOPLabel.setVisible(true);
@@ -178,48 +181,45 @@ public class UserInterfaceController {
     //часть для управления запуска тестами
 
     @FXML
-    void loadATTest(ActionEvent event) {
-        TestController ATTestController = new TestController("attackTitan.txt");
+    void loadATTest(ActionEvent event) throws IOException {
+        TestController ATTestController = new TestController("snk.txt");
+        Stage stage = StageLoader.loadTest("test", ATTestController);
+        stage.showAndWait();
     }
 
     @FXML
-    void loadDNTest(ActionEvent event) {
-        TestController DNTestController = new TestController("deathNote.txt");
+    void loadDNTest(ActionEvent event) throws IOException {
+        TestController DNTestController = new TestController("dn.txt");
+        Stage stage = StageLoader.loadTest("test", DNTestController);
+        stage.showAndWait();
     }
 
     @FXML
-    void loadGLTest(ActionEvent event) {
-        TestController GLTestController = new TestController("gurrenLagann.txt");
-
+    void loadGLTest(ActionEvent event) throws IOException {
+        TestController GLTestController = new TestController("ttgl.txt");
+        Stage stage = StageLoader.loadTest("test", GLTestController);
+        stage.showAndWait();
     }
 
     @FXML
-    void loadGenTest(ActionEvent event) {
+    void loadGenTest(ActionEvent event) throws IOException {
         TestController GenTestController = new TestController("general.txt");
-
+        Stage stage = StageLoader.loadTest("test", GenTestController);
+        stage.showAndWait();
     }
 
     @FXML
-    void loadNTest(ActionEvent event) {
+    void loadNTest(ActionEvent event) throws IOException {
+        System.out.println("Hello");
         TestController NTestController = new TestController("naruto.txt");
-
+        Stage stage = StageLoader.loadTest("test", NTestController);
+        stage.showAndWait();
     }
 
     @FXML
-    void loadOPTest(ActionEvent event) {
-        TestController OPTestController = new TestController("onePiece.txt");
-
-    }
-
-    @FXML
-    void selectPersonalTab(ActionEvent event) {
-        testTab.setDisable(true);
-        personalInfoTab.setDisable(false);
-    }
-
-    @FXML
-    void selectTestTab(ActionEvent event) {
-        personalInfoTab.setDisable(true);
-        testTab.setDisable(false);
+    void loadGBTest(ActionEvent event) throws IOException {
+        TestController GBTestController = new TestController("gibli.txt");
+        Stage stage = StageLoader.loadTest("test", GBTestController);
+        stage.showAndWait();
     }
 }

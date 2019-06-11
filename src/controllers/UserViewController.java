@@ -17,6 +17,9 @@ public class UserViewController {
     private Button exitButton;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     private TextField surnameTextField;
 
     @FXML
@@ -110,7 +113,7 @@ public class UserViewController {
         } else {
             failedGLLabel.setVisible(true);
         }
-        if (Main.currentUser.isPassedOP()) {
+        if (Main.currentUser.isPassedGB()) {
             passedOPLabel.setVisible(true);
         } else {
             failedOPLabel.setVisible(true);
@@ -144,7 +147,25 @@ public class UserViewController {
 
     @FXML
     void editUserInfo(ActionEvent event) {
+        surnameTextField.setEditable(true);
+        firstNameTextField.setEditable(true);
+        userNameTextField.setEditable(true);
+        groupTextField.setEditable(true);
+        saveButton.setVisible(true);
+    }
 
+    @FXML
+    void saveChanges(ActionEvent event) {
+        Main.currentUser.setLastName(surnameTextField.getText());
+        Main.currentUser.setFirstName(firstNameTextField.getText());
+        Main.currentUser.setUserName(userNameTextField.getText());
+        Main.currentUser.setGroup(groupTextField.getText());
+        Main.dbHandler.updateUser(Main.currentUser);
+        surnameTextField.setEditable(false);
+        firstNameTextField.setEditable(false);
+        userNameTextField.setEditable(false);
+        groupTextField.setEditable(false);
+        saveButton.setVisible(false);
     }
 
     @FXML
@@ -155,32 +176,32 @@ public class UserViewController {
     }
 
     @FXML
-    void loadATTest(ActionEvent event) {
+    void loadATTest(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void loadDNTest(ActionEvent event) {
+    void loadDNTest(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void loadGLTest(ActionEvent event) {
+    void loadGLTest(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void loadGenTest(ActionEvent event) {
+    void loadGenTest(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void loadNTest(ActionEvent event) {
+    void loadNTest(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void loadOPTest(ActionEvent event) {
+    void loadGBTest(ActionEvent event) throws IOException {
 
     }
 }

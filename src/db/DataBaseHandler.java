@@ -74,7 +74,7 @@ public class DataBaseHandler extends Configs {
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
                 endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedOP(resSet.getBoolean("passedop"));
+                endUser.setPassedGB(resSet.getBoolean("passedop"));
                 endUser.setPassedDN(resSet.getBoolean("passeddn"));
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
@@ -106,7 +106,7 @@ public class DataBaseHandler extends Configs {
                 endUser.setGender(resSet.getString(Const.USERS_GENDER));
                 endUser.setGroup(resSet.getString(Const.USERS_GROUP));
                 endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedOP(resSet.getBoolean("passedop"));
+                endUser.setPassedGB(resSet.getBoolean("passedop"));
                 endUser.setPassedDN(resSet.getBoolean("passeddn"));
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
@@ -174,7 +174,7 @@ public class DataBaseHandler extends Configs {
                 Const.USERS_GENDER + "=\'" + user.getGender() + "\', " +
                 Const.USERS_GROUP + "=\'" + user.getGroup() + "\', " +
                 "passedgl=\'" + user.isPassedGL() + "\', " +
-                "passedop=\'" + user.isPassedOP() + "\', " +
+                "passedop=\'" + user.isPassedGB() + "\', " +
                 "passeddn=\'" + user.isPassedDN() + "\', " +
                 "passedat=\'" + user.isPassedAT() + "\', " +
                 "passedn=\'" + user.isPassedN() + "\', " +

@@ -1,21 +1,16 @@
 package controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import libraries.Access;
 import services.Main;
 import services.StageLoader;
 import users.User;
@@ -68,12 +63,12 @@ public class EntranceController {
     }
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
-        //каким-то образом зафиксировать какой юзер залогинился
         User tempUser = Main.dbHandler.getUser(new User(loginText, loginPassword)); //взять из бд
         if (tempUser.getUserName().equals(loginText)) {
             if (tempUser.getPassword().equals(loginPassword)) {
                 System.out.println("Log in successful");
                 Main.currentUser = new User(loginText, loginPassword);
+                Main.currentUser.setId(tempUser.getId());
                 Main.currentUser.setAccess(tempUser.getAccess());
                 Main.currentUser.setFirstName(tempUser.getFirstName());
                 Main.currentUser.setLastName(tempUser.getLastName());
@@ -94,7 +89,6 @@ public class EntranceController {
             Shake userPassAnim = new Shake(password_field);
             userLoginAnim.playAnim();
             userPassAnim.playAnim();
-
         }
     }
 }
