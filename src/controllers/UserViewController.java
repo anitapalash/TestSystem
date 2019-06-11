@@ -110,7 +110,7 @@ public class UserViewController {
         } else {
             failedGLLabel.setVisible(true);
         }
-        if (Main.currentUser.isPassedOP()) {
+        if (Main.currentUser.isPassedGB()) {
             passedOPLabel.setVisible(true);
         } else {
             failedOPLabel.setVisible(true);

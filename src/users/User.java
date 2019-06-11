@@ -1,6 +1,7 @@
 package users;
 
 import libraries.Access;
+import libraries.Status;
 
 public class User {
     private Long id;
@@ -10,25 +11,27 @@ public class User {
     private String lastName;     //фамилия
     private String group;       //группа
     private Access access;      //уровень доступа
+    private Status status;      //статус
     private String gender;      //пол
 
     private boolean passedGL;
-    private boolean passedOP;
+    private boolean passedGB;
     private boolean passedDN;
     private boolean passedAT;
     private boolean passedN;
     private boolean passedGen;
 
 
-    public User() { this.access = Access.USER; passedAT = false; passedDN = false; passedGen = false;
-        passedOP = false; passedGL = false; passedN = false; }
+    public User() { this.access = Access.USER; this.status = Status.ACTIVE; passedAT = false; passedDN = false; passedGen = false;
+        passedGB = false; passedGL = false; passedN = false; }
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.access = Access.USER;
+        this.status = Status.ACTIVE;
         passedAT = false; passedDN = false; passedGen = false;
-        passedOP = false; passedGL = false; passedN = false;
+        passedGB = false; passedGL = false; passedN = false;
     }
 
     public User(String firstName, String userName, String password, String lastName, String group, String gender) {
@@ -39,8 +42,9 @@ public class User {
         this.group = group;
         this.gender = gender;
         this.access = Access.USER;
+        this.status = Status.ACTIVE;
         passedAT = false; passedDN = false; passedGen = false;
-        passedOP = false; passedGL = false; passedN = false;
+        passedGB = false; passedGL = false; passedN = false;
     }
 
     public Long getId() {
@@ -85,6 +89,13 @@ public class User {
         this.group = group;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Access getAccess() {
         return access;
     }
@@ -106,11 +117,11 @@ public class User {
         this.passedGL = passedGL;
     }
 
-    public boolean isPassedOP() {
-        return passedOP;
+    public boolean isPassedGB() {
+        return passedGB;
     }
-    public void setPassedOP(boolean passedOP) {
-        this.passedOP = passedOP;
+    public void setPassedGB(boolean passedGB) {
+        this.passedGB = passedGB;
     }
 
     public boolean isPassedDN() {
@@ -148,8 +159,9 @@ public class User {
 
         User user = (User) o;
 
+
         if (passedGL != user.passedGL) return false;
-        if (passedOP != user.passedOP) return false;
+        if (passedGB != user.passedGB) return false;
         if (passedDN != user.passedDN) return false;
         if (passedAT != user.passedAT) return false;
         if (passedN != user.passedN) return false;
@@ -160,6 +172,7 @@ public class User {
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (group != null ? !group.equals(user.group) : user.group != null) return false;
         if (access != user.access) return false;
+        if (status != user.status) return false;
         return gender != null ? gender.equals(user.gender) : user.gender == null;
     }
 
@@ -171,9 +184,10 @@ public class User {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (group != null ? group.hashCode() : 0);
         result = 31 * result + access.hashCode();
+        result = 31 * result + status.hashCode();
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (passedGL ? 1 : 0);
-        result = 31 * result + (passedOP ? 1 : 0);
+        result = 31 * result + (passedGB ? 1 : 0);
         result = 31 * result + (passedDN ? 1 : 0);
         result = 31 * result + (passedAT ? 1 : 0);
         result = 31 * result + (passedN ? 1 : 0);
@@ -189,10 +203,11 @@ public class User {
                 ", password='" + password + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", group='" + group + '\'' +
-                ", access=" + access +
+                ", access=" + access + '\'' +
+                ", status=" + status + '\'' +
                 ", gender='" + gender + '\'' +
                 ", passedGL=" + passedGL +
-                ", passedOP=" + passedOP +
+                ", passedGB=" + passedGB +
                 ", passedDN=" + passedDN +
                 ", passedAT=" + passedAT +
                 ", passedN=" + passedN +

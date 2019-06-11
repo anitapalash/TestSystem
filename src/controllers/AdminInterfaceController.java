@@ -1,14 +1,38 @@
 package controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.beans.value.ChangeListener;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import services.Main;
+import services.StageLoader;
+import users.User;
+import users.UserTable;
 
-public class AdminInterfaceController {
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class AdminInterfaceController  {
+    private ObservableList<User> usersData = FXCollections.observableArrayList();
+ //   private ObservableList<UserTable> usersTableData = FXCollections.observableArrayList();
 
     @FXML
-    private Tab personalInfo;
+    private Tab UseralInfo;
+
+    @FXML
+    private Button searchUserButton;
+
+    @FXML
+    private TextField searchUserField;
 
     @FXML
     private Button exitButton;
@@ -98,16 +122,28 @@ public class AdminInterfaceController {
     private Tab manageUsersTab;
 
     @FXML
-    private TableColumn<?, ?> loginColumn;
+    private Label label;
+
 
     @FXML
-    private TableColumn<?, ?> firstNameColumn;
+    private TableView<User> tableUsers;
 
     @FXML
-    private TableColumn<?, ?> surnameColumn;
+    private TableColumn<User, Long> idColumn;
 
     @FXML
-    private TableColumn<?, ?> accessColumn;
+    private TableColumn<User, String> loginColumn;
+
+    @FXML
+    private TableColumn<User, String> firstNameColumn;
+
+    @FXML
+    private TableColumn<User, String> surnameColumn;
+
+    @FXML
+    private TableColumn<User, String> accessColumn;
+    @FXML
+    private TableColumn<User, String> statusColumn;
 
     @FXML
     private Tab editTestsTab;
@@ -147,6 +183,7 @@ public class AdminInterfaceController {
 
     }
 
+
     @FXML
     void loadNTest(ActionEvent event) {
 
@@ -157,4 +194,66 @@ public class AdminInterfaceController {
 
     }
 
+
+
+    @FXML
+    void searchForUsers(ActionEvent event) {
+
+        String request = searchUserField.getText();
+        usersData.clear();
+        usersData.addAll(Main.dbHandler.getUsersByRequest(request));
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, Long>("id"));
+        loginColumn.setCellValueFactory(new PropertyValueFactory<User, String>("userName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+        accessColumn.setCellValueFactory(new PropertyValueFactory<User, String>("access"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
+        // заполняем таблицу данными
+        tableUsers.setItems(usersData);
+
+
+    }
+@FXML
+void selectUser(MouseEvent event)
+{
+    Label lbl = new Label();
+    User user = tableUsers.getSelectionModel().getSelectedItem();
+    System.out.println(user.getUserName());
+    lbl.setText(user.getUserName());
 }
+    @FXML
+    private void initialize() throws SQLException {
+        initData();
+
+        // устанавливаем тип и значение которое должно хранится в колонке
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, Long>("id"));
+        loginColumn.setCellValueFactory(new PropertyValueFactory<User, String>("userName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+        accessColumn.setCellValueFactory(new PropertyValueFactory<User, String>("access"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
+        // заполняем таблицу данными
+        tableUsers.setItems(usersData);
+
+     //   tableUsers.setItems(usersTableData);
+    }
+
+    // подготавливаем данные для таблицы
+    // вы можете получать их с базы данных
+    private void initData() throws SQLException {
+      //UserTable user1 = new UserTable("Anton", "trueAnimeshnik", "Sidorov", "USER", "ACTIVE");
+       usersData.addAll(Main.dbHandler.getAllUsers());
+
+   //     System.out.println(user1.getlogin());
+   //     System.out.println(usersTableData.isEmpty());
+
+
+
+    }
+
+
+
+
+}
+
+
