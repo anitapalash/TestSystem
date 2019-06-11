@@ -7,6 +7,8 @@ import javafx.scene.text.Text;
 import services.Main;
 import services.StageLoader;
 
+import java.io.IOException;
+
 public class AdminInterfaceController {
 
     @FXML
@@ -125,7 +127,7 @@ public class AdminInterfaceController {
     }
 
     @FXML
-    void exit(ActionEvent event) {
+    void exit(ActionEvent event) throws IOException {
         Main.currentUser = null;
         exitButton.getScene().getWindow().hide();
         StageLoader.loadMain();
