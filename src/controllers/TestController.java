@@ -55,7 +55,6 @@ public class TestController {
     @FXML
     private Button returnButton;
 
-    //private List<String> lines = getLines("dn.txt");
     private int currentQuestion;
     private String[] currentQuestionInfo;
 
