@@ -73,13 +73,7 @@ public class EntranceController {
         if (tempUser.getUserName().equals(loginText)) {
             if (tempUser.getPassword().equals(loginPassword)) {
                 System.out.println("Log in successful");
-                Main.currentUser = new User(loginText, loginPassword);
-                Main.currentUser.setId(tempUser.getId());
-                Main.currentUser.setAccess(tempUser.getAccess());
-                Main.currentUser.setFirstName(tempUser.getFirstName());
-                Main.currentUser.setLastName(tempUser.getLastName());
-                Main.currentUser.setGroup(tempUser.getGroup());
-                Main.currentUser.setGender(tempUser.getGender());
+                Main.currentUser = tempUser;
                 Scene currentScene = authSignButton.getScene();
                 currentScene.getWindow().hide();
             } else {

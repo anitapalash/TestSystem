@@ -2,10 +2,6 @@ package services;
 
 import db.DataBaseHandler;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import libraries.Access;
 import users.User;
