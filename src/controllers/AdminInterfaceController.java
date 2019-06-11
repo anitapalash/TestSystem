@@ -4,6 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import services.Main;
+import services.StageLoader;
+
+import java.io.IOException;
 
 public class AdminInterfaceController {
 
@@ -123,8 +127,10 @@ public class AdminInterfaceController {
     }
 
     @FXML
-    void exit(ActionEvent event) {
-
+    void exit(ActionEvent event) throws IOException {
+        Main.currentUser = null;
+        exitButton.getScene().getWindow().hide();
+        StageLoader.loadMain();
     }
 
     @FXML

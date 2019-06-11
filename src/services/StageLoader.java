@@ -33,7 +33,6 @@ public class StageLoader {
         Scene scene = new Scene(loader.load(StageLoader.class.getResource(FXML_DIR + fxmlName + ".fxml")));
         stage.setScene(scene);
         stage.setOnHidden(event -> Platform.exit());
-        //stage.setOnHidden(event -> Platform.setImplicitExit(false));
         stage.setTitle(staticTitle);
         return stage;
     }
