@@ -36,6 +36,9 @@ public class AdminInterfaceController {
     private Button editInfoButton;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     private Button deleteProfileButton;
 
     @FXML
@@ -123,7 +126,25 @@ public class AdminInterfaceController {
 
     @FXML
     void editUserInfo(ActionEvent event) {
+        surnameTextField.setEditable(true);
+        firstNameTextField.setEditable(true);
+        userNameTextField.setEditable(true);
+        groupTextField.setEditable(true);
+        saveButton.setVisible(true);
+    }
 
+    @FXML
+    void saveChanges(ActionEvent event) {
+        Main.currentUser.setLastName(surnameTextField.getText());
+        Main.currentUser.setFirstName(firstNameTextField.getText());
+        Main.currentUser.setUserName(userNameTextField.getText());
+        Main.currentUser.setGroup(groupTextField.getText());
+        Main.dbHandler.updateUser(Main.currentUser);
+        surnameTextField.setEditable(false);
+        firstNameTextField.setEditable(false);
+        userNameTextField.setEditable(false);
+        groupTextField.setEditable(false);
+        saveButton.setVisible(false);
     }
 
     @FXML

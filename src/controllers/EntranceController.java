@@ -75,6 +75,7 @@ public class EntranceController {
                 Main.currentUser.setGroup(tempUser.getGroup());
                 Main.currentUser.setGender(tempUser.getGender());
                 Scene currentScene = authSignButton.getScene();
+                System.out.println(Main.dbHandler.getUserById(Main.currentUser.getId()).toString());
                 currentScene.getWindow().hide();
             } else {
                 System.out.println("Wrong password");
