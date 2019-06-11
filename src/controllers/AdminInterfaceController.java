@@ -4,19 +4,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import services.Main;
 import services.StageLoader;
 
 import java.io.IOException;
 
-import static services.Main.currentUser;
-
-public class AdminInterfaceController extends UserViewController {
-
-    @FXML
-    private TabPane tabPane;
-
+public class AdminInterfaceController {
     @FXML
     protected Tab personalInfoTab;
 
@@ -24,25 +17,25 @@ public class AdminInterfaceController extends UserViewController {
     protected Button exitButton;
 
     @FXML
-    protected Button editInfoButton;
+    private TextField surnameTextField;
 
     @FXML
-    protected Button deleteProfileButton;
+    private TextField firstNameTextField;
 
     @FXML
-    protected TextField surnameTextField;
+    private TextField userNameTextField;
 
     @FXML
-    protected TextField firstNameTextField;
+    private TextField groupTextField;
 
     @FXML
-    protected TextField userNameTextField;
+    private TextField genderTextField;
 
     @FXML
-    protected TextField groupTextField;
+    private Button editInfoButton;
 
     @FXML
-    protected TextField genderTextField;
+    private Button deleteProfileButton;
 
     @FXML
     private Tab testTab;
@@ -145,36 +138,15 @@ public class AdminInterfaceController extends UserViewController {
             failedGenLabel.setVisible(true);
         }
     }
-    /*
-        {
-            tabPane.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                System.out.println("Tab selected: " + newValue.getText());
-                // Content is already loaded. Update it if necessary.
-                Parent root = (Parent) newValue.getContent();
-                // Optionally get the controller from Map and manipulate the content
-                // via its controller.
-            });
-    // By default, select 1st tab and load its content.
-            tabPane.getSelectionModel().selectFirst();
-
-        }
-    */
-    @FXML
-    void editUserInfo(ActionEvent event) {
-
-    }
 
     @FXML
-    void deleteUser(ActionEvent event) {
-
-    }
+    private TableColumn<?, ?> loginColumn;
 
     @FXML
-    void exit(ActionEvent event) {
+    private TableColumn<?, ?> firstNameColumn;
 
-    }
-
-    //часть для управления запуска тестами
+    @FXML
+    private TableColumn<?, ?> surnameColumn;
 
     @FXML
     void loadATTest(ActionEvent event) throws IOException {
@@ -251,13 +223,19 @@ public class AdminInterfaceController extends UserViewController {
     private Tab manageUsersTab;
 
     @FXML
-    private TableColumn<?, ?> loginColumn;
+    void loadGLTest(ActionEvent event) {
+
+    }
 
     @FXML
-    private TableColumn<?, ?> firstNameColumn;
+    void loadGenTest(ActionEvent event) {
+
+    }
 
     @FXML
-    private TableColumn<?, ?> surnameColumn;
+    void loadNTest(ActionEvent event) {
+
+    }
 
     @FXML
     private TableColumn<?, ?> accessColumn;

@@ -29,9 +29,7 @@ public class Main extends Application {
                 stage.showAndWait();
             }
             else {
-                TabPane root = FXMLLoader.load(getClass().getResource("../view/UserViewA.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                Stage stage = StageLoader.loadTabPane("UserViewA");
                 stage.showAndWait();
             }
         } catch (IOException e) {
