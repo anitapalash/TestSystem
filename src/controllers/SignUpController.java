@@ -11,7 +11,6 @@ import services.Main;
 import users.User;
 
 public class SignUpController {
-
     @FXML
     private TextField login_field;
 

@@ -6,12 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import services.Main;
 
-import java.sql.SQLException;
-
-import static services.Main.selectedUser;
-
 public class ManageUserController {
-
     @FXML
     private TextField loginField;
 
@@ -44,7 +39,7 @@ public class ManageUserController {
 
     @FXML
     void blockUser(MouseEvent event) {
-        Long id = selectedUser.getId();
+        Long id = Main.selectedUser.getId();
         Main.dbHandler.changeStatusToBlocked(id);
         userButton.setVisible(false);
         analyserButton.setVisible(false);
@@ -52,21 +47,19 @@ public class ManageUserController {
 
     @FXML
     void makeAnalyserRole(MouseEvent event) {
-        Long id = selectedUser.getId();
+        Long id = Main.selectedUser.getId();
         Main.dbHandler.changeUserStatusToAnalyser(id);
-
     }
 
     @FXML
     void makeUserRole(MouseEvent event) {
-        Long id = selectedUser.getId();
+        Long id = Main.selectedUser.getId();
         Main.dbHandler.changeUserStatusToUser(id);
-
     }
 
     @FXML
     void unblockUser(MouseEvent event) {
-        Long id = selectedUser.getId();
+        Long id = Main.selectedUser.getId();
         Main.dbHandler.changeStatusToActive(id);
         userButton.setVisible(true);
         analyserButton.setVisible(true);
@@ -74,13 +67,12 @@ public class ManageUserController {
 
     @FXML
     public void initialize() {
-
-        loginField.setText(selectedUser.getUserName());
-        firstNameField.setText(selectedUser.getFirstName());
-        lastNameField.setText(selectedUser.getLastName());
-        groupField.setText(selectedUser.getGroup());
-        accessField.setText(selectedUser.getAccess().toString());
-        statusField.setText(selectedUser.getStatus().toString());
+        loginField.setText(Main.selectedUser.getUserName());
+        firstNameField.setText(Main.selectedUser.getFirstName());
+        lastNameField.setText(Main.selectedUser.getLastName());
+        groupField.setText(Main.selectedUser.getGroup());
+        accessField.setText(Main.selectedUser.getAccess().toString());
+        statusField.setText(Main.selectedUser.getStatus().toString());
 
 
     }

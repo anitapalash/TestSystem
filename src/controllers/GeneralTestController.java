@@ -69,12 +69,12 @@ public class GeneralTestController {
             answerField.setVisible(false);
             sendButton.setVisible(false);
         }
+
         if (Integer.parseInt(currentQuestionInfo[1]) == 2) {
             var1.setVisible(true);
             var2.setVisible(true);
             var3.setVisible(true);
             var4.setVisible(true);
-
 
             var1.setText(currentQuestionInfo[3]);
             var2.setText(currentQuestionInfo[4]);
@@ -134,7 +134,6 @@ public class GeneralTestController {
             lines.add(line);
         }
         br.close();
-
         return lines;
     }
 
@@ -173,8 +172,7 @@ public class GeneralTestController {
             var2.setVisible(false);
             var3.setVisible(false);
             var4.setVisible(false);
-        }
-        else if (currentQuestion == lines.size() && rightAnswersCount == 25) {
+        } else if (currentQuestion == lines.size() && rightAnswersCount == 25) {
             discussionArea.setText("Общий тест пройден успешно!");
             returnButton.setVisible(true);
             answerField.setVisible(false);

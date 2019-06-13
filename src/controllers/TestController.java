@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import services.Main;
 
-
 public class TestController {
     private List<String> lines;
 
@@ -57,7 +56,6 @@ public class TestController {
 
     private int currentQuestion;
     private String[] currentQuestionInfo;
-
     private int rightAnswersCount;
 
     public TestController() throws IOException, InterruptedException {
@@ -93,12 +91,12 @@ public class TestController {
             answerField.setVisible(false);
             sendButton.setVisible(false);
         }
+
         if (Integer.parseInt(currentQuestionInfo[1]) == 2) {
             var1.setVisible(true);
             var2.setVisible(true);
             var3.setVisible(true);
             var4.setVisible(true);
-
 
             var1.setText(currentQuestionInfo[3]);
             var2.setText(currentQuestionInfo[4]);
@@ -216,8 +214,7 @@ public class TestController {
                     Main.dbHandler.updateUser(Main.currentUser);
                     break;
             }
-        }
-        else if (currentQuestion == lines.size() && rightAnswersCount == 5) {
+        } else if (currentQuestion == lines.size() && rightAnswersCount == 5) {
             discussionArea.setText("Тест пройден успешно!");
             returnButton.setVisible(true);
             answerField.setVisible(false);
@@ -256,20 +253,17 @@ public class TestController {
         }
     }
 
-
     void sendAnswer1(String answer) throws Exception {
         String line = currentQuestionInfo[5].toLowerCase();
 
-        if (line.equals(answer.toLowerCase())) {
+        if (line.equals(answer.toLowerCase()))
             rightAnswersCount++;
-        }
     }
 
     void sendAnswer2(String answer) throws Exception {
         String line = currentQuestionInfo[7].toLowerCase();
-        if (line.equals(answer.toLowerCase())) {
+        if (line.equals(answer.toLowerCase()))
             rightAnswersCount++;
-        }
     }
 
     void sendAnswer3(String answer) throws Exception {
@@ -277,9 +271,8 @@ public class TestController {
         String line2 = currentQuestionInfo[3].toLowerCase();
         String line3 = currentQuestionInfo[4].toLowerCase();
         answer = answer.toLowerCase();
-        if (answer.equals(line1) || answer.equals(line2) || answer.equals(line3)) {
+        if (answer.equals(line1) || answer.equals(line2) || answer.equals(line3))
             rightAnswersCount++;
-        }
     }
 
     @FXML

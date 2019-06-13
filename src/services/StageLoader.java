@@ -6,14 +6,12 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class StageLoader {
     private static String staticTitle = "AnimeTest";
-
     private static final String FXML_DIR = "../view/";
 
     public static Stage loadMain() throws IOException {

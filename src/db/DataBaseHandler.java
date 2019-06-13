@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class DataBaseHandler extends Configs {
     Connection dbConnection;
@@ -41,56 +39,51 @@ public class DataBaseHandler extends Configs {
         runScript(dbConnection);
         return dbConnection;
     }
-public void changeUserStatusToAnalyser(Long id)
-{
 
-    String select = "UPDATE  " + Const.USER_TABLE + " SET access = 'ANALISER' WHERE id="+id+";";
-    try {
-        dbConnection.createStatement().execute(select);}
-    catch (SQLException e) {
-        e.printStackTrace();
-    }
-    System.out.println("Analyser access is set");
-}
-    public void changeUserStatusToUser(Long id)
-    {
-
-        String select = "UPDATE  " + Const.USER_TABLE + " SET access = 'USER' WHERE id="+id+";";
+    public void changeUserStatusToAnalyser(Long id) {
+        String select = "UPDATE  " + Const.USER_TABLE + " SET access = 'ANALISER' WHERE id=" + id + ";";
         try {
-          dbConnection.createStatement().execute(select);}
-        catch (SQLException e) {
+            dbConnection.createStatement().execute(select);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Analyser access is set");
+    }
+
+    public void changeUserStatusToUser(Long id) {
+        String select = "UPDATE  " + Const.USER_TABLE + " SET access = 'USER' WHERE id=" + id + ";";
+        try {
+            dbConnection.createStatement().execute(select);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         System.out.println("User access is set");
-
-
     }
-    public void changeStatusToBlocked(Long id)
-    {
 
-        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'BLOCKED' WHERE id="+id+";";
+    public void changeStatusToBlocked(Long id) {
+        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'BLOCKED' WHERE id=" + id + ";";
         try {
-            dbConnection.createStatement().execute(select);}
-        catch (SQLException e) {
+            dbConnection.createStatement().execute(select);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("User  is blocked");
+        System.out.println("User is blocked");
     }
-    public void changeStatusToActive(Long id)
-    {
 
-        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'ACTIVE' WHERE id="+id+";";
+    public void changeStatusToActive(Long id) {
+        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'ACTIVE' WHERE id=" + id + ";";
         try {
-            dbConnection.createStatement().execute(select);}
-        catch (SQLException e) {
+            dbConnection.createStatement().execute(select);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         System.out.println("User  is active");
     }
+
     public void signUpUser(User user) {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
-                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " + Const.USERS_STATUS + ", "+
+                Const.USERS_PASSWORD + ", " + Const.USERS_GROUP + ", " + Const.USERS_ACCESS + ", " + Const.USERS_STATUS + ", " +
                 Const.USERS_GENDER + ", passedgl, passedgb, passeddn, passedat, passedn, passedgen) " + "VALUES ("
                 + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
                 + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
@@ -106,7 +99,7 @@ public void changeUserStatusToAnalyser(Long id)
         }
     }
 
-    public User getUser(User user) {// массив пользователей
+    public User getUser(User user) {
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
                 + Const.USERS_USERNAME + " = \'" + user.getUserName() + "\'";
@@ -137,10 +130,10 @@ public void changeUserStatusToAnalyser(Long id)
         }
         return endUser;
     }
-    public ArrayList<User> getUsersByRequest(String request) {
-        if(request.isEmpty())
-        {
-            DataBaseHandler.getAllUsers();
+
+    public ArrayList<User> getUsersByRequest(String request) throws SQLException {
+        if (request.isEmpty()) {
+            getAllUsers();
         }
         ArrayList<String> parameters = new ArrayList<String>();
 
@@ -154,20 +147,13 @@ public void changeUserStatusToAnalyser(Long id)
         ArrayList<User> allUsers = new ArrayList<User>();
         ResultSet resSet = null;
         for (int i = 0; i < 7; i++) {
+            String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + parameters.get(i) + " LIKE '" +
+                    request + "' ;";
 
-
-
-
-                    String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + parameters.get(i) + " LIKE '" + request + "' ;";
-
-
-            if(request.matches("[-+]?\\d+"))
-            {
-               Long requestLong = Long.parseLong(request);
-                  allUsers.add(getUserById(requestLong));
-                  return allUsers;
-
-
+            if (request.matches("[-+]?\\d+")) {
+                Long requestLong = Long.parseLong(request);
+                allUsers.add(getUserById(requestLong));
+                return allUsers;
             }
 
             try {
@@ -194,31 +180,25 @@ public void changeUserStatusToAnalyser(Long id)
                     endUser.setPassedGen(resSet.getBoolean("passedgen"));
 
                     allUsers.add(endUser);
-
-
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-
-
         }
         return allUsers;
     }
 
     public ArrayList<User> getAllUsers() throws SQLException {
         ResultSet resSet = null;
-        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + " access " + "!=" +" 'ADMIN' " + ";";
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + " access " + "!=" + " 'ADMIN' " + ";";
         ArrayList<User> allUsers = new ArrayList<User>();
 
         try {
             PreparedStatement prSt = dbConnection.prepareStatement(select);
             resSet = prSt.executeQuery();
 
-            while(resSet!= null && resSet.next())
-
-            {    User endUser = new User();
-                //  if (resSet.next()) {
+            while (resSet != null && resSet.next()) {
+                User endUser = new User();
                 endUser.setId(resSet.getLong("id"));
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
@@ -236,18 +216,14 @@ public void changeUserStatusToAnalyser(Long id)
                 endUser.setPassedGen(resSet.getBoolean("passedgen"));
 
                 allUsers.add(endUser);
-
-
-        }}
-        catch (SQLException e) {
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return allUsers;
-
     }
 
-    public User getUserById (Long id) {
+    public User getUserById(Long id) {
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
                 + Const.USERS_ID + " = " + id;
@@ -325,13 +301,14 @@ public void changeUserStatusToAnalyser(Long id)
         return null;
     }
 
-    public void updateUser (User user) {
+    public void updateUser(User user) {
         String request = "UPDATE " + Const.USER_TABLE + " SET " +
                 Const.USERS_USERNAME + "=\'" + user.getUserName() + "\', " +
                 Const.USERS_PASSWORD + "=\'" + user.getPassword() + "\', " +
                 Const.USERS_FIRSTNAME + "=\'" + user.getFirstName() + "\', " +
                 Const.USERS_LASTNAME + "=\'" + user.getLastName() + "\', " +
                 Const.USERS_ACCESS + "=\'" + user.getAccess().toString() + "\', " +
+                "status=\'" + user.getStatus().toString() + "\', " +
                 Const.USERS_GENDER + "=\'" + user.getGender() + "\', " +
                 Const.USERS_GROUP + "=\'" + user.getGroup() + "\', " +
                 "passedgl=\'" + user.isPassedGL() + "\', " +

@@ -22,8 +22,10 @@ public class User {
     private boolean passedGen;
 
 
-    public User() { this.access = Access.USER; this.status = Status.ACTIVE; passedAT = false; passedDN = false; passedGen = false;
-        passedGB = false; passedGL = false; passedN = false; }
+    public User() {
+        this.access = Access.USER; this.status = Status.ACTIVE; passedAT = false; passedDN = false;
+        passedGen = false; passedGB = false; passedGL = false; passedN = false;
+    }
 
     public User(String userName, String password) {
         this.userName = userName;

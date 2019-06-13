@@ -153,6 +153,7 @@ public class UserViewController {
         firstNameTextField.setEditable(true);
         userNameTextField.setEditable(true);
         groupTextField.setEditable(true);
+        genderTextField.setEditable(true);
         saveButton.setVisible(true);
     }
 
@@ -167,6 +168,7 @@ public class UserViewController {
         firstNameTextField.setEditable(false);
         userNameTextField.setEditable(false);
         groupTextField.setEditable(false);
+        genderTextField.setEditable(false);
         saveButton.setVisible(false);
     }
 
@@ -174,7 +176,6 @@ public class UserViewController {
     void exit(ActionEvent event) throws IOException {
         Main.currentUser = null;
         exitButton.getScene().getWindow().hide();
-        StageLoader.loadMain();
     }
 
     //часть для управления запуска тестами

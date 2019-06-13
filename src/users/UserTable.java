@@ -1,6 +1,5 @@
 package users;
 
-
 public class UserTable {
     public Long id;
     public String login;
@@ -9,63 +8,54 @@ public class UserTable {
     public String access;
     public String status;
 
-public UserTable( String login, String firstName, String surname, String access, String status)
-{
-    this.login= login;
-    this.firstName = firstName;
-    this.surname = surname;
-    this.access = access;
-    this.status = status;
+    public UserTable(String login, String firstName, String surname, String access, String status) {
+        this.login = login;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.access = access;
+        this.status = status;
 
-}
-    public Long getUserId() {
+    }
+
+    public Long getId() {
         return id;
     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public String getlogin()
-  {
-      return login;
-  }
+    public String getLogin() {
+        return login;
+    }
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-    public String firstName() {
+    public String getFirstName() {
         return firstName;
     }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String getsurname() {
+    public String getSurname() {
         return surname;
     }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
-    public String getaccess() {
+    public String getAccess() {
         return access;
     }
+    public void setAccess(String access) {
+        this.access = access;
+    }
 
-    public String getstatus() {
+    public String getStatus() {
         return status;
     }
-    public Long setUserId(Long id) {
-        return this.id = id;
+    public void setStatus(String status) {
+        this.status = status;
     }
-
-    public String setlogin(String login)
-    {
-        return this.login= login;
-    }
-
-    public String firstName(String firstName) {
-        return this.firstName= firstName;
-    }
-
-    public String setsurname(String surname) {
-        return this.surname= surname;
-    }
-
-    public String setaccess(String access) {
-        return this.access= access;
-    }
-
-    public String setstatus(String status) {
-        return this.status= status;
-    }
-
-
 }

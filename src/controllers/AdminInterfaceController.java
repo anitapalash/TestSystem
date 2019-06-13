@@ -6,25 +6,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import services.Main;
 import services.StageLoader;
 
 import java.io.IOException;
 import javafx.stage.Stage;
-import services.Main;
-import services.StageLoader;
 import users.User;
 
 import javafx.scene.input.MouseEvent;
-import java.io.IOException;
 import java.sql.SQLException;
-
-import static services.Main.selectedUser;
 
 public class AdminInterfaceController {
     private ObservableList<User> usersData = FXCollections.observableArrayList();
-    //   private ObservableList<UserTable> usersTableData = FXCollections.observableArrayList();
 
     @FXML
     private Tab personalInfo;
@@ -130,7 +125,6 @@ public class AdminInterfaceController {
     @FXML
     private Label label;
 
-
     @FXML
     private TableView<User> tableUsers;
 
@@ -166,6 +160,7 @@ public class AdminInterfaceController {
         firstNameTextField.setEditable(true);
         userNameTextField.setEditable(true);
         groupTextField.setEditable(true);
+        genderTextField.setEditable(true);
         saveButton.setVisible(true);
     }
 
@@ -180,6 +175,7 @@ public class AdminInterfaceController {
         firstNameTextField.setEditable(false);
         userNameTextField.setEditable(false);
         groupTextField.setEditable(false);
+        genderTextField.setEditable(false);
         saveButton.setVisible(false);
     }
 
@@ -187,7 +183,6 @@ public class AdminInterfaceController {
     void exit(ActionEvent event) throws IOException {
         Main.currentUser = null;
         exitButton.getScene().getWindow().hide();
-        StageLoader.loadMain();
     }
 
     //часть для управления запуска тестами
@@ -252,6 +247,18 @@ public class AdminInterfaceController {
     }
 
     @FXML
+    void loadGBTest(ActionEvent event) throws IOException {
+        TestController GBTestController = new TestController("gibli.txt");
+        Stage stage = StageLoader.loadTest("test", GBTestController);
+        stage.showAndWait();
+
+        if (Main.currentUser.isPassedGB()) {
+            failedGBLabel.setVisible(false);
+            passedGBLabel.setVisible(true);
+        }
+    }
+
+    @FXML
     private Button manageUserButton;
 
     @FXML
@@ -260,18 +267,13 @@ public class AdminInterfaceController {
             Scene currentScene = manageUserButton.getScene();
             Stage stage = StageLoader.loadScene("ManageUsersView");
             stage.showAndWait();
-            //   Scene currentScene = manageUserButton.getScene();
-            // Stage stage = StageLoader.loadScene("view/ManageUsersView");
-
         } catch (IOException e) {
             System.out.println("Could not load signUp scene");
         }
     }
 
-
     @FXML
-    void searchForUsers(ActionEvent event) {
-
+    void searchForUsers(ActionEvent event) throws SQLException {
         String request = searchUserField.getText();
         usersData.clear();
         usersData.addAll(Main.dbHandler.getUsersByRequest(request));
@@ -283,28 +285,12 @@ public class AdminInterfaceController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
         // заполняем таблицу данными
         tableUsers.setItems(usersData);
-
-
     }
 
     @FXML
     void selectUser(MouseEvent event) throws IOException {
-
-        selectedUser = tableUsers.getSelectionModel().getSelectedItem();
-
-        label.setText(selectedUser.getUserName());
-    }
-
-    @FXML
-    void loadGBTest(ActionEvent event) throws IOException {
-        TestController GBTestController = new TestController("gibli.txt");
-        Stage stage = StageLoader.loadTest("test", GBTestController);
-        stage.showAndWait();
-
-        if (Main.currentUser.isPassedGB()) {
-            failedGBLabel.setVisible(false);
-            passedGBLabel.setVisible(true);
-        }
+        Main.selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+        label.setText(Main.selectedUser.getUserName());
     }
 
     @FXML
@@ -358,8 +344,6 @@ public class AdminInterfaceController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
         // заполняем таблицу данными
         tableUsers.setItems(usersData);
-
-        //   tableUsers.setItems(usersTableData);
     }
 
     // подготавливаем данные для таблицы
@@ -367,9 +351,6 @@ public class AdminInterfaceController {
     private void initData() throws SQLException {
         //UserTable user1 = new UserTable("Anton", "trueAnimeshnik", "Sidorov", "USER", "ACTIVE");
         usersData.addAll(Main.dbHandler.getAllUsers());
-
-        //     System.out.println(user1.getlogin());
-        //     System.out.println(usersTableData.isEmpty());
     }
 }
 
