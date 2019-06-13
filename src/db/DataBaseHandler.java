@@ -1,5 +1,6 @@
 package db;
 
+import controllers.AdminInterfaceController;
 import libraries.Access;
 import libraries.Configs;
 import libraries.Const;
@@ -137,6 +138,10 @@ public void changeUserStatusToAnalyser(Long id)
         return endUser;
     }
     public ArrayList<User> getUsersByRequest(String request) {
+        if(request.isEmpty())
+        {
+            DataBaseHandler.getAllUsers();
+        }
         ArrayList<String> parameters = new ArrayList<String>();
 
         parameters.add("userName");

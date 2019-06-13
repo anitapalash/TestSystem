@@ -1,14 +1,9 @@
 package controllers;
 
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.beans.value.ChangeListener;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,7 +12,6 @@ import javafx.stage.Stage;
 import services.Main;
 import services.StageLoader;
 import users.User;
-import users.UserTable;
 
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
@@ -25,9 +19,9 @@ import java.sql.SQLException;
 
 import static services.Main.selectedUser;
 
-public class AdminInterfaceController  {
+public class AdminInterfaceController {
     private ObservableList<User> usersData = FXCollections.observableArrayList();
- //   private ObservableList<UserTable> usersTableData = FXCollections.observableArrayList();
+    //   private ObservableList<UserTable> usersTableData = FXCollections.observableArrayList();
 
     @FXML
     private Tab UseralInfo;
@@ -150,6 +144,7 @@ public class AdminInterfaceController  {
     @FXML
     private TableColumn<User, String> accessColumn;
 
+    @FXML
     private TableColumn<User, String> statusColumn;
 
     @FXML
@@ -250,17 +245,18 @@ public class AdminInterfaceController  {
             passedNLabel.setVisible(true);
         }
     }
-@FXML
-private Button manageUserButton;
+
     @FXML
-    void  changeUserData(MouseEvent event)
-    {
+    private Button manageUserButton;
+
+    @FXML
+    void changeUserData(MouseEvent event) {
         try {
             Scene currentScene = manageUserButton.getScene();
             Stage stage = StageLoader.loadScene("ManageUsersView");
             stage.showAndWait();
-         //   Scene currentScene = manageUserButton.getScene();
-           // Stage stage = StageLoader.loadScene("view/ManageUsersView");
+            //   Scene currentScene = manageUserButton.getScene();
+            // Stage stage = StageLoader.loadScene("view/ManageUsersView");
 
         } catch (IOException e) {
             System.out.println("Could not load signUp scene");
@@ -285,13 +281,14 @@ private Button manageUserButton;
 
 
     }
-@FXML
-void selectUser(MouseEvent event)
-{
 
-    selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+    @FXML
+    void selectUser(MouseEvent event) throws IOException {
 
-    label.setText(selectedUser.getUserName());
+        selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+
+        label.setText(selectedUser.getUserName());
+    }
 
     @FXML
     void loadGBTest(ActionEvent event) throws IOException {
@@ -304,7 +301,7 @@ void selectUser(MouseEvent event)
             passedGBLabel.setVisible(true);
         }
     }
-}
+
     @FXML
     private void initialize() throws SQLException {
         initData();
@@ -357,25 +354,18 @@ void selectUser(MouseEvent event)
         // заполняем таблицу данными
         tableUsers.setItems(usersData);
 
-     //   tableUsers.setItems(usersTableData);
+        //   tableUsers.setItems(usersTableData);
     }
 
     // подготавливаем данные для таблицы
     // вы можете получать их с базы данных
     private void initData() throws SQLException {
-      //UserTable user1 = new UserTable("Anton", "trueAnimeshnik", "Sidorov", "USER", "ACTIVE");
-       usersData.addAll(Main.dbHandler.getAllUsers());
+        //UserTable user1 = new UserTable("Anton", "trueAnimeshnik", "Sidorov", "USER", "ACTIVE");
+        usersData.addAll(Main.dbHandler.getAllUsers());
 
-   //     System.out.println(user1.getlogin());
-   //     System.out.println(usersTableData.isEmpty());
-
-
-
+        //     System.out.println(user1.getlogin());
+        //     System.out.println(usersTableData.isEmpty());
     }
-
-
-
-
 }
 
 
