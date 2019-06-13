@@ -6,7 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.beans.value.ChangeListener;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,9 +19,11 @@ import services.StageLoader;
 import users.User;
 import users.UserTable;
 
-import java.awt.event.MouseEvent;
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+
+import static services.Main.selectedUser;
 
 public class AdminInterfaceController  {
     private ObservableList<User> usersData = FXCollections.observableArrayList();
@@ -193,7 +197,22 @@ public class AdminInterfaceController  {
     void loadOPTest(ActionEvent event) {
 
     }
+@FXML
+private Button manageUserButton;
+    @FXML
+    void  changeUserData(MouseEvent event)
+    {
+        try {
+            Scene currentScene = manageUserButton.getScene();
+            Stage stage = StageLoader.loadScene("ManageUsersView");
+            stage.showAndWait();
+         //   Scene currentScene = manageUserButton.getScene();
+           // Stage stage = StageLoader.loadScene("view/ManageUsersView");
 
+        } catch (IOException e) {
+            System.out.println("Could not load signUp scene");
+        }
+    }
 
 
     @FXML
@@ -216,10 +235,11 @@ public class AdminInterfaceController  {
 @FXML
 void selectUser(MouseEvent event)
 {
-    Label lbl = new Label();
-    User user = tableUsers.getSelectionModel().getSelectedItem();
-    System.out.println(user.getUserName());
-    lbl.setText(user.getUserName());
+
+    selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+
+    label.setText(selectedUser.getUserName());
+
 }
     @FXML
     private void initialize() throws SQLException {
