@@ -1,6 +1,7 @@
 package users;
 
 import libraries.Access;
+import libraries.Status;
 
 public class User {
     private Long id;
@@ -10,6 +11,7 @@ public class User {
     private String lastName;     //фамилия
     private String group;       //группа
     private Access access;      //уровень доступа
+    private Status status;      //статус
     private String gender;      //пол
 
     private boolean passedGL;
@@ -18,17 +20,20 @@ public class User {
     private boolean passedAT;
     private boolean passedN;
     private boolean passedGen;
+    private String passedTests = "5";
 
 
-    public User() { this.access = Access.USER; passedAT = false; passedDN = false; passedGen = false;
-        passedGB = false; passedGL = false; passedN = false; }
+    public User() { this.access = Access.USER; this.status = Status.ACTIVE; passedAT = false; passedDN = false; passedGen = false;
+        passedGB = false; passedGL = false; passedN = false; passedTests = "5"; }
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.access = Access.USER;
+        this.status = Status.ACTIVE;
         passedAT = false; passedDN = false; passedGen = false;
         passedGB = false; passedGL = false; passedN = false;
+        passedTests = "5";
     }
 
     public User(String firstName, String userName, String password, String lastName, String group, String gender) {
@@ -39,8 +44,10 @@ public class User {
         this.group = group;
         this.gender = gender;
         this.access = Access.USER;
+        this.status = Status.ACTIVE;
         passedAT = false; passedDN = false; passedGen = false;
         passedGB = false; passedGL = false; passedN = false;
+        passedTests = "5";
     }
 
     public Long getId() {
@@ -85,6 +92,13 @@ public class User {
         this.group = group;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     public Access getAccess() {
         return access;
     }
@@ -109,8 +123,8 @@ public class User {
     public boolean isPassedGB() {
         return passedGB;
     }
-    public void setPassedGB(boolean passedOP) {
-        this.passedGB = passedOP;
+    public void setPassedGB(boolean passedGB) {
+        this.passedGB = passedGB;
     }
 
     public boolean isPassedDN() {
@@ -141,6 +155,14 @@ public class User {
         this.passedGen = passedGen;
     }
 
+    public void setPassedTests(String passedTests) {
+        this.passedTests = passedTests;
+    }
+
+    public String getPassedTests(){
+        return this.passedTests;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -160,6 +182,7 @@ public class User {
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (group != null ? !group.equals(user.group) : user.group != null) return false;
         if (access != user.access) return false;
+        if (status != user.status) return false;
         return gender != null ? gender.equals(user.gender) : user.gender == null;
     }
 
@@ -171,6 +194,7 @@ public class User {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (group != null ? group.hashCode() : 0);
         result = 31 * result + access.hashCode();
+        result = 31 * result + status.hashCode();
         result = 31 * result + (gender != null ? gender.hashCode() : 0);
         result = 31 * result + (passedGL ? 1 : 0);
         result = 31 * result + (passedGB ? 1 : 0);
@@ -189,10 +213,11 @@ public class User {
                 ", password='" + password + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", group='" + group + '\'' +
-                ", access=" + access +
+                ", access=" + access + '\'' +
+                ", status=" + status + '\'' +
                 ", gender='" + gender + '\'' +
                 ", passedGL=" + passedGL +
-                ", passedOP=" + passedGB +
+                ", passedGB=" + passedGB +
                 ", passedDN=" + passedDN +
                 ", passedAT=" + passedAT +
                 ", passedN=" + passedN +

@@ -1,19 +1,36 @@
 package controllers;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import services.Main;
 import services.StageLoader;
-import sun.java2d.loops.FillRect;
+import users.User;
 
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
+import java.sql.SQLException;
+
+import static services.Main.selectedUser;
 
 public class AdminInterfaceController {
+    private ObservableList<User> usersData = FXCollections.observableArrayList();
+    //   private ObservableList<UserTable> usersTableData = FXCollections.observableArrayList();
+
     @FXML
-    private Tab personalInfo;
+    private Tab UseralInfo;
+
+    @FXML
+    private Button searchUserButton;
+
+    @FXML
+    private TextField searchUserField;
 
     @FXML
     private Button exitButton;
@@ -106,61 +123,32 @@ public class AdminInterfaceController {
     private Tab manageUsersTab;
 
     @FXML
-    private TableColumn<?, ?> loginColumn;
+    private Label label;
+
 
     @FXML
-    private TableColumn<?, ?> firstNameColumn;
+    private TableView<User> tableUsers;
 
     @FXML
-    private TableColumn<?, ?> surnameColumn;
+    private TableColumn<User, Long> idColumn;
 
     @FXML
-    private TableColumn<?, ?> accessColumn;
+    private TableColumn<User, String> loginColumn;
+
+    @FXML
+    private TableColumn<User, String> firstNameColumn;
+
+    @FXML
+    private TableColumn<User, String> surnameColumn;
+
+    @FXML
+    private TableColumn<User, String> accessColumn;
+
+    @FXML
+    private TableColumn<User, String> statusColumn;
 
     @FXML
     private Tab editTestsTab;
-
-    @FXML
-    public void initialize() {
-        //заполнение личного кабинета
-        userNameTextField.setText(Main.currentUser.getUserName());
-        firstNameTextField.setText(Main.currentUser.getFirstName());
-        surnameTextField.setText(Main.currentUser.getLastName());
-        groupTextField.setText(Main.currentUser.getGroup());
-        genderTextField.setText(Main.currentUser.getGender());
-
-        //заполнение тестового таба
-        if (Main.currentUser.isPassedGL()) {
-            passedGLLabel.setVisible(true);
-        } else {
-            failedGLLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedGB()) {
-            passedGBLabel.setVisible(true);
-        } else {
-            failedGBLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedDN()) {
-            passedDNLabel.setVisible(true);
-        } else {
-            failedDNLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedAT()) {
-            passedATLabel.setVisible(true);
-        } else {
-            failedATLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedN()) {
-            passedNLabel.setVisible(true);
-        } else {
-            failedNLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedGen()) {
-            passedGenLabel.setVisible(true);
-        } else {
-            failedGenLabel.setVisible(true);
-        }
-    }
 
     @FXML
     void deleteUser(ActionEvent event) {
@@ -269,4 +257,113 @@ public class AdminInterfaceController {
             passedGBLabel.setVisible(true);
         }
     }
+
+    @FXML
+    private Button manageUserButton;
+
+    @FXML
+    void changeUserData(MouseEvent event) {
+        try {
+            Scene currentScene = manageUserButton.getScene();
+            Stage stage = StageLoader.loadScene("ManageUsersView");
+            stage.showAndWait();
+            //   Scene currentScene = manageUserButton.getScene();
+            // Stage stage = StageLoader.loadScene("view/ManageUsersView");
+
+        } catch (IOException e) {
+            System.out.println("Could not load signUp scene");
+        }
+    }
+
+
+    @FXML
+    void searchForUsers(ActionEvent event) {
+
+        String request = searchUserField.getText();
+        usersData.clear();
+        usersData.addAll(Main.dbHandler.getUsersByRequest(request));
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, Long>("id"));
+        loginColumn.setCellValueFactory(new PropertyValueFactory<User, String>("userName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+        accessColumn.setCellValueFactory(new PropertyValueFactory<User, String>("access"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
+        // заполняем таблицу данными
+        tableUsers.setItems(usersData);
+    }
+
+    @FXML
+    void selectUser(MouseEvent event) throws IOException {
+
+        selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+
+        label.setText(selectedUser.getUserName());
+    }
+
+    @FXML
+    private void initialize() throws SQLException {
+        initData();
+        //заполнение личного кабинета
+        userNameTextField.setText(Main.currentUser.getUserName());
+        firstNameTextField.setText(Main.currentUser.getFirstName());
+        surnameTextField.setText(Main.currentUser.getLastName());
+        groupTextField.setText(Main.currentUser.getGroup());
+        genderTextField.setText(Main.currentUser.getGender());
+
+        //заполнение тестового таба
+        if (Main.currentUser.isPassedGL()) {
+            passedGLLabel.setVisible(true);
+        } else {
+            failedGLLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedGB()) {
+            passedGBLabel.setVisible(true);
+        } else {
+            failedGBLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedDN()) {
+            passedDNLabel.setVisible(true);
+        } else {
+            failedDNLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedAT()) {
+            passedATLabel.setVisible(true);
+        } else {
+            failedATLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedN()) {
+            passedNLabel.setVisible(true);
+        } else {
+            failedNLabel.setVisible(true);
+        }
+        if (Main.currentUser.isPassedGen()) {
+            passedGenLabel.setVisible(true);
+        } else {
+            failedGenLabel.setVisible(true);
+        }
+
+        // устанавливаем тип и значение которое должно хранится в колонке
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, Long>("id"));
+        loginColumn.setCellValueFactory(new PropertyValueFactory<User, String>("userName"));
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+        accessColumn.setCellValueFactory(new PropertyValueFactory<User, String>("access"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
+        // заполняем таблицу данными
+        tableUsers.setItems(usersData);
+
+        //   tableUsers.setItems(usersTableData);
+    }
+
+    // подготавливаем данные для таблицы
+    // вы можете получать их с базы данных
+    private void initData() throws SQLException {
+        //UserTable user1 = new UserTable("Anton", "trueAnimeshnik", "Sidorov", "USER", "ACTIVE");
+        usersData.addAll(Main.dbHandler.getAllUsers());
+
+        //     System.out.println(user1.getlogin());
+        //     System.out.println(usersTableData.isEmpty());
+    }
 }
+
+

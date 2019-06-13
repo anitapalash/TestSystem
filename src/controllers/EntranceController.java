@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import libraries.Access;
+import libraries.Status;
 import services.Main;
 import services.StageLoader;
 import users.User;
@@ -36,7 +38,7 @@ public class EntranceController {
         String loginText = login_field.getText().trim();
         String loginPassword = password_field.getText().trim();
 
-        if (!loginText.equals("") && !loginPassword.equals("")) {
+        if (!loginText.equals("") && !loginPassword.equals("") ) {
             try {
                 loginUser(loginText, loginPassword);
             } catch (SQLException e) {
@@ -67,12 +69,24 @@ public class EntranceController {
         User tempUser = Main.dbHandler.getUser(new User(loginText, loginPassword)); //взять из бд
         if (tempUser.getUserName().equals(loginText)) {
             if (tempUser.getPassword().equals(loginPassword)) {
-                System.out.println("Log in successful");
-                Main.currentUser = tempUser;
-                Scene currentScene = authSignButton.getScene();
-                currentScene.getWindow().hide();
+                if(!tempUser.getStatus().equals(Status.BLOCKED)) {
+                    System.out.println("Log in successful");
+                    Main.currentUser = tempUser;
+                    Scene currentScene = authSignButton.getScene();
+                    currentScene.getWindow().hide();
+                }
+                else
+                {
+                    try {
+                        Scene currentScene = authSignButton.getScene();
+                        Stage stage = StageLoader.loadScene("Blocked");
+                        stage.showAndWait();
+                    } catch (IOException e) {
+                        System.out.println("Could not load blocked scene");
+                    }
+                }
             } else {
-                System.out.println("Wrong password");
+                System.out.println("Wrong password or you are blocked");
                 Shake userLoginAnim = new Shake(login_field);
                 Shake userPassAnim = new Shake(password_field);
                 userLoginAnim.playAnim();

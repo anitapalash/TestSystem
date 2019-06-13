@@ -11,7 +11,6 @@ import services.StageLoader;
 import java.io.IOException;
 
 public class UserViewController {
-
     @FXML
     private Tab personalInfoTab;
 
@@ -115,6 +114,7 @@ public class UserViewController {
         } else {
             failedGLLabel.setVisible(true);
         }
+
         if (Main.currentUser.isPassedGB()) {
             passedGBLabel.setVisible(true);
         } else {
