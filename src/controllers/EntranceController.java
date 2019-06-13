@@ -75,6 +75,16 @@ public class EntranceController {
                     Scene currentScene = authSignButton.getScene();
                     currentScene.getWindow().hide();
                 }
+                else
+                {
+                    try {
+                        Scene currentScene = authSignButton.getScene();
+                        Stage stage = StageLoader.loadScene("Blocked");
+                        stage.showAndWait();
+                    } catch (IOException e) {
+                        System.out.println("Could not load blocked scene");
+                    }
+                }
             } else {
                 System.out.println("Wrong password or you are blocked");
                 Shake userLoginAnim = new Shake(login_field);

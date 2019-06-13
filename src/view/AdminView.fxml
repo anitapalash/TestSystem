@@ -310,7 +310,7 @@
                                           <TableColumn fx:id="statusColumn" prefWidth="109.6666259765625" text="Статус " />
                                       </columns>
                                     </TableView>
-                                    <Button fx:id="searchUserButton" layoutX="488.0" layoutY="6.0" mnemonicParsing="false" onAction="#searchForUsers" text="Отправить" />
+                                    <Button fx:id="searchUserButton" layoutX="488.0" layoutY="6.0" mnemonicParsing="false" onAction="#searchForUsers" text="Обновить" />
                                     <Text layoutX="13.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбранный пользователь:" wrappingWidth="167.41796875" />
                                     <Label fx:id="label" layoutX="180.0" layoutY="266.0" prefHeight="17.0" prefWidth="165.0" />
                                     <Button fx:id="manageUserButton" layoutX="364.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#changeUserData" prefHeight="16.0" prefWidth="87.0" text="Изменить" />

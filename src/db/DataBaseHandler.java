@@ -138,12 +138,25 @@ public void changeUserStatusToAnalyser(Long id)
         return endUser;
     }
     public ArrayList<User> getUsersByRequest(String request) {
+
+
+        ArrayList<User> allUsers = new ArrayList<User>();
         if(request.isEmpty())
         {
-            DataBaseHandler.getAllUsers();
+            try
+            {
+                allUsers = getAllUsers();
+                return allUsers;
+
+            }
+
+            catch (SQLException sql)
+            {
+                System.out.println("Could not get all users list ");
+            }
+
         }
         ArrayList<String> parameters = new ArrayList<String>();
-
         parameters.add("userName");
         parameters.add("firstName");
         parameters.add("lastName");
@@ -151,7 +164,7 @@ public void changeUserStatusToAnalyser(Long id)
         parameters.add("access");
         parameters.add("status");
         parameters.add("gender");
-        ArrayList<User> allUsers = new ArrayList<User>();
+
         ResultSet resSet = null;
         for (int i = 0; i < 7; i++) {
 
