@@ -3,9 +3,12 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import services.Main;
 
-import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+
+import static services.Main.selectedUser;
 
 public class ManageUserController {
 
@@ -13,10 +16,10 @@ public class ManageUserController {
     private TextField loginField;
 
     @FXML
-    private TextField nameField;
+    private TextField firstNameField;
 
     @FXML
-    private TextField surnameField;
+    private TextField lastNameField;
 
     @FXML
     private TextField groupField;
@@ -28,44 +31,58 @@ public class ManageUserController {
     private TextField statusField;
 
     @FXML
-    private Button makeUserButton;
+    private Button analyserButton;
 
     @FXML
-    private Button makeAnalystButton;
+    private Button userButton;
 
     @FXML
-    private Button blockUserButton;
+    private Button blockButton;
 
     @FXML
-    private Button unlockButton;
+    private Button unblockButton;
 
     @FXML
     void blockUser(MouseEvent event) {
-
+        Long id = selectedUser.getId();
+        Main.dbHandler.changeStatusToBlocked(id);
+        userButton.setVisible(false);
+        analyserButton.setVisible(false);
     }
 
     @FXML
-    void makeAnalystRole(MouseEvent event) {
+    void makeAnalyserRole(MouseEvent event) {
+        Long id = selectedUser.getId();
+        Main.dbHandler.changeUserStatusToAnalyser(id);
 
     }
 
     @FXML
     void makeUserRole(MouseEvent event) {
+        Long id = selectedUser.getId();
+        Main.dbHandler.changeUserStatusToUser(id);
 
     }
 
     @FXML
-    void unlockUser(MouseEvent event) {
-
+    void unblockUser(MouseEvent event) {
+        Long id = selectedUser.getId();
+        Main.dbHandler.changeStatusToActive(id);
+        userButton.setVisible(true);
+        analyserButton.setVisible(true);
     }
+
+    @FXML
     public void initialize() {
-        loginField.setText(Main.selectedUser.getUserName());
-        nameField.setText(Main.selectedUser.getFirstName());
-        surnameField.setText(Main.selectedUser.getLastName());
-        groupField.setText(Main.selectedUser.getGroup());
-        accessField.setText(String.valueOf(Main.selectedUser.getAccess()));
-        statusField.setText(String.valueOf(Main.selectedUser.getStatus()));
 
-        
+        loginField.setText(selectedUser.getUserName());
+        firstNameField.setText(selectedUser.getFirstName());
+        lastNameField.setText(selectedUser.getLastName());
+        groupField.setText(selectedUser.getGroup());
+        accessField.setText(selectedUser.getAccess().toString());
+        statusField.setText(selectedUser.getStatus().toString());
+
+
     }
+
 }

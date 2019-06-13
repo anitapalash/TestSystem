@@ -1,5 +1,6 @@
 package db;
 
+import controllers.AdminInterfaceController;
 import libraries.Access;
 import libraries.Configs;
 import libraries.Const;
@@ -40,7 +41,52 @@ public class DataBaseHandler extends Configs {
         runScript(dbConnection);
         return dbConnection;
     }
+public void changeUserStatusToAnalyser(Long id)
+{
 
+    String select = "UPDATE  " + Const.USER_TABLE + " SET access = 'ANALISER' WHERE id="+id+";";
+    try {
+        dbConnection.createStatement().execute(select);}
+    catch (SQLException e) {
+        e.printStackTrace();
+    }
+    System.out.println("Analyser access is set");
+}
+    public void changeUserStatusToUser(Long id)
+    {
+
+        String select = "UPDATE  " + Const.USER_TABLE + " SET access = 'USER' WHERE id="+id+";";
+        try {
+          dbConnection.createStatement().execute(select);}
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("User access is set");
+
+
+    }
+    public void changeStatusToBlocked(Long id)
+    {
+
+        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'BLOCKED' WHERE id="+id+";";
+        try {
+            dbConnection.createStatement().execute(select);}
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("User  is blocked");
+    }
+    public void changeStatusToActive(Long id)
+    {
+
+        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'ACTIVE' WHERE id="+id+";";
+        try {
+            dbConnection.createStatement().execute(select);}
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("User  is active");
+    }
     public void signUpUser(User user) {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USERS_ID + ", " + Const.USERS_FIRSTNAME + ", " +
                 Const.USERS_LASTNAME + ", " + Const.USERS_USERNAME + ", " +
@@ -48,10 +94,8 @@ public class DataBaseHandler extends Configs {
                 Const.USERS_GENDER + ", passedgl, passedgb, passeddn, passedat, passedn, passedgen) " + "VALUES ("
                 + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
                 + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
-                + "\', \'"+ user.getStatus() + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
+                + "\', \'" + user.getStatus() + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
                 ", " + false + ", " + false + ")";
-
-
 
         try {
             user.setId(getNewId());
@@ -94,6 +138,10 @@ public class DataBaseHandler extends Configs {
         return endUser;
     }
     public ArrayList<User> getUsersByRequest(String request) {
+        if(request.isEmpty())
+        {
+            DataBaseHandler.getAllUsers();
+        }
         ArrayList<String> parameters = new ArrayList<String>();
 
         parameters.add("userName");

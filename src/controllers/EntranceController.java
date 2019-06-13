@@ -1,21 +1,18 @@
 package controllers;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import libraries.Access;
+import libraries.Status;
 import services.Main;
 import services.StageLoader;
 import users.User;
@@ -41,7 +38,7 @@ public class EntranceController {
         String loginText = login_field.getText().trim();
         String loginPassword = password_field.getText().trim();
 
-        if (!loginText.equals("") && !loginPassword.equals("")) {
+        if (!loginText.equals("") && !loginPassword.equals("") ) {
             try {
                 loginUser(loginText, loginPassword);
             } catch (SQLException e) {
@@ -53,6 +50,7 @@ public class EntranceController {
             }
         } else {
             System.out.println("Login and Password is Empty");
+            //добавить окно с выводом ошибки, какой юзер дурак - ничего не написал
         }
     }
 
@@ -68,16 +66,17 @@ public class EntranceController {
     }
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
-        //каким-то образом зафиксировать какой юзер залогинился
         User tempUser = Main.dbHandler.getUser(new User(loginText, loginPassword)); //взять из бд
         if (tempUser.getUserName().equals(loginText)) {
             if (tempUser.getPassword().equals(loginPassword)) {
-                System.out.println("Log in successful");
-                Main.currentUser = tempUser;
-                Scene currentScene = authSignButton.getScene();
-                currentScene.getWindow().hide();
+                if(!tempUser.getStatus().equals(Status.BLOCKED)) {
+                    System.out.println("Log in successful");
+                    Main.currentUser = tempUser;
+                    Scene currentScene = authSignButton.getScene();
+                    currentScene.getWindow().hide();
+                }
             } else {
-                System.out.println("Wrong password");
+                System.out.println("Wrong password or you are blocked");
                 Shake userLoginAnim = new Shake(login_field);
                 Shake userPassAnim = new Shake(password_field);
                 userLoginAnim.playAnim();
@@ -89,7 +88,6 @@ public class EntranceController {
             Shake userPassAnim = new Shake(password_field);
             userLoginAnim.playAnim();
             userPassAnim.playAnim();
-
-        }
         }
     }
+}

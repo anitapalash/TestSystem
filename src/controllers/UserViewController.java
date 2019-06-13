@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import services.Main;
 import services.StageLoader;
 
@@ -38,6 +39,9 @@ public class UserViewController {
     private Button deleteProfileButton;
 
     @FXML
+    private Button saveButton;
+
+    @FXML
     private Tab testTab;
 
     @FXML
@@ -53,13 +57,13 @@ public class UserViewController {
     private Text passedGLLabel;
 
     @FXML
-    private Button OPTestButton;
+    private Button GBTestButton;
 
     @FXML
-    private Text failedOPLabel;
+    private Text failedGBLabel;
 
     @FXML
-    private Text passedOPLabel;
+    private Text passedGBLabel;
 
     @FXML
     private Button DNTestButton;
@@ -110,10 +114,11 @@ public class UserViewController {
         } else {
             failedGLLabel.setVisible(true);
         }
+
         if (Main.currentUser.isPassedGB()) {
-            passedOPLabel.setVisible(true);
+            passedGBLabel.setVisible(true);
         } else {
-            failedOPLabel.setVisible(true);
+            failedGBLabel.setVisible(true);
         }
         if (Main.currentUser.isPassedDN()) {
             passedDNLabel.setVisible(true);
@@ -144,7 +149,25 @@ public class UserViewController {
 
     @FXML
     void editUserInfo(ActionEvent event) {
+        surnameTextField.setEditable(true);
+        firstNameTextField.setEditable(true);
+        userNameTextField.setEditable(true);
+        groupTextField.setEditable(true);
+        saveButton.setVisible(true);
+    }
 
+    @FXML
+    void saveChanges(ActionEvent event) {
+        Main.currentUser.setLastName(surnameTextField.getText());
+        Main.currentUser.setFirstName(firstNameTextField.getText());
+        Main.currentUser.setUserName(userNameTextField.getText());
+        Main.currentUser.setGroup(groupTextField.getText());
+        Main.dbHandler.updateUser(Main.currentUser);
+        surnameTextField.setEditable(false);
+        firstNameTextField.setEditable(false);
+        userNameTextField.setEditable(false);
+        groupTextField.setEditable(false);
+        saveButton.setVisible(false);
     }
 
     @FXML
@@ -154,33 +177,76 @@ public class UserViewController {
         StageLoader.loadMain();
     }
 
+    //часть для управления запуска тестами
     @FXML
-    void loadATTest(ActionEvent event) {
+    void loadATTest(ActionEvent event) throws IOException {
+        TestController ATTestController = new TestController("snk.txt");
+        Stage stage = StageLoader.loadTest("test", ATTestController);
+        stage.showAndWait();
 
+        if (Main.currentUser.isPassedAT()) {
+            failedATLabel.setVisible(false);
+            passedATLabel.setVisible(true);
+        }
     }
 
     @FXML
-    void loadDNTest(ActionEvent event) {
+    void loadDNTest(ActionEvent event) throws IOException {
+        TestController DNTestController = new TestController("dn.txt");
+        Stage stage = StageLoader.loadTest("test", DNTestController);
+        stage.showAndWait();
 
+        if (Main.currentUser.isPassedDN()) {
+            failedDNLabel.setVisible(false);
+            passedDNLabel.setVisible(true);
+        }
     }
 
     @FXML
-    void loadGLTest(ActionEvent event) {
+    void loadGLTest(ActionEvent event) throws IOException {
+        TestController GLTestController = new TestController("ttgl.txt");
+        Stage stage = StageLoader.loadTest("test", GLTestController);
+        stage.showAndWait();
 
+        if (Main.currentUser.isPassedGL()) {
+            failedGLLabel.setVisible(false);
+            passedGLLabel.setVisible(true);
+        }
     }
 
     @FXML
-    void loadGenTest(ActionEvent event) {
+    void loadGenTest(ActionEvent event) throws IOException {
+        GeneralTestController GenTestController = new GeneralTestController();
+        Stage stage = StageLoader.loadGenTest("generalTest", GenTestController);
+        stage.showAndWait();
 
+        if (Main.currentUser.isPassedGen()) {
+            failedGenLabel.setVisible(false);
+            passedGenLabel.setVisible(true);
+        }
     }
 
     @FXML
-    void loadNTest(ActionEvent event) {
+    void loadNTest(ActionEvent event) throws IOException {
+        TestController NTestController = new TestController("naruto.txt");
+        Stage stage = StageLoader.loadTest("test", NTestController);
+        stage.showAndWait();
 
+        if (Main.currentUser.isPassedN()) {
+            failedNLabel.setVisible(false);
+            passedNLabel.setVisible(true);
+        }
     }
 
     @FXML
-    void loadOPTest(ActionEvent event) {
+    void loadGBTest(ActionEvent event) throws IOException {
+        TestController GBTestController = new TestController("gibli.txt");
+        Stage stage = StageLoader.loadTest("test", GBTestController);
+        stage.showAndWait();
 
+        if (Main.currentUser.isPassedGB()) {
+            failedGBLabel.setVisible(false);
+            passedGBLabel.setVisible(true);
+        }
     }
 }
