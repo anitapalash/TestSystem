@@ -312,7 +312,7 @@
                                     </TableView>
                                     <Button fx:id="searchUserButton" layoutX="488.0" layoutY="6.0" mnemonicParsing="false" onAction="#searchForUsers" text="Обновить" />
                                     <Text layoutX="13.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбранный пользователь:" wrappingWidth="167.41796875" />
-                                    <Label fx:id="label" layoutX="180.0" layoutY="266.0" prefHeight="17.0" prefWidth="165.0" />
+                                    <Label fx:id="choosenUserLabel" layoutX="180.0" layoutY="266.0" prefHeight="17.0" prefWidth="165.0" />
                                     <Button fx:id="manageUserButton" layoutX="364.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#changeUserData" prefHeight="16.0" prefWidth="87.0" text="Изменить" />
                                  </children>
                               </AnchorPane>
@@ -326,7 +326,19 @@
       </Tab>
       <Tab fx:id="editTestsTab" text="Редактирование тестов">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Text layoutX="32.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Редактировать вопросную базу" />
+                  <TableView fx:id="testsEditTable" layoutX="32.0" layoutY="51.0" onMouseClicked="#selectTest" prefHeight="200.0" prefWidth="472.0">
+                    <columns>
+                      <TableColumn fx:id="testNameColumn" prefWidth="341.0000305175781" text="Тест" />
+                      <TableColumn fx:id="fileNameColumn" prefWidth="129.99996948242188" text="Имя файла" />
+                    </columns>
+                  </TableView>
+                  <Text layoutX="32.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбранный тест:" wrappingWidth="121.12240600585938" />
+                  <Label fx:id="choosenTestLabel" layoutX="142.0" layoutY="308.0" prefHeight="17.0" prefWidth="253.0" text="Label" />
+                  <Button fx:id="editButton" layoutX="406.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#editTest" text="Редактировать" />
+               </children></AnchorPane>
         </content>
       </Tab>
   </tabs>

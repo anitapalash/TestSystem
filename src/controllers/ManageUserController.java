@@ -81,6 +81,12 @@ public class ManageUserController {
         groupField.setText(selectedUser.getGroup());
         accessField.setText(selectedUser.getAccess().toString());
         statusField.setText(selectedUser.getStatus().toString());
+        loginField.setEditable(false);
+        firstNameField.setEditable(false);
+        lastNameField.setEditable(false);
+        groupField.setEditable(false);
+        accessField.setEditable(false);
+        statusField.setEditable(false);
 
 
     }
