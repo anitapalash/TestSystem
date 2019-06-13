@@ -22,4 +22,3 @@ INSERT INTO Users2 (id, userName, password, firstName, lastName, groupName, acce
 VALUES (0, 'root', 'loveKopos', 'Koposovo', 'Dev', '17БИ1', 'ADMIN', 'ACTIVE', 'Женский', false, false, false, false, false, false) on conflict (id) do nothing;
 
 COMMIT;
-

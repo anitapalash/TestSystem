@@ -12,24 +12,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import services.Main;
 
-
-public class TestController {
-    private List<String> lines;
-
-    public TestController(String currentTest) throws IOException {
-        this.currentTest = currentTest;
-        lines = getLines("src/libraries/" + currentTest);
-    }
-
-    public String getCurrentTest() {
-        return currentTest;
-    }
-
-    public void setCurrentTest(String currentTest) {
-        this.currentTest = currentTest;
-    }
-
-    private String currentTest;
+public class GeneralTestController {
+    private List<String> lines = getLines("src/libraries/gen.txt");
+    private String currentAnime;
 
     @FXML
     private TextArea discussionArea;
@@ -57,31 +42,22 @@ public class TestController {
 
     private int currentQuestion;
     private String[] currentQuestionInfo;
-
+    private int falseQuestionCounter;
     private int rightAnswersCount;
 
-    public TestController() throws IOException, InterruptedException {
-        currentQuestion = rightAnswersCount = 0;
+    public GeneralTestController() throws IOException {
+        currentQuestion = rightAnswersCount = falseQuestionCounter = 0;
+        currentAnime = "Гуррен-Лаганн";
     }
 
     private void loadQuestions() throws IOException, InterruptedException {
         String line = lines.get(currentQuestion);
         currentQuestionInfo = line.split(";");
 
-        var1.setSelected(false);
-        var2.setSelected(false);
-        var3.setSelected(false);
-        var4.setSelected(false);
-
-        var1.setVisible(false);
-        var2.setVisible(false);
-        var3.setVisible(false);
-        var4.setVisible(false);
-
         answerField.setVisible(true);
         sendButton.setVisible(true);
 
-        discussionArea.setText(currentQuestionInfo[2]);
+        discussionArea.setText(currentAnime + "\n" + currentQuestionInfo[2]);
         if (Integer.parseInt(currentQuestionInfo[1]) == 1) {
             var1.setVisible(true);
             var2.setVisible(true);
@@ -109,8 +85,35 @@ public class TestController {
             sendButton.setVisible(false);
         }
 
-        if (rightAnswersCount == 5) {
-            discussionArea.setText("Тест пройден успешно!");
+        if (rightAnswersCount == 4) {
+            currentAnime = "Атака Титанов";
+            currentQuestion = 14;
+            falseQuestionCounter = 0;
+        }
+
+        if (rightAnswersCount == 9) {
+            currentAnime = "Наруто";
+            currentQuestion = 29;
+            falseQuestionCounter = 0;
+        }
+
+        if (rightAnswersCount == 14) {
+            currentAnime = "Студия Гибли";
+            currentQuestion = 44;
+            falseQuestionCounter = 0;
+        }
+
+        if (rightAnswersCount == 19) {
+            currentAnime = "Тетрадь смерти";
+            currentQuestion = 59;
+            falseQuestionCounter = 0;
+        }
+
+        if (rightAnswersCount == 25) {
+            discussionArea.setText("Общий тест пройден успешно!");
+            Main.currentUser.setPassedGen(true);
+            Main.dbHandler.updateUser(Main.currentUser);
+
             var1.setVisible(false);
             var2.setVisible(false);
             var3.setVisible(false);
@@ -119,29 +122,6 @@ public class TestController {
             returnButton.setVisible(true);
             answerField.setVisible(false);
             sendButton.setVisible(false);
-
-            switch (currentTest) {
-                case "dn.txt":
-                    Main.currentUser.setPassedDN(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "ttgl.txt":
-                    Main.currentUser.setPassedGL(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "naruto.txt":
-                    Main.currentUser.setPassedN(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "gibli.txt":
-                    Main.currentUser.setPassedGB(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "snk.txt":
-                    Main.currentUser.setPassedAT(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-            }
         }
     }
 
@@ -183,8 +163,8 @@ public class TestController {
         }
         currentQuestion++;
 
-        if (currentQuestion == lines.size() && rightAnswersCount < 5) {
-            discussionArea.setText("Тест не пройден. Стоит пересмотреть!");
+        if (falseQuestionCounter == 11 || (currentQuestion == lines.size() && rightAnswersCount < 25)) {
+            discussionArea.setText("Тест не пройден. Стоит пересмотреть некоторые аниме!");
             returnButton.setVisible(true);
             answerField.setVisible(false);
             sendButton.setVisible(false);
@@ -193,32 +173,9 @@ public class TestController {
             var2.setVisible(false);
             var3.setVisible(false);
             var4.setVisible(false);
-
-            switch (currentTest) {
-                case "dn.txt":
-                    Main.currentUser.setPassedDN(false);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "ttgl.txt":
-                    Main.currentUser.setPassedGL(false);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "naruto.txt":
-                    Main.currentUser.setPassedN(false);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "gibli.txt":
-                    Main.currentUser.setPassedGB(false);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "snk.txt":
-                    Main.currentUser.setPassedAT(false);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-            }
         }
-        else if (currentQuestion == lines.size() && rightAnswersCount == 5) {
-            discussionArea.setText("Тест пройден успешно!");
+        else if (currentQuestion == lines.size() && rightAnswersCount == 25) {
+            discussionArea.setText("Общий тест пройден успешно!");
             returnButton.setVisible(true);
             answerField.setVisible(false);
             sendButton.setVisible(false);
@@ -228,30 +185,21 @@ public class TestController {
             var3.setVisible(false);
             var4.setVisible(false);
 
-            switch (currentTest) {
-                case "dn.txt":
-                    Main.currentUser.setPassedDN(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "ttgl.txt":
-                    Main.currentUser.setPassedGL(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "naruto.txt":
-                    Main.currentUser.setPassedN(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "gibli.txt":
-                    Main.currentUser.setPassedGB(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-                case "snk.txt":
-                    Main.currentUser.setPassedAT(true);
-                    Main.dbHandler.updateUser(Main.currentUser);
-                    break;
-            }
+            Main.currentUser.setPassedGen(true);
+            Main.dbHandler.updateUser(Main.currentUser);
         } else {
             answerField.setText("");
+
+            var1.setSelected(false);
+            var2.setSelected(false);
+            var3.setSelected(false);
+            var4.setSelected(false);
+
+            var1.setVisible(false);
+            var2.setVisible(false);
+            var3.setVisible(false);
+            var4.setVisible(false);
+
             loadQuestions();
         }
     }
@@ -262,6 +210,8 @@ public class TestController {
 
         if (line.equals(answer.toLowerCase())) {
             rightAnswersCount++;
+        } else {
+            falseQuestionCounter++;
         }
     }
 
@@ -269,6 +219,8 @@ public class TestController {
         String line = currentQuestionInfo[7].toLowerCase();
         if (line.equals(answer.toLowerCase())) {
             rightAnswersCount++;
+        } else {
+            falseQuestionCounter++;
         }
     }
 
@@ -279,6 +231,8 @@ public class TestController {
         answer = answer.toLowerCase();
         if (answer.equals(line1) || answer.equals(line2) || answer.equals(line3)) {
             rightAnswersCount++;
+        } else {
+            falseQuestionCounter++;
         }
     }
 

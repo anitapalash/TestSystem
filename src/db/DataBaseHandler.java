@@ -93,10 +93,8 @@ public void changeUserStatusToAnalyser(Long id)
                 Const.USERS_GENDER + ", passedgl, passedgb, passeddn, passedat, passedn, passedgen) " + "VALUES ("
                 + getNewId() + ", \'" + user.getFirstName() + "\', \'" + user.getLastName() + "\', \'" + user.getUserName()
                 + "\', \'" + user.getPassword() + "\', \'" + user.getGroup() + "\', \'" + user.getAccess().toString()
-                + "\', \'"+ user.getStatus() + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
+                + "\', \'" + user.getStatus() + "\', \'" + user.getGender() + "\', " + false + ", " + false + ", " + false + ", " + false +
                 ", " + false + ", " + false + ")";
-
-
 
         try {
             user.setId(getNewId());

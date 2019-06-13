@@ -2,10 +2,6 @@ package services;
 
 import db.DataBaseHandler;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import libraries.Access;
 import users.User;
@@ -31,9 +27,7 @@ public class Main extends Application {
                 stage.showAndWait();
             }
             else {
-                TabPane root = FXMLLoader.load(getClass().getResource("../view/UserViewA.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
+                Stage stage = StageLoader.loadTabPane("UserViewA");
                 stage.showAndWait();
             }
         } catch (IOException e) {

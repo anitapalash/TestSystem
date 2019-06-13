@@ -159,7 +159,6 @@ public class User {
 
         User user = (User) o;
 
-
         if (passedGL != user.passedGL) return false;
         if (passedGB != user.passedGB) return false;
         if (passedDN != user.passedDN) return false;
