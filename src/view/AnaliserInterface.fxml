@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.211" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnaliserInterfaceController">
+<TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnaliserInterfaceController">
   <tabs>
     <Tab fx:id="personalInfo" text="Личный кабинет">
          <content>
@@ -273,11 +273,6 @@
             </AnchorPane>
          </content>
     </Tab>
-      <Tab fx:id="editTestsTab" text="Редактирование тестов">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
-      </Tab>
       <Tab fx:id="statisticsTab" text="Статистика">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="600.0">

@@ -17,9 +17,6 @@ import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import java.io.IOException;
-
-import static services.Main.selectedUser;
 
 public class AnaliserInterfaceController {
     private ObservableList<User> usersData = FXCollections.observableArrayList();
@@ -148,9 +145,6 @@ public class AnaliserInterfaceController {
     private TextField searchUserField;
 
     @FXML
-    private Tab manageUsersTab;
-
-    @FXML
     void deleteUser(ActionEvent event) {
         Main.dbHandler.deleteUser(Main.currentUser.getId());
         Main.currentUser = null;
@@ -245,11 +239,9 @@ public class AnaliserInterfaceController {
 
     @FXML
     void selectUser(MouseEvent event) throws IOException {
-
-        selectedUser = tableUsers.getSelectionModel().getSelectedItem();
-
-        label.setText(selectedUser.getUserName());
-        if (selectedUser.isPassedGen()) {
+        Main.selectedUser = tableUsers.getSelectionModel().getSelectedItem();
+        label.setText(Main.selectedUser.getUserName());
+        if (Main.selectedUser.isPassedGen()) {
             isPassedGen.setText(" yes");
         } else {
             isPassedGen.setText(" no");
@@ -268,20 +260,6 @@ public class AnaliserInterfaceController {
         testsColumn.setCellValueFactory(new PropertyValueFactory<User, String>("passedTests"));
         // заполняем таблицу данными
         tableUsers.setItems(usersData);
-    }
-
-    @FXML
-    private Button manageUserButton;
-
-    @FXML
-    void changeUserData(MouseEvent event) {
-        try {
-            Scene currentScene = manageUserButton.getScene();
-            Stage stage = StageLoader.loadScene("ManageUsersView");
-            stage.showAndWait();
-        } catch (IOException e) {
-            System.out.println("Could not load signUp scene");
-        }
     }
 
     //часть для управления запуска тестами
