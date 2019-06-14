@@ -2,17 +2,24 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnaliserInterfaceController">
+<TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.211" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AnaliserInterfaceController">
   <tabs>
     <Tab fx:id="personalInfo" text="Личный кабинет">
          <content>
@@ -272,9 +279,55 @@
         </content>
       </Tab>
       <Tab fx:id="statisticsTab" text="Статистика">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="373.0" prefWidth="600.0">
+               <children>
+                  <GridPane prefHeight="367.0" prefWidth="600.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="3.0517578125E-5" prefWidth="600.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="599.9999694824219" minWidth="0.0" prefWidth="0.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="115.0" minHeight="0.0" prefHeight="21.333328247070312" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="341.3333282470703" minHeight="10.0" prefHeight="338.6666717529297" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="68.66665649414062" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Text fill="#484848" strokeType="OUTSIDE" strokeWidth="0.0" text="  Управление пользователями" wrappingWidth="497.4700927734375">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Text>
+                        <ScrollPane prefHeight="302.0" prefWidth="600.0" GridPane.rowIndex="1">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="311.0" prefWidth="599.0">
+                                 <children>
+                                    <TextField fx:id="searchUserField" layoutX="138.0" layoutY="6.0" prefHeight="25.0" prefWidth="336.0" />
+                                    <Text layoutX="13.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Найти пользователя" />
+                                    <Line endX="501.0" layoutX="98.0" layoutY="40.0" startX="-100.0" stroke="#706f6f" />
+                                    <TableView fx:id="tableUsers" layoutX="13.0" layoutY="48.0" onMouseClicked="#selectUser" prefHeight="195.0" prefWidth="557.0">
+                                       <columns>
+                                          <TableColumn fx:id="idColumn" prefWidth="54.333343505859375" text="ID" />
+                                          <TableColumn fx:id="firstNameColumn" prefWidth="79.66665649414062" text="Имя" />
+                                          <TableColumn fx:id="surnameColumn" prefWidth="134.0" text="Фамилия" />
+                                          <TableColumn fx:id="statusColumn" prefWidth="113.0" text="Статус " />
+                                          <TableColumn fx:id="testsColumn" prefWidth="174.0" text="Пройдено тестов " />
+                                       </columns>
+                                    </TableView>
+                                    <Button fx:id="searchUserButton" layoutX="488.0" layoutY="6.0" mnemonicParsing="false" onAction="#searchForUsers" text="Обновить" />
+                                    <Text layoutX="14.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбранный пользователь:" wrappingWidth="167.41796875" />
+                                    <Label fx:id="label" layoutX="180.0" layoutY="248.0" prefHeight="17.0" prefWidth="165.0" />
+                                    <Text layoutX="13.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Общий тест пройден:" wrappingWidth="156.08462524414062" />
+                                    <Label fx:id="isPassedGen" layoutX="180.0" layoutY="274.0" prefHeight="17.0" prefWidth="165.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
       </Tab>
   </tabs>
 </TabPane>

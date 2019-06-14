@@ -10,7 +10,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import services.Main;
 import services.StageLoader;
+import users.User;
 
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import javafx.stage.Stage;
 import users.User;

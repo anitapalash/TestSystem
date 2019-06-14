@@ -77,7 +77,7 @@ public class DataBaseHandler extends Configs {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("User  is active");
+        System.out.println("User is active");
     }
 
     public void signUpUser(User user) {
@@ -129,6 +129,151 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
         return endUser;
+    }
+
+    public ArrayList<User> getUsersByRequest(String request) {
+        ArrayList<User> allUsers = new ArrayList<User>();
+        if(request.isEmpty())
+        {
+            try {
+                allUsers = getAllUsers();
+                return allUsers;
+            } catch (SQLException sql) {
+                System.out.println("Could not get all users list ");
+            }
+        }
+        ArrayList<String> parameters = new ArrayList<String>();
+        parameters.add("userName");
+        parameters.add("firstName");
+        parameters.add("lastName");
+        parameters.add("groupName");
+        parameters.add("access");
+        parameters.add("status");
+        parameters.add("gender");
+        parameters.add("passedTests");
+
+        ResultSet resSet = null;
+        for (int i = 0; i < 7; i++) {
+            String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + parameters.get(i) + " LIKE '" + request + "' ;";
+
+            if(request.matches("[-+]?\\d+"))
+            {
+               Long requestLong = Long.parseLong(request);
+                  allUsers.add(getUserById(requestLong));
+                  return allUsers;
+            }
+
+            try {
+                PreparedStatement prSt = dbConnection.prepareStatement(select);
+                resSet = prSt.executeQuery();
+
+                while (resSet != null && resSet.next()) {
+                    User endUser = new User();
+                    //  if (resSet.next()) {
+                    endUser.setId(resSet.getLong("id"));
+                    endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
+                    endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
+                    endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
+                    endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
+                    endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
+                    endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
+                    endUser.setGender(resSet.getString(Const.USERS_GENDER));
+                    endUser.setGroup(resSet.getString(Const.USERS_GROUP));
+                    endUser.setPassedGL(resSet.getBoolean("passedgl"));
+                    endUser.setPassedGB(resSet.getBoolean("passedgb"));
+                    endUser.setPassedDN(resSet.getBoolean("passeddn"));
+                    endUser.setPassedAT(resSet.getBoolean("passedat"));
+                    endUser.setPassedN(resSet.getBoolean("passedn"));
+                    endUser.setPassedGen(resSet.getBoolean("passedgen"));
+
+                    int sum = 0;
+                    if (resSet.getBoolean("passedgl")) {
+                        sum++;
+                    }
+                    if (resSet.getBoolean("passedgb")) {
+                        sum++;
+                    }
+                    if (resSet.getBoolean("passeddn")) {
+                        sum++;
+                    }
+                    if (resSet.getBoolean("passedat")) {
+                        sum++;
+                    }
+                    if (resSet.getBoolean("passedn")) {
+                        sum++;
+                    }
+                    if (resSet.getBoolean("passedgen")) {
+                        sum++;
+                    }
+                    endUser.setPassedTests(Integer.toString(sum));
+                    allUsers.add(endUser);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return allUsers;
+    }
+
+    public ArrayList<User> getAllUsers() throws SQLException {
+        ResultSet resSet = null;
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + " access " + "!=" +" 'ADMIN' " + ";";
+        ArrayList<User> allUsers = new ArrayList<User>();
+
+        try {
+            PreparedStatement prSt = dbConnection.prepareStatement(select);
+            resSet = prSt.executeQuery();
+
+            while(resSet!= null && resSet.next()) {
+                User endUser = new User();
+                endUser.setId(resSet.getLong("id"));
+                endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
+                endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
+                endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
+                endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
+                endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
+                endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
+                endUser.setGender(resSet.getString(Const.USERS_GENDER));
+                endUser.setGroup(resSet.getString(Const.USERS_GROUP));
+                endUser.setPassedGL(resSet.getBoolean("passedgl"));
+                endUser.setPassedGB(resSet.getBoolean("passedgb"));
+                endUser.setPassedDN(resSet.getBoolean("passeddn"));
+                endUser.setPassedAT(resSet.getBoolean("passedat"));
+                endUser.setPassedN(resSet.getBoolean("passedn"));
+                endUser.setPassedGen(resSet.getBoolean("passedgen"));
+
+                int sum = 0;
+                if (resSet.getBoolean("passedgl")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedgb")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passeddn")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedat")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedn")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedgen")) {
+                    sum++;
+                }
+
+                endUser.setPassedTests(Integer.toString(sum));
+
+                allUsers.add(endUser);
+
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allUsers;
+
     }
 
     public ArrayList<User> getUsersByRequest(String request) throws SQLException {
@@ -248,6 +393,28 @@ public class DataBaseHandler extends Configs {
                 endUser.setPassedAT(resSet.getBoolean("passedat"));
                 endUser.setPassedN(resSet.getBoolean("passedn"));
                 endUser.setPassedGen(resSet.getBoolean("passedgen"));
+
+                int sum = 0;
+                if (resSet.getBoolean("passedgl")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedgb")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passeddn")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedat")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedn")) {
+                    sum++;
+                }
+                if (resSet.getBoolean("passedgen")) {
+                    sum++;
+                }
+
+                endUser.setPassedTests(Integer.toString(sum));
             }
         } catch (SQLException e) {
             e.printStackTrace();

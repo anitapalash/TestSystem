@@ -12,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import libraries.Status;
+import libraries.Access;
 import services.Main;
 import services.StageLoader;
 import users.User;
@@ -73,6 +74,14 @@ public class EntranceController {
                     Main.currentUser = tempUser;
                     Scene currentScene = authSignButton.getScene();
                     currentScene.getWindow().hide();
+                } else {
+                    try {
+                        Scene currentScene = authSignButton.getScene();
+                        Stage stage = StageLoader.loadScene("Blocked");
+                        stage.showAndWait();
+                    } catch (IOException e) {
+                        System.out.println("Could not load blocked scene");
+                    }
                 }
             } else {
                 System.out.println("Wrong password or you are blocked");

@@ -288,7 +288,7 @@
                       <RowConstraints maxHeight="68.66665649414062" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Text fill="#484848" strokeType="OUTSIDE" strokeWidth="0.0" text="  Управление пользователями" wrappingWidth="497.4700927734375">
+                        <Text fill="#484848" strokeType="OUTSIDE" strokeWidth="0.0" text="  Статистика пользователей" wrappingWidth="497.4700927734375">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -303,14 +303,14 @@
                                     <TableView fx:id="tableUsers" layoutX="13.0" layoutY="48.0" onMouseClicked="#selectUser" prefHeight="195.0" prefWidth="557.0">
                                       <columns>
                                           <TableColumn fx:id="idColumn" prefWidth="54.333343505859375" text="ID" />
-                                        <TableColumn fx:id="loginColumn" prefWidth="94.33334350585938" text="Логин" />
-                                        <TableColumn fx:id="firstNameColumn" prefWidth="79.66665649414062" text="Имя" />
+                                          <TableColumn fx:id="loginColumn" prefWidth="94.33334350585938" text="Логин" />
+                                          <TableColumn fx:id="firstNameColumn" prefWidth="79.66665649414062" text="Имя" />
                                           <TableColumn fx:id="surnameColumn" prefWidth="114.0" text="Фамилия" />
                                           <TableColumn fx:id="accessColumn" minWidth="0.0" prefWidth="98.0" text="Режим доступа" />
                                           <TableColumn fx:id="statusColumn" prefWidth="109.6666259765625" text="Статус " />
                                       </columns>
                                     </TableView>
-                                    <Button fx:id="searchUserButton" layoutX="488.0" layoutY="6.0" mnemonicParsing="false" onAction="#searchForUsers" text="Отправить" />
+                                    <Button fx:id="searchUserButton" layoutX="488.0" layoutY="6.0" mnemonicParsing="false" onAction="#searchForUsers" text="Обновить" />
                                     <Text layoutX="13.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выбранный пользователь:" wrappingWidth="167.41796875" />
                                     <Label fx:id="label" layoutX="180.0" layoutY="266.0" prefHeight="17.0" prefWidth="165.0" />
                                     <Button fx:id="manageUserButton" layoutX="364.0" layoutY="262.0" mnemonicParsing="false" onMouseClicked="#changeUserData" prefHeight="16.0" prefWidth="87.0" text="Изменить" />

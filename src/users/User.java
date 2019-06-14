@@ -20,11 +20,12 @@ public class User {
     private boolean passedAT;
     private boolean passedN;
     private boolean passedGen;
+    private String passedTests;
 
 
     public User() {
         this.access = Access.USER; this.status = Status.ACTIVE; passedAT = false; passedDN = false;
-        passedGen = false; passedGB = false; passedGL = false; passedN = false;
+        passedGen = false; passedGB = false; passedGL = false; passedN = false; passedTests = "5";
     }
 
     public User(String userName, String password) {
@@ -34,6 +35,7 @@ public class User {
         this.status = Status.ACTIVE;
         passedAT = false; passedDN = false; passedGen = false;
         passedGB = false; passedGL = false; passedN = false;
+        passedTests = "5";
     }
 
     public User(String firstName, String userName, String password, String lastName, String group, String gender) {
@@ -47,6 +49,7 @@ public class User {
         this.status = Status.ACTIVE;
         passedAT = false; passedDN = false; passedGen = false;
         passedGB = false; passedGL = false; passedN = false;
+        passedTests = "5";
     }
 
     public Long getId() {
@@ -152,6 +155,14 @@ public class User {
     }
     public void setPassedGen(boolean passedGen) {
         this.passedGen = passedGen;
+    }
+
+    public void setPassedTests(String passedTests) {
+        this.passedTests = passedTests;
+    }
+
+    public String getPassedTests(){
+        return this.passedTests;
     }
 
     @Override

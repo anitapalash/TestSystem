@@ -5,8 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import services.Main;
+import java.sql.SQLException;
 
 public class ManageUserController {
+
     @FXML
     private TextField loginField;
 
@@ -73,8 +75,6 @@ public class ManageUserController {
         groupField.setText(Main.selectedUser.getGroup());
         accessField.setText(Main.selectedUser.getAccess().toString());
         statusField.setText(Main.selectedUser.getStatus().toString());
-
-
     }
 
 }

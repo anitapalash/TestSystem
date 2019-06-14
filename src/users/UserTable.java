@@ -7,55 +7,67 @@ public class UserTable {
     public String surname;
     public String access;
     public String status;
+    public String passedTests;
 
-    public UserTable(String login, String firstName, String surname, String access, String status) {
+    public UserTable(String login, String firstName, String surname, String access, String status, String passedTests) {
         this.login = login;
         this.firstName = firstName;
         this.surname = surname;
         this.access = access;
         this.status = status;
+        this.passedTests = passedTests;
 
     }
 
-    public Long getId() {
+    public Long getUserId() {
         return id;
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getLogin() {
+    public String getlogin() {
         return login;
     }
-    public void setLogin(String login) {
-        this.login = login;
-    }
 
-    public String getFirstName() {
+    public String firstName() {
         return firstName;
     }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
-    public String getSurname() {
+    public String getsurname() {
         return surname;
     }
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
-    public String getAccess() {
+    public String getaccess() {
         return access;
     }
-    public void setAccess(String access) {
-        this.access = access;
-    }
 
-    public String getStatus() {
+    public String getstatus() {
         return status;
     }
-    public void setStatus(String status) {
-        this.status = status;
+
+    public Long setUserId(Long id) {
+        return this.id = id;
+    }
+
+    public String setlogin(String login) {
+        return this.login = login;
+    }
+
+    public String firstName(String firstName) {
+        return this.firstName = firstName;
+    }
+
+    public String setsurname(String surname) {
+        return this.surname = surname;
+    }
+
+    public String setaccess(String access) {
+        return this.access = access;
+    }
+
+    public String setstatus(String status) {
+        return this.status = status;
+    }
+
+    public String setPassedTests(String passedTests) {
+        return this.passedTests = passedTests;
     }
 }
