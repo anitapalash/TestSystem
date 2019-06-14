@@ -144,7 +144,9 @@ public class UserViewController {
 
     @FXML
     void deleteUser(ActionEvent event) {
-
+        Main.dbHandler.deleteUser(Main.currentUser.getId());
+        Main.currentUser = null;
+        exitButton.getScene().getWindow().hide();
     }
 
     @FXML

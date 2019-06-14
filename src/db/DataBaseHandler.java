@@ -400,4 +400,14 @@ public class DataBaseHandler extends Configs {
             e.printStackTrace();
         }
     }
+
+    public void deleteUser(Long id) {
+        String select = "UPDATE  " + Const.USER_TABLE + " SET status = 'DELETED' WHERE id=" + id + ";";
+        try {
+            dbConnection.createStatement().execute(select);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("User is deleted");
+    }
 }

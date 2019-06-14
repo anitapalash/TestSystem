@@ -68,7 +68,7 @@ public class EntranceController {
         User tempUser = Main.dbHandler.getUser(new User(loginText)); //взять из бд
         if (tempUser != null) {
             if (tempUser.getPassword().equals(loginPassword)) {
-                if(!tempUser.getStatus().equals(Status.BLOCKED)) {
+                if(tempUser.getStatus().equals(Status.ACTIVE)) {
                     System.out.println("Log in successful");
                     Main.currentUser = tempUser;
                     Scene currentScene = authSignButton.getScene();
@@ -83,7 +83,7 @@ public class EntranceController {
                     }
                 }
             } else {
-                System.out.println("Wrong password or you are blocked");
+                System.out.println("Wrong password or you are blocked/deleted");
                 Shake userLoginAnim = new Shake(login_field);
                 Shake userPassAnim = new Shake(password_field);
                 userLoginAnim.playAnim();
