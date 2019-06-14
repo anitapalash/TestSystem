@@ -128,9 +128,6 @@ public class AdminInterfaceController {
     private Tab manageUsersTab;
 
     @FXML
-    private Label label;
-
-    @FXML
     private Label choosenUserLabel;
 
     @FXML
@@ -317,7 +314,7 @@ public class AdminInterfaceController {
     @FXML
     void selectUser(MouseEvent event) throws IOException {
         Main.selectedUser = tableUsers.getSelectionModel().getSelectedItem();
-        label.setText(Main.selectedUser.getUserName());
+        choosenUserLabel.setText(Main.selectedUser.getUserName());
     }
 
     @FXML
@@ -327,8 +324,7 @@ public class AdminInterfaceController {
     }
 
     @FXML
-    private void editTest(MouseEvent event)
-    {
+    private void editTest(MouseEvent event) {
         try {
             Scene currentScene = editButton.getScene();
             Stage stage = StageLoader.loadScene("EditTestView");

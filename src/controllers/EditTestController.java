@@ -38,39 +38,27 @@ public class EditTestController {
     private Label label;
 
     @FXML
-    void importTest(MouseEvent event)
-    {
+    void importTest(MouseEvent event) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-       Stage stage;
-       stage = (Stage) label.getScene().getWindow();
+        Stage stage;
+        stage = (Stage) label.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
-        File selectedTestfile = new File("src/libraries/"+selectedTest.getTestFileName());
+        File selectedTestfile = new File("src/libraries/" + selectedTest.getTestFileName());
 
         String absolutePath = selectedTestfile.getAbsolutePath();
-
-
         try {
-
-            Files.copy(selectedFile.toPath(), Paths.get(absolutePath),REPLACE_EXISTING);
+            Files.copy(selectedFile.toPath(), Paths.get(absolutePath), REPLACE_EXISTING);
             System.out.println("File has been updated");
-
-            }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("Could not update test file");
         }
-
     }
 
     @FXML
-    void exportTest(MouseEvent event)
-    {
+    void exportTest(MouseEvent event) {
         javax.swing.filechooser.FileSystemView.getFileSystemView().getHomeDirectory();
-
-
     }
-
 
     public void initialize() {
         testNameField.setText(Main.selectedTest.getTestName());

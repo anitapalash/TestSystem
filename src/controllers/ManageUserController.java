@@ -45,18 +45,21 @@ public class ManageUserController {
         Main.dbHandler.changeStatusToBlocked(id);
         userButton.setVisible(false);
         analyserButton.setVisible(false);
+        statusField.setText(Main.selectedUser.getStatus().toString());
     }
 
     @FXML
     void makeAnalyserRole(MouseEvent event) {
         Long id = Main.selectedUser.getId();
         Main.dbHandler.changeUserStatusToAnalyser(id);
+        accessField.setText(Main.selectedUser.getAccess().toString());
     }
 
     @FXML
     void makeUserRole(MouseEvent event) {
         Long id = Main.selectedUser.getId();
         Main.dbHandler.changeUserStatusToUser(id);
+        accessField.setText(Main.selectedUser.getAccess().toString());
     }
 
     @FXML
@@ -65,6 +68,7 @@ public class ManageUserController {
         Main.dbHandler.changeStatusToActive(id);
         userButton.setVisible(true);
         analyserButton.setVisible(true);
+        statusField.setText(Main.selectedUser.getStatus().toString());
     }
 
     @FXML
