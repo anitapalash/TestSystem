@@ -4,6 +4,7 @@ import db.DataBaseHandler;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import libraries.Access;
+import libraries.Test;
 import users.User;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class Main extends Application {
     public static DataBaseHandler dbHandler = new DataBaseHandler();
     public static User currentUser;
     public static User selectedUser;
+    public static Test selectedTest;
 
     @Override
     public void start(Stage primaryStage) throws Exception{

@@ -142,6 +142,7 @@ public class DataBaseHandler extends Configs {
                 System.out.println("Could not get all users list ");
             }
         }
+
         ArrayList<String> parameters = new ArrayList<String>();
         parameters.add("userName");
         parameters.add("firstName");
@@ -261,11 +262,8 @@ public class DataBaseHandler extends Configs {
                 if (resSet.getBoolean("passedgen")) {
                     sum++;
                 }
-
                 endUser.setPassedTests(Integer.toString(sum));
-
                 allUsers.add(endUser);
-
             }
         }
         catch (SQLException e) {
@@ -276,7 +274,7 @@ public class DataBaseHandler extends Configs {
 
     }
 
-    public User getUserById(Long id) {
+    public User getUserById (Long id) {
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
                 + Const.USERS_ID + " = " + id;

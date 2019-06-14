@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import libraries.Test;
 import services.Main;
 import services.StageLoader;
 import users.User;
@@ -22,6 +24,7 @@ import java.sql.SQLException;
 
 public class AdminInterfaceController {
     private ObservableList<User> usersData = FXCollections.observableArrayList();
+    private ObservableList<Test> testsData = FXCollections.observableArrayList();
 
     @FXML
     private Tab personalInfo;
@@ -128,6 +131,13 @@ public class AdminInterfaceController {
     private Label label;
 
     @FXML
+    private Label choosenUserLabel;
+
+    @FXML
+    private Button editButton;
+
+
+    @FXML
     private TableView<User> tableUsers;
 
     @FXML
@@ -150,6 +160,19 @@ public class AdminInterfaceController {
 
     @FXML
     private Tab editTestsTab;
+
+    @FXML
+    private TableView<Test> testsEditTable;
+
+    @FXML
+    private TableColumn<Test, String> testNameColumn;
+
+    @FXML
+    private TableColumn<Test, String> fileNameColumn;
+
+    @FXML
+    private Label choosenTestLabel;
+
 
     @FXML
     void deleteUser(ActionEvent event) {
@@ -272,7 +295,7 @@ public class AdminInterfaceController {
             Stage stage = StageLoader.loadScene("ManageUsersView");
             stage.showAndWait();
         } catch (IOException e) {
-            System.out.println("Could not load signUp scene");
+            System.out.println("Could not load ManageUsersView scene");
         }
     }
 
@@ -298,8 +321,27 @@ public class AdminInterfaceController {
     }
 
     @FXML
+    void selectTest(MouseEvent event) throws IOException {
+        Main.selectedTest = testsEditTable.getSelectionModel().getSelectedItem();
+        choosenTestLabel.setText(Main.selectedTest.getTestName());
+    }
+
+    @FXML
+    private void editTest(MouseEvent event)
+    {
+        try {
+            Scene currentScene = editButton.getScene();
+            Stage stage = StageLoader.loadScene("EditTestView");
+            stage.showAndWait();
+        } catch (IOException e) {
+            System.out.println("Could not load EditTestView scene");
+        }
+    }
+
+    @FXML
     private void initialize() throws SQLException {
-        initData();
+        initUsersData();
+        initTestsData();
         //заполнение личного кабинета
         userNameTextField.setText(Main.currentUser.getUserName());
         firstNameTextField.setText(Main.currentUser.getFirstName());
@@ -348,13 +390,31 @@ public class AdminInterfaceController {
         statusColumn.setCellValueFactory(new PropertyValueFactory<User, String>("status"));
         // заполняем таблицу данными
         tableUsers.setItems(usersData);
+
+
+        // Таблица тестов
+        testNameColumn.setCellValueFactory(new PropertyValueFactory<Test, String>("testName"));
+        fileNameColumn.setCellValueFactory(new PropertyValueFactory<Test, String>("testFileName"));
+        testsEditTable.setItems(testsData);
     }
 
-    // подготавливаем данные для таблицы
-    // вы можете получать их с базы данных
-    private void initData() throws SQLException {
-        //UserTable user1 = new UserTable("Anton", "trueAnimeshnik", "Sidorov", "USER", "ACTIVE");
+    private void initUsersData() throws SQLException {
         usersData.addAll(Main.dbHandler.getAllUsers());
+    }
+
+    private void initTestsData() {
+        Test test1 = new Test("Тетрадь смерти", "dn.txt");
+        Test test2 = new Test("Гуррен-Лаганн", "ttgl.txt");
+        Test test3 = new Test("Гибли", "gibli.txt");
+        Test test4 = new Test("Наруто", "naruto.txt");
+        Test test5 = new Test("Атака титанов", "snk.txt");
+        Test test6 = new Test("Общий тест", "gen.txt");
+        testsData.add(test1);
+        testsData.add(test2);
+        testsData.add(test3);
+        testsData.add(test4);
+        testsData.add(test5);
+        testsData.add(test6);
     }
 }
 
