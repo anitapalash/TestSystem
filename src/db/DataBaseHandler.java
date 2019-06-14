@@ -110,7 +110,7 @@ public class DataBaseHandler extends Configs {
             if (resSet.next()) {
                 endUser.setId(resSet.getLong("id"));
                 endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
-                endUser.setPassword(user.getPassword());
+                endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
                 endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
                 endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
                 endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS)));
@@ -276,98 +276,6 @@ public class DataBaseHandler extends Configs {
 
     }
 
-    public ArrayList<User> getUsersByRequest(String request) throws SQLException {
-        if (request.isEmpty()) {
-            getAllUsers();
-        }
-        ArrayList<String> parameters = new ArrayList<String>();
-
-        parameters.add("userName");
-        parameters.add("firstName");
-        parameters.add("lastName");
-        parameters.add("groupName");
-        parameters.add("access");
-        parameters.add("status");
-        parameters.add("gender");
-        ArrayList<User> allUsers = new ArrayList<User>();
-        ResultSet resSet = null;
-        for (int i = 0; i < 7; i++) {
-            String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + parameters.get(i) + " LIKE '" +
-                    request + "' ;";
-
-            if (request.matches("[-+]?\\d+")) {
-                Long requestLong = Long.parseLong(request);
-                allUsers.add(getUserById(requestLong));
-                return allUsers;
-            }
-
-            try {
-                PreparedStatement prSt = dbConnection.prepareStatement(select);
-                resSet = prSt.executeQuery();
-
-                while (resSet != null && resSet.next()) {
-                    User endUser = new User();
-                    //  if (resSet.next()) {
-                    endUser.setId(resSet.getLong("id"));
-                    endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
-                    endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
-                    endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
-                    endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
-                    endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
-                    endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
-                    endUser.setGender(resSet.getString(Const.USERS_GENDER));
-                    endUser.setGroup(resSet.getString(Const.USERS_GROUP));
-                    endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                    endUser.setPassedGB(resSet.getBoolean("passedgb"));
-                    endUser.setPassedDN(resSet.getBoolean("passeddn"));
-                    endUser.setPassedAT(resSet.getBoolean("passedat"));
-                    endUser.setPassedN(resSet.getBoolean("passedn"));
-                    endUser.setPassedGen(resSet.getBoolean("passedgen"));
-
-                    allUsers.add(endUser);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return allUsers;
-    }
-
-    public ArrayList<User> getAllUsers() throws SQLException {
-        ResultSet resSet = null;
-        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + " access " + "!=" + " 'ADMIN' " + ";";
-        ArrayList<User> allUsers = new ArrayList<User>();
-
-        try {
-            PreparedStatement prSt = dbConnection.prepareStatement(select);
-            resSet = prSt.executeQuery();
-
-            while (resSet != null && resSet.next()) {
-                User endUser = new User();
-                endUser.setId(resSet.getLong("id"));
-                endUser.setUserName(resSet.getString(Const.USERS_USERNAME));
-                endUser.setFirstName(resSet.getString(Const.USERS_FIRSTNAME));
-                endUser.setLastName(resSet.getString(Const.USERS_LASTNAME));
-                endUser.setAccess(Access.valueOf(resSet.getString(Const.USERS_ACCESS).toUpperCase()));
-                endUser.setStatus(Status.valueOf(resSet.getString(Const.USERS_STATUS).toUpperCase()));
-                endUser.setPassword(resSet.getString(Const.USERS_PASSWORD));
-                endUser.setGender(resSet.getString(Const.USERS_GENDER));
-                endUser.setGroup(resSet.getString(Const.USERS_GROUP));
-                endUser.setPassedGL(resSet.getBoolean("passedgl"));
-                endUser.setPassedGB(resSet.getBoolean("passedgb"));
-                endUser.setPassedDN(resSet.getBoolean("passeddn"));
-                endUser.setPassedAT(resSet.getBoolean("passedat"));
-                endUser.setPassedN(resSet.getBoolean("passedn"));
-                endUser.setPassedGen(resSet.getBoolean("passedgen"));
-
-                allUsers.add(endUser);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return allUsers;
-    }
-
     public User getUserById(Long id) {
         ResultSet resSet = null;
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE "
@@ -421,7 +329,6 @@ public class DataBaseHandler extends Configs {
         }
         return endUser;
     }
-
 
     private void runScript(Connection c) throws IOException, SQLException, ClassNotFoundException {
         try {

@@ -28,6 +28,15 @@ public class User {
         passedGen = false; passedGB = false; passedGL = false; passedN = false; passedTests = "5";
     }
 
+    public User(String userName) {
+        this.userName = userName;
+        this.access = Access.USER;
+        this.status = Status.ACTIVE;
+        passedAT = false; passedDN = false; passedGen = false;
+        passedGB = false; passedGL = false; passedN = false;
+        passedTests = "5";
+    }
+
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;

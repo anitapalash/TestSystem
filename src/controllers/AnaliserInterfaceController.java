@@ -114,46 +114,6 @@ public class AnaliserInterfaceController {
     @FXML
     private Text passedGenLabel;
 
-    public void initialize() {
-        userNameTextField.setText(Main.currentUser.getUserName());
-        firstNameTextField.setText(Main.currentUser.getFirstName());
-        surnameTextField.setText(Main.currentUser.getLastName());
-        groupTextField.setText(Main.currentUser.getGroup());
-        genderTextField.setText(Main.currentUser.getGender());
-
-        //заполнение тестового таба
-        if (Main.currentUser.isPassedGL()) {
-            passedGLLabel.setVisible(true);
-        } else {
-            failedGLLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedGB()) {
-            passedGBLabel.setVisible(true);
-        } else {
-            failedGBLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedDN()) {
-            passedDNLabel.setVisible(true);
-        } else {
-            failedDNLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedAT()) {
-            passedATLabel.setVisible(true);
-        } else {
-            failedATLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedN()) {
-            passedNLabel.setVisible(true);
-        } else {
-            failedNLabel.setVisible(true);
-        }
-        if (Main.currentUser.isPassedGen()) {
-            passedGenLabel.setVisible(true);
-        } else {
-            failedGenLabel.setVisible(true);
-        }
-    }
-
     @FXML
     private TableView<User> tableUsers;
 
@@ -317,9 +277,6 @@ public class AnaliserInterfaceController {
             Scene currentScene = manageUserButton.getScene();
             Stage stage = StageLoader.loadScene("ManageUsersView");
             stage.showAndWait();
-            //   Scene currentScene = manageUserButton.getScene();
-            // Stage stage = StageLoader.loadScene("view/ManageUsersView");
-
         } catch (IOException e) {
             System.out.println("Could not load signUp scene");
         }

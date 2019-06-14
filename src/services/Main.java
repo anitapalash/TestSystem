@@ -17,22 +17,22 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         StageLoader.loadMain().showAndWait();
 
-        try {
-            if (currentUser.getAccess() == Access.ADMIN) {
-                Stage stage = StageLoader.loadTabPane("AdminView");
-                stage.showAndWait();
+        if (currentUser != null) {
+            try {
+                if (currentUser.getAccess() == Access.ADMIN) {
+                    Stage stage = StageLoader.loadTabPane("AdminView");
+                    stage.showAndWait();
+                } else if (currentUser.getAccess() == Access.ANALISER) {
+                    Stage stage = StageLoader.loadTabPane("AnaliserInterface");
+                    stage.showAndWait();
+                } else {
+                    Stage stage = StageLoader.loadTabPane("UserViewA");
+                    stage.showAndWait();
+                }
+            } catch (IOException e) {
+                System.out.println("Failed to load scene");
+                e.printStackTrace();
             }
-            else if (currentUser.getAccess() == Access.ANALISER) {
-                Stage stage = StageLoader.loadTabPane("AnaliserInterface");
-                stage.showAndWait();
-            }
-            else {
-                Stage stage = StageLoader.loadTabPane("UserViewA");
-                stage.showAndWait();
-            }
-        } catch (IOException e) {
-            System.out.println("Failed to load scene");
-            e.printStackTrace();
         }
     }
 

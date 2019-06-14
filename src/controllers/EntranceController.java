@@ -12,7 +12,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import libraries.Status;
-import libraries.Access;
 import services.Main;
 import services.StageLoader;
 import users.User;
@@ -66,8 +65,8 @@ public class EntranceController {
     }
 
     private void loginUser(String loginText, String loginPassword) throws SQLException, IOException, ClassNotFoundException {
-        User tempUser = Main.dbHandler.getUser(new User(loginText, loginPassword)); //взять из бд
-        if (tempUser.getUserName().equals(loginText)) {
+        User tempUser = Main.dbHandler.getUser(new User(loginText)); //взять из бд
+        if (tempUser != null) {
             if (tempUser.getPassword().equals(loginPassword)) {
                 if(!tempUser.getStatus().equals(Status.BLOCKED)) {
                     System.out.println("Log in successful");

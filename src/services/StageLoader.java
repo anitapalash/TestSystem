@@ -21,6 +21,7 @@ public class StageLoader {
         loader.setClassLoader(StageLoader.class.getClassLoader());
         Scene scene = new Scene(loader.load(StageLoader.class.getResourceAsStream(FXML_DIR + "LogIn" + ".fxml")));
         stage.setScene(scene);
+        stage.setOnHidden(event -> Platform.exit());
         stage.setTitle(staticTitle);
         return stage;
     }
